@@ -1,0 +1,232 @@
+{
+  "timestamp": "2025-12-26T14:40:50.749667",
+  "items": [
+    {
+      "score": 100,
+      "status": "🔥 HIGH_PRIORITY",
+      "hook_potential": "threat_claim",
+      "hook_name_ar": "تهديد واضح",
+      "reasons": [
+        "🏢 Entities: Tesla, Elon Musk, Musk (+20)",
+        "🌍 Regional: UAE, Dubai (+15)",
+        "📌 Topics: threat, AI, robot (+15)",
+        "🔢 Specific numbers: 3 found (+15)",
+        "⚠️ Threat angle: 'threat' (+10)"
+      ],
+      "flags": [
+        "REGIONAL_RELEVANCE",
+        "HAS_NUMBERS",
+        "THREAT_ANGLE"
+      ],
+      "item": {
+        "title": "Tesla Robotaxi Launch: Musk Announces 2026 Rollout in Dubai",
+        "description": "Elon Musk confirmed Tesla will launch its robotaxi service in Dubai by 2026, threatening 500,000 driver jobs in the Gulf region. The announcement comes as UAE accelerates autonomous vehicle testing.",
+        "source": "Reuters",
+        "link": "https://reuters.com/example1",
+        "published": "2025-12-26T14:40:50.748122",
+        "priority": 1
+      }
+    },
+    {
+      "score": 100,
+      "status": "🔥 HIGH_PRIORITY",
+      "hook_potential": "threat_claim",
+      "hook_name_ar": "تهديد واضح",
+      "reasons": [
+        "🌍 Regional: Saudi, UAE (+15)",
+        "📌 Topics: war, crisis, gold (+15)",
+        "🔢 Specific numbers: 2 found (+15)",
+        "⚠️ Threat angle: 'crisis' (+10)"
+      ],
+      "flags": [
+        "REGIONAL_RELEVANCE",
+        "HAS_NUMBERS",
+        "THREAT_ANGLE"
+      ],
+      "item": {
+        "title": "Gold Hits $3,500 as Central Banks Stockpile Amid Dollar Concerns",
+        "description": "Gold prices reached record $3,500 per ounce as central banks, including Saudi Arabia and UAE, increase reserves. Analysts warn of potential dollar crisis.",
+        "source": "Bloomberg",
+        "link": "https://bloomberg.com/example2",
+        "published": "2025-12-26T14:40:50.748134",
+        "priority": 1
+      }
+    },
+    {
+      "score": 100,
+      "status": "🔥 HIGH_PRIORITY",
+      "hook_potential": "threat_claim",
+      "hook_name_ar": "تهديد واضح",
+      "reasons": [
+        "🏢 Entities: Trump, China (+10)",
+        "🌍 Regional: Gulf (+15)",
+        "📌 Topics: war, threat, oil (+9)",
+        "🔢 Specific numbers: 3 found (+15)",
+        "⚠️ Threat angle: 'threat' (+10)"
+      ],
+      "flags": [
+        "REGIONAL_RELEVANCE",
+        "HAS_NUMBERS",
+        "THREAT_ANGLE"
+      ],
+      "item": {
+        "title": "Trump Threatens 100% Tariffs on China: Trade War 2.0 Begins",
+        "description": "President Trump announced sweeping new tariffs targeting $500 billion in Chinese imports. Beijing warns of immediate retaliation affecting Gulf oil exports.",
+        "source": "Reuters",
+        "link": "https://reuters.com/example8",
+        "published": "2025-12-26T14:40:50.748141",
+        "priority": 1
+      }
+    },
+    {
+      "score": 100,
+      "status": "🔥 HIGH_PRIORITY",
+      "hook_potential": "reveal",
+      "hook_name_ar": "كشف المستور",
+      "reasons": [
+        "🏢 Entities: Uber, Careem, AI (+15)",
+        "🌍 Regional: MENA (+15)",
+        "📌 Topics: AI (+3)",
+        "🔢 Specific numbers: 3 found (+15)",
+        "🔍 Reveal angle: 'secret' (+8)"
+      ],
+      "flags": [
+        "REGIONAL_RELEVANCE",
+        "HAS_NUMBERS",
+        "REVEAL_ANGLE"
+      ],
+      "item": {
+        "title": "Uber Investing $1.2 Billion to Replace Human Drivers with AI",
+        "description": "Internal documents reveal Uber's secret plan to phase out human drivers by 2030. 3 million Uber and Careem drivers in MENA region face uncertain future.",
+        "source": "Bloomberg",
+        "link": "https://bloomberg.com/example9",
+        "published": "2025-12-26T14:40:50.748142",
+        "priority": 1
+      }
+    },
+    {
+      "score": 97,
+      "status": "🔥 HIGH_PRIORITY",
+      "hook_potential": "threat_claim",
+      "hook_name_ar": "تهديد واضح",
+      "reasons": [
+        "🌍 Regional: Saudi, UAE (+15)",
+        "📌 Topics: threat, crisis, debt (+9)",
+        "🔢 Has 1 number (+8)",
+        "⚠️ Threat angle: 'threat' (+10)"
+      ],
+      "flags": [
+        "REGIONAL_RELEVANCE",
+        "THREAT_ANGLE"
+      ],
+      "item": {
+        "title": "Buy Now Pay Later Defaults Surge 40% in GCC Countries",
+        "description": "Tabby and Tamara report rising defaults among young consumers in Saudi Arabia and UAE. Hidden debt crisis threatens millions of families.",
+        "source": "Financial Times",
+        "link": "https://ft.com/example3",
+        "published": "2025-12-26T14:40:50.748136",
+        "priority": 1
+      }
+    },
+    {
+      "score": 79,
+      "status": "🔥 HIGH_PRIORITY",
+      "hook_potential": "reveal",
+      "hook_name_ar": "كشف المستور",
+      "reasons": [
+        "🏢 Entities: Apple, AI (+10)",
+        "📌 Topics: AI (+3)",
+        "🔢 Has 1 number (+8)",
+        "🔍 Reveal angle: 'secret' (+8)"
+      ],
+      "flags": [
+        "REVEAL_ANGLE"
+      ],
+      "item": {
+        "title": "Apple Secret Project: AI-Powered Health Device Could Save Millions",
+        "description": "Leaked documents reveal Apple's hidden health monitoring device, capable of detecting heart attacks 30 minutes before they happen. FDA approval pending.",
+        "source": "TechCrunch",
+        "link": "https://techcrunch.com/example5",
+        "published": "2025-12-26T14:40:50.748138",
+        "priority": 2
+      }
+    },
+    {
+      "score": 65,
+      "status": "📋 CONSIDER",
+      "hook_potential": "news_peg",
+      "hook_name_ar": "خبر جديد",
+      "reasons": [
+        "🔢 Specific numbers: 2 found (+15)"
+      ],
+      "flags": [
+        "HAS_NUMBERS"
+      ],
+      "item": {
+        "title": "Local Chicago City Council Approves New Parking Meters",
+        "description": "Chicago aldermen voted 35-15 to approve new smart parking meters downtown.",
+        "source": "Chicago Tribune",
+        "link": "https://tribune.com/example6",
+        "published": "2025-12-26T14:40:50.748139",
+        "priority": 3
+      }
+    },
+    {
+      "score": 0,
+      "status": "REJECT",
+      "hook_potential": null,
+      "reasons": [
+        "❌ Reject keyword: 'NFL'"
+      ],
+      "flags": [
+        "AUTO_REJECT"
+      ],
+      "item": {
+        "title": "China Develops Hypersonic Missile That Can Evade US Defenses",
+        "description": "Pentagon officials warn new Chinese missile travels at Mach 10, capable of striking US carriers in first 20 minutes of conflict. $50 billion defense gap exposed.",
+        "source": "NYT",
+        "link": "https://nyt.com/example4",
+        "published": "2025-12-26T14:40:50.748137",
+        "priority": 1
+      }
+    },
+    {
+      "score": 0,
+      "status": "REJECT",
+      "hook_potential": null,
+      "reasons": [
+        "❌ Reject keyword: 'NFL'"
+      ],
+      "flags": [
+        "AUTO_REJECT"
+      ],
+      "item": {
+        "title": "NFL Week 15: Chiefs vs Bills Preview and Predictions",
+        "description": "Breaking down the key matchups for this Sunday's AFC showdown.",
+        "source": "ESPN",
+        "link": "https://espn.com/example7",
+        "published": "2025-12-26T14:40:50.748140",
+        "priority": 3
+      }
+    },
+    {
+      "score": 0,
+      "status": "REJECT",
+      "hook_potential": null,
+      "reasons": [
+        "❌ Reject keyword: 'NFL'"
+      ],
+      "flags": [
+        "AUTO_REJECT"
+      ],
+      "item": {
+        "title": "Egypt Currency Crisis: Pound Falls 15% in Single Day",
+        "description": "Egyptian pound crashed to record low as central bank loses control. Inflation expected to hit 40%. Millions of Egyptians face economic hardship.",
+        "source": "Al Jazeera",
+        "link": "https://aljazeera.com/example10",
+        "published": "2025-12-26T14:40:50.748143",
+        "priority": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "lastReset": "2025-12-29T13:05:57.166Z",
+  "weekStart": "2025-12-29",
+  "personas": {
+    "geopolitics": {
+      "target": 3,
+      "served": 1,
+      "approved": [
+        {
+          "signalId": "9cc8fb26-e86e-42c9-ab2f-2d8469e520f8",
+          "title": "هل يدمر زيلينسكي خطة ترامب لإنهاء الحرب الأوكرانية؟",
+          "approvedAt": "2025-12-29T14:05:41.190Z"
+        }
+      ]
+    },
+    "investor": {
+      "target": 2,
+      "served": 0,
+      "approved": []
+    },
+    "tech_future": {
+      "target": 1,
+      "served": 0,
+      "approved": []
+    },
+    "egyptian_business": {
+      "target": 2,
+      "served": 0,
+      "approved": []
+    },
+    "gulf_oil": {
+      "target": 2,
+      "served": 0,
+      "approved": []
+    },
+    "curious_learner": {
+      "target": 1,
+      "served": 0,
+      "approved": []
+    },
+    "employee": {
+      "target": 2,
+      "served": 0,
+      "approved": []
+    },
+    "student_entrepreneur": {
+      "target": 1,
+      "served": 0,
+      "approved": []
+    }
+  },
+  "history": [
+    {
+      "action": "approval",
+      "signalId": "9cc8fb26-e86e-42c9-ab2f-2d8469e520f8",
+      "personaId": "geopolitics",
+      "topicTitle": "هل يدمر زيلينسكي خطة ترامب لإنهاء الحرب الأوكرانية؟",
+      "timestamp": "2025-12-29T14:05:41.190Z"
+    }
+  ]
+}

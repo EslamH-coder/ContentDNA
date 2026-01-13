@@ -1,0 +1,126 @@
+{
+    "channel_name": "المُخبر الاقتصادي",
+    "channel_name_en": "Al-Mokhbir Economic",
+    "last_updated": "2025-12-26",
+    
+    "hook_performance": {
+        "threat_claim": {"avg_views": 5600000, "weight": 1.0, "description": "تهديد واضح"},
+        "reveal": {"avg_views": 5500000, "weight": 0.95, "description": "كشف المستور"},
+        "fact_anchor": {"avg_views": 3500000, "weight": 0.85, "description": "رقم صادم"},
+        "stakes": {"avg_views": 2700000, "weight": 0.80, "description": "خسارة/مكسب"},
+        "controversial_quote": {"avg_views": 2600000, "weight": 0.75, "description": "تصريح مثير"},
+        "news_peg": {"avg_views": 900000, "weight": 0.50, "description": "خبر جديد"},
+        "question": {"avg_views": 480000, "weight": 0.20, "description": "سؤال"},
+        "advice_tip": {"avg_views": 490000, "weight": 0.15, "description": "نصيحة"},
+        "market_fact": {"avg_views": 250000, "weight": 0.10, "description": "معلومة سوقية"}
+    },
+    
+    "winning_topics": [
+        {"id": "us_china_geopolitics", "name": "جيوبوليتيك أمريكا-الصين", "success_rate": 0.75},
+        {"id": "missiles_air_defense", "name": "صواريخ ودفاع جوي", "success_rate": 1.0},
+        {"id": "logistics_supply_chain", "name": "لوجستيات وسلاسل إمداد", "success_rate": 1.0},
+        {"id": "big_tech_platforms", "name": "شركات التكنولوجيا الكبرى", "success_rate": 0.5},
+        {"id": "arms_industry", "name": "صناعة الأسلحة", "success_rate": 0.5},
+        {"id": "consumer_credit", "name": "ائتمان استهلاكي", "success_rate": 1.0, "note": "highest share rate"},
+        {"id": "ai_automation", "name": "ذكاء اصطناعي وأتمتة", "success_rate": 0.8},
+        {"id": "regional_economy", "name": "اقتصاد إقليمي", "success_rate": 0.7}
+    ],
+    
+    "losing_topics": [
+        {"id": "pure_economic_theory", "name": "نظرية اقتصادية مجردة"},
+        {"id": "us_domestic_only", "name": "شؤون أمريكية داخلية بحتة"},
+        {"id": "local_news", "name": "أخبار محلية"},
+        {"id": "sports", "name": "رياضة"},
+        {"id": "entertainment", "name": "ترفيه"},
+        {"id": "weather", "name": "طقس"},
+        {"id": "crime", "name": "جريمة"}
+    ],
+    
+    "positive_keywords": {
+        "entities": [
+            "ترامب", "Trump", "بايدن", "Biden",
+            "الصين", "China", "أمريكا", "America", "USA",
+            "روسيا", "Russia", "إيران", "Iran",
+            "تسلا", "Tesla", "أوبر", "Uber", "كريم", "Careem",
+            "أبل", "Apple", "جوجل", "Google", "مايكروسوفت", "Microsoft",
+            "أمازون", "Amazon", "ميتا", "Meta", "فيسبوك", "Facebook",
+            "إيلون ماسك", "Elon Musk", "Musk",
+            "OpenAI", "ChatGPT", "Claude", "AI"
+        ],
+        "regions": [
+            "السعودية", "Saudi", "الإمارات", "UAE", "Emirates",
+            "دبي", "Dubai", "قطر", "Qatar", "الدوحة", "Doha",
+            "مصر", "Egypt", "القاهرة", "Cairo",
+            "الخليج", "Gulf", "GCC", "العرب", "Arab",
+            "الشرق الأوسط", "Middle East", "MENA"
+        ],
+        "topics": [
+            "حرب", "war", "تهديد", "threat", "خطر", "danger",
+            "أزمة", "crisis", "انهيار", "collapse", "صراع", "conflict",
+            "سلاح", "weapon", "صاروخ", "missile", "طائرة", "aircraft", "drone",
+            "نفط", "oil", "غاز", "gas", "طاقة", "energy",
+            "ذهب", "gold", "دولار", "dollar", "عملة", "currency",
+            "بنك", "bank", "دين", "debt", "قرض", "loan",
+            "تضخم", "inflation", "ركود", "recession",
+            "ذكاء اصطناعي", "artificial intelligence", "AI", "روبوت", "robot",
+            "سيارة ذاتية", "self-driving", "autonomous", "robotaxi"
+        ],
+        "numbers": [
+            "مليار", "billion", "تريليون", "trillion", "مليون", "million",
+            "%", "percent"
+        ]
+    },
+    
+    "negative_keywords": [
+        "NFL", "NBA", "FIFA", "Premier League", "Champions League",
+        "Oscar", "Grammy", "Emmy", "Golden Globe",
+        "weather", "storm", "hurricane", "earthquake", "flood",
+        "crime", "murder", "shooting", "arrest", "police",
+        "christmas", "easter", "thanksgiving", "holiday season",
+        "celebrity", "divorce", "wedding", "baby",
+        "recipe", "cooking", "fashion", "beauty",
+        "horoscope", "zodiac",
+        "local council", "city budget", "governor race", "mayor"
+    ],
+    
+    "audience_behavior": {
+        "triggers": {
+            "specificity": "أرقام محددة > كلام عام",
+            "loss_framing": "الخسارة تحفز 2x أكثر من المكسب",
+            "hidden_truth": "كشف المستور > المعلوم",
+            "personal_stakes": "ربط بحياة المشاهد",
+            "regional_relevance": "زاوية خليجية/مصرية/عربية"
+        },
+        "discovery_algorithm": {
+            "note": "Low search % = High reach (algorithm push)",
+            "target_shorts_feed": "90%+",
+            "target_browse": "60%+"
+        }
+    },
+    
+    "content_specs": {
+        "long_form": {
+            "optimal_duration_min": 25,
+            "optimal_duration_max": 30,
+            "hook_seconds": 15,
+            "target_retention_30s": "74%+"
+        },
+        "shorts": {
+            "optimal_duration_sec": 45,
+            "target_3s_retention": "115%+",
+            "target_shorts_feed": "90%+"
+        }
+    },
+    
+    "scoring_weights": {
+        "positive_keyword_entity": 5,
+        "positive_keyword_region": 15,
+        "positive_keyword_topic": 3,
+        "specific_numbers": 15,
+        "threat_angle": 10,
+        "reveal_angle": 8,
+        "stakes_angle": 6,
+        "trending_bonus": 20,
+        "competitor_covered_penalty": -15
+    }
+}

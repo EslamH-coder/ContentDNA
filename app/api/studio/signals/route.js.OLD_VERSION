@@ -1,0 +1,488 @@
+import { createClient } from '@supabase/supabase-js';
+import { NextResponse } from 'next/server';
+import {
+  extractKeywords,
+  expandKeywordsWithTranslations,
+  normalizeArabicText,
+  KEYWORD_TRANSLATIONS,
+  calculateIdeaScore
+} from '@/lib/scoring/multiSignalScoring';
+import {
+  calculateMatchScore,
+  hasValidKeywordMatch,
+  filterValuableKeywords
+} from '@/lib/scoring/keywordWeights';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
+export async function GET(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const showId = searchParams.get('showId');
+    
+    if (!showId) {
+      return NextResponse.json({ error: 'showId required' }, { status: 400 });
+    }
+
+    console.log('📊 Fetching signals for show:', showId);
+
+  // 1. Fetch signals (last 14 days)
+  // NOTE: We don't filter by DB score here because Reddit signals have fake score=100
+  // We'll calculate REAL scores and filter by those instead
+  const { data: signals, error: signalsError } = await supabase
+    .from('signals')
+    .select('*')
+    .eq('show_id', showId)
+    .gte('created_at', new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString())
+    .order('created_at', { ascending: false }) // Order by recency, not fake score
+    .limit(100); // Get more signals since we'll filter by real score
+
+  if (signalsError) {
+    console.error('❌ Signals error:', signalsError);
+    return NextResponse.json({ error: signalsError.message }, { status: 500 });
+  }
+
+  console.log(`✅ Found ${signals?.length || 0} signals`);
+  
+  // Log source breakdown
+  const sourceBreakdown = {};
+  signals?.forEach(s => {
+    const source = s.source || s.source_name || s.raw_data?.sourceName || 'Unknown';
+    sourceBreakdown[source] = (sourceBreakdown[source] || 0) + 1;
+  });
+  console.log('📰 Sources:', sourceBreakdown);
+
+  // 2. Fetch DNA topics for this show
+  const { data: dnaData } = await supabase
+    .from('show_dna')
+    .select('topics')
+    .eq('show_id', showId)
+    .single();
+
+  let dnaTopics = [];
+  if (dnaData?.topics) {
+    if (Array.isArray(dnaData.topics)) {
+      dnaTopics = dnaData.topics;
+    } else if (typeof dnaData.topics === 'object') {
+      // Convert object to array
+      dnaTopics = Object.keys(dnaData.topics);
+    }
+  }
+  console.log('🧬 DNA Topics:', dnaTopics);
+
+  // 3. Fetch recent competitor videos (last 7 days)
+  // Join with competitors table to get name and show_id
+  // NOTE: competitors table uses "name" column, not "channel_name"
+  const { data: competitorVideosRaw, error: compError } = await supabase
+    .from('competitor_videos')
+    .select(`
+      id,
+      title,
+      youtube_video_id,
+      views,
+      published_at,
+      competitor_id,
+      competitors!competitor_id (
+        id,
+        name,
+        show_id
+      )
+    `)
+    .gte('published_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+    .order('views', { ascending: false })
+    .limit(100);
+
+  if (compError) {
+    console.error('⚠️ Competitor videos error:', compError);
+    console.error('   Error details:', JSON.stringify(compError, null, 2));
+  }
+
+  // Filter by show_id from the joined competitors table
+  const competitorVideos = (competitorVideosRaw || []).filter(
+    cv => cv.competitors && cv.competitors.show_id === showId
+  );
+
+  console.log(`🎬 Found ${competitorVideos.length} competitor videos for show ${showId} (from ${competitorVideosRaw?.length || 0} total)`);
+
+  // 3.5. Normalize competitor videos (same as /app/api/signals/route.js)
+  // IMPORTANT: This must be defined before calculateIdeaScore is called
+  const normalizedCompetitorVideos = (competitorVideos || []).map(video => ({
+    ...video,
+    views: video.views || video.view_count || video.viewCount || 0,
+    published_at: video.published_at || video.publish_date || video.publishedAt || video.created_at,
+    publish_date: video.publish_date || video.published_at,
+    title: video.title || '',
+    description: video.description || '',
+    competitor_id: video.competitor_id || video.competitors?.id,
+    video_id: video.youtube_video_id || video.video_id || video.id,
+    youtube_video_id: video.youtube_video_id || video.video_id || video.id,
+    competitors: video.competitors || {},
+  }));
+
+  // 3.6. Fetch user videos for saturation check (same as /app/api/signals/route.js)
+  console.log('📹 Fetching user videos for saturation check...');
+  let userVideos = [];
+  try {
+    // Try channel_videos table first (preferred)
+    const { data: channelVideos, error: channelVideosError } = await supabase
+      .from('channel_videos')
+      .select('*')
+      .eq('show_id', showId)
+      .order('publish_date', { ascending: false })
+      .limit(200);
+
+    if (!channelVideosError && channelVideos && channelVideos.length > 0) {
+      userVideos = channelVideos;
+      console.log(`✅ Found ${userVideos.length} user videos in channel_videos table`);
+    } else {
+      // Fallback to videos table
+      const { data: videosTable, error: videosError } = await supabase
+        .from('videos')
+        .select('*')
+        .eq('show_id', showId)
+        .order('published_at', { ascending: false })
+        .limit(200);
+
+      if (!videosError && videosTable && videosTable.length > 0) {
+        userVideos = videosTable.map(v => ({
+          ...v,
+          description: v.description || '',
+          publish_date: v.published_at || v.publish_date,
+        }));
+        console.log(`✅ Found ${userVideos.length} user videos in videos table (fallback)`);
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ Error fetching user videos (non-fatal):', err.message);
+  }
+
+  // Normalize user videos (same as /app/api/signals/route.js)
+  const normalizedUserVideos = (userVideos || []).map(video => {
+    const actualTitle = video.title_ar || video.title_en || video.title || '';
+    const normalizedDate = video.publish_date || video.published_at || video.publishedAt || video.created_at || video.upload_date;
+    
+    return {
+      ...video,
+      title: actualTitle,
+      published_at: normalizedDate,
+      publish_date: normalizedDate,
+      description: video.description || video.desc || '',
+      topic_id: video.topic_id || video.topic || null,
+      video_id: video.video_id || video.id,
+      youtube_url: video.youtube_url || (video.video_id ? `https://www.youtube.com/watch?v=${video.video_id}` : null),
+    };
+  });
+
+  console.log(`📹 Normalized user videos: ${normalizedUserVideos.length} videos`);
+
+  // 3.7. Get excluded names (channel/source names to filter out)
+  let excludedNames = [];
+  try {
+    const { getExcludedNames } = await import('@/lib/entities/channelEntities');
+    excludedNames = await getExcludedNames(showId);
+    console.log(`🚫 Loaded ${excludedNames.length} excluded names (channel/source names)`);
+  } catch (err) {
+    console.warn('⚠️ Error fetching excluded names (non-fatal):', err.message);
+  }
+
+  // 4. ENSURE SOURCE DIVERSITY - Round-robin selection
+  // Group by source
+  const bySource = {};
+  signals.forEach(s => {
+    const source = s.source || s.source_name || s.raw_data?.sourceName || 'Unknown';
+    if (!bySource[source]) bySource[source] = [];
+    bySource[source].push(s);
+  });
+
+  console.log('📊 Signals by source:', Object.entries(bySource).map(([src, arr]) => `${src}: ${arr.length}`).join(', '));
+
+  // Take max 2 from each source, round-robin style
+  const diverseSignals = [];
+  const maxPerSource = 2;
+  let added = true;
+  let round = 0;
+
+  while (added && diverseSignals.length < 20) {
+    added = false;
+    for (const source of Object.keys(bySource)) {
+      if (bySource[source][round]) {
+        diverseSignals.push(bySource[source][round]);
+        added = true;
+      }
+    }
+    round++;
+    if (round >= maxPerSource) break;
+  }
+
+  // If we still need more signals, fill from remaining (sorted by score)
+  if (diverseSignals.length < 20) {
+    const usedIds = new Set(diverseSignals.map(s => s.id));
+    const remaining = signals
+      .filter(s => !usedIds.has(s.id))
+      .sort((a, b) => (b.score || 0) - (a.score || 0))
+      .slice(0, 20 - diverseSignals.length);
+    diverseSignals.push(...remaining);
+  }
+
+  console.log('📰 Diverse signals:', diverseSignals.map(s => (s.source || s.source_name || s.raw_data?.sourceName || 'Unknown')).join(', '));
+  console.log(`✅ Selected ${diverseSignals.length} diverse signals from ${Object.keys(bySource).length} sources`);
+
+  // 5. Process signals into tiers (using diverseSignals instead of signals)
+  // IMPORTANT: Calculate REAL scores using multi-signal scoring instead of fake DB scores
+  // Reddit signals have score=100 in DB (fake), but real score should be based on:
+  // - Competitor breakout: +30
+  // - Multiple competitors: +20
+  // - DNA match: +20
+  // - Recency: +15
+  // - Not covered recently: +15
+  const now = Date.now();
+  
+  // Calculate real scores for all signals (in parallel for performance)
+  const processedSignals = await Promise.all(diverseSignals.map(async (signal) => {
+    const hoursOld = (now - new Date(signal.created_at).getTime()) / (1000 * 60 * 60);
+    
+    // Calculate REAL score using multi-signal scoring system
+    // This replaces the fake score=100 from Reddit signals
+    let realScore = 0;
+    let scoringSignals = [];
+    try {
+      // Use same pattern as /app/api/signals/route.js for proper scoring
+      // Ensure normalizedCompetitorVideos is defined (should be defined at line 111)
+      if (typeof normalizedCompetitorVideos === 'undefined') {
+        console.error('❌ CRITICAL: normalizedCompetitorVideos is not defined! Using competitorVideos as fallback.');
+      }
+      const scoringResult = await calculateIdeaScore(signal, {
+        competitorVideos: normalizedCompetitorVideos || competitorVideos || [], // Use normalized videos, fallback to raw if needed
+        userVideos: normalizedUserVideos, // Include user videos for saturation check
+        dnaTopics: dnaTopics,
+        signalTitle: signal.title || '',
+        signalDescription: signal.description || signal.raw_data?.description || '',
+        signalPublishedAt: signal.created_at || signal.published_at,
+        signalTopicId: signal.topic_id,
+        sourceUrl: signal.url || signal.source_url || signal.raw_data?.url || signal.raw_data?.link || null,
+        sourceTitle: signal.source || signal.source_name || signal.raw_data?.sourceName || null,
+        sourceCount: 1,
+      }, excludedNames); // Pass excluded names to filter out channel/source names
+      
+      realScore = scoringResult?.score ?? 0; // Use nullish coalescing to catch 0 scores
+      scoringSignals = scoringResult?.signals || [];
+      
+      // ALWAYS log score calculation for debugging (not just when DB=100)
+      const sourceName = signal.source || signal.source_name || signal.raw_data?.sourceName || 'Unknown';
+      
+      // If DB score is 100 but real score is different, highlight it
+      if (signal.score === 100 && realScore !== 100) {
+        console.log(`   ✅ FIXED: "${signal.title?.substring(0, 40)}..." [${sourceName}] DB: ${signal.score} → Real: ${realScore} (${scoringSignals.length} signals)`);
+        if (realScore < 20) {
+          console.log(`      🚫 Will be FILTERED OUT (real score ${realScore} < 20)`);
+        }
+      } else if (signal.score === 100 && realScore === 100) {
+        console.log(`   ⚠️ WARNING: "${signal.title?.substring(0, 40)}..." [${sourceName}] Still 100! Check if calculateIdeaScore is working correctly`);
+      } else {
+        // Normal logging for non-100 DB scores
+        console.log(`   📊 Score: "${signal.title?.substring(0, 40)}..." [${sourceName}] DB: ${signal.score} → Real: ${realScore} (${scoringSignals.length} signals)`);
+      }
+      
+      // If real score is 0 or very low, log why
+      if (realScore < 20 && scoringSignals.length === 0) {
+        console.log(`      ⚠️ Low score (${realScore}): No signals found (no competitor breakout, DNA match, etc.)`);
+      }
+    } catch (err) {
+      console.error(`   ❌ Error calculating score for "${signal.title?.substring(0, 40)}...":`, err.message);
+      console.error(`      Stack:`, err.stack?.substring(0, 200));
+      // Fallback to DB score if calculation fails, but log it
+      realScore = signal.score || 0;
+      console.log(`      ⚠️ Using DB score as fallback: ${realScore}`);
+    }
+    
+    // Determine tier using REAL score (not fake DB score)
+    let tier = 'evergreen';
+    if (realScore >= 90 && hoursOld < 48) {
+      tier = 'post_today';
+    } else if (realScore >= 70 || hoursOld < 168) {
+      tier = 'this_week';
+    }
+
+    // Find matching competitor videos using smart bilingual keyword matching
+    // Uses the SAME system as findCompetitorBreakout() in multiSignalScoring.js:
+    // 1. Extract keywords with translations (extractKeywords)
+    // 2. Match keywords between signal and video
+    // 3. Validate match using calculateMatchScore (filters out generic words)
+    // This ensures only MEANINGFUL matches (not "says", "about", etc.)
+    let signalKeywords = [];
+    try {
+      signalKeywords = extractKeywords(signal.title || '');
+    } catch (err) {
+      console.error(`   ⚠️ Error extracting keywords for "${signal.title?.substring(0, 40)}...":`, err.message);
+      signalKeywords = [];
+    }
+    
+    const matchingCompetitors = (competitorVideos || [])
+      .map(cv => {
+        try {
+          // Extract keywords from video title + description (same as findCompetitorBreakout)
+          const videoTitle = cv.title || '';
+          const videoDescription = (cv.description || '').substring(0, 200);
+          
+          const titleKeywords = extractKeywords(videoTitle);
+          const descKeywords = extractKeywords(videoDescription);
+          const videoKeywords = [...new Set([...titleKeywords, ...descKeywords])];
+          
+          // Find matching keywords between signal and video
+          const matchingKeywords = signalKeywords.filter(sk => {
+            const normalizedSk = normalizeArabicText(sk).toLowerCase();
+            return videoKeywords.some(vk => {
+              const normalizedVk = normalizeArabicText(vk).toLowerCase();
+              // Check for substring match in either direction
+              return normalizedVk.includes(normalizedSk) || normalizedSk.includes(normalizedVk);
+            });
+          });
+          
+          // Use calculateMatchScore to validate this is a MEANINGFUL match
+          // This filters out matches on generic words like "says", "about", "week"
+          // MIN_MATCH_SCORE = 12 ensures only topic-relevant matches pass
+          const matchResult = calculateMatchScore(matchingKeywords, []);
+          
+          return {
+            video: cv,
+            matchResult,
+            matchingKeywords,
+            isValid: matchResult.isValidMatch // Only true if score >= MIN_MATCH_SCORE (12)
+          };
+        } catch (err) {
+          console.error(`   ⚠️ Error matching competitor video "${cv.title?.substring(0, 40)}...":`, err.message);
+          return {
+            video: cv,
+            matchResult: { isValidMatch: false, score: 0 },
+            matchingKeywords: [],
+            isValid: false
+          };
+        }
+      })
+      .filter(result => result.isValid) // Only keep videos with valid matches (score >= 12)
+      .sort((a, b) => (b.matchResult.score || 0) - (a.matchResult.score || 0)) // Sort by match score
+      .slice(0, 3) // Top 3 matches
+      .map(result => {
+        const cv = result.video;
+        const videoId = cv.youtube_video_id;
+        return {
+          channel: cv.competitors?.name || 'Competitor',
+          title: cv.title,
+          videoUrl: videoId ? `https://youtube.com/watch?v=${videoId}` : null,
+          views: cv.views || 0,
+          matchScore: result.matchResult.score,
+          matchedKeywords: result.matchingKeywords.slice(0, 5) // For debugging
+        };
+      })
+      .filter(c => c.videoUrl); // Only include if we have a video URL
+
+    // Log bilingual matches for debugging
+    if (matchingCompetitors.length > 0) {
+      console.log(`   🔗 Found ${matchingCompetitors.length} VALID competitor matches for "${signal.title?.substring(0, 40)}..."`);
+      console.log(`      Signal keywords: ${signalKeywords.slice(0, 5).join(', ')}...`);
+      matchingCompetitors.forEach((comp, i) => {
+        console.log(`      ${i + 1}. "${comp.title?.substring(0, 40)}..." (score: ${comp.matchScore}, matched: ${comp.matchedKeywords.join(', ')})`);
+      });
+    } else if (signalKeywords.length > 0) {
+      console.log(`   ⚠️ No valid competitor matches for "${signal.title?.substring(0, 40)}..." (extracted ${signalKeywords.length} keywords but no meaningful matches)`);
+    }
+
+    // Check DNA match
+    const dnaMatch = dnaTopics.find(topic => 
+      signal.title.toLowerCase().includes(topic.toLowerCase()) ||
+      signal.description?.toLowerCase().includes(topic.toLowerCase())
+    );
+
+    return {
+      id: signal.id,
+      title: signal.title,
+      description: signal.description,
+      source: signal.source || signal.source_name || signal.raw_data?.sourceName || 'Unknown',
+      sourceUrl: signal.url || signal.source_url || signal.raw_data?.url || null,
+      score: realScore, // Use REAL score, not fake DB score
+      dbScore: signal.score, // Keep DB score for reference/debugging
+      createdAt: signal.created_at,
+      tier,
+      hoursOld: Math.round(hoursOld),
+      competitors: matchingCompetitors,
+      dnaMatch: dnaMatch || null,
+      hasEvidence: matchingCompetitors.length > 0 || !!dnaMatch,
+      scoringSignals: scoringSignals // What contributed to the score
+    };
+  }));
+
+  // 6. FILTER OUT LOW-QUALITY SIGNALS
+  // Only include signals with real score >= 20 (minimum quality threshold)
+  // This excludes Reddit signals with fake score=100 but real score=0-19
+  const MIN_REAL_SCORE = 20;
+  const qualitySignals = processedSignals.filter(s => {
+    const realScore = s.score || 0;
+    if (realScore < MIN_REAL_SCORE) {
+      console.log(`   🚫 Filtered out: "${s.title?.substring(0, 40)}..." (real score: ${realScore} < ${MIN_REAL_SCORE})`);
+      return false;
+    }
+    return true;
+  });
+  
+  console.log(`📊 Quality filter: ${processedSignals.length} signals → ${qualitySignals.length} with real score >= ${MIN_REAL_SCORE}`);
+
+  // 7. Group by tier with limits (sort by real score within each tier)
+  const postToday = qualitySignals
+    .filter(s => s.tier === 'post_today')
+    .sort((a, b) => (b.score || 0) - (a.score || 0)) // Sort by real score
+    .slice(0, 5);
+  const thisWeek = qualitySignals
+    .filter(s => s.tier === 'this_week')
+    .sort((a, b) => (b.score || 0) - (a.score || 0)) // Sort by real score
+    .slice(0, 7);
+  const evergreen = qualitySignals
+    .filter(s => s.tier === 'evergreen')
+    .sort((a, b) => (b.score || 0) - (a.score || 0)) // Sort by real score
+    .slice(0, 5);
+
+  console.log('📤 Final counts:', {
+    postToday: postToday.length,
+    thisWeek: thisWeek.length,
+    evergreen: evergreen.length
+  });
+
+  // Log final source distribution
+  const finalSourceBreakdown = {};
+  [...postToday, ...thisWeek, ...evergreen].forEach(s => {
+    const source = s.source || 'Unknown';
+    finalSourceBreakdown[source] = (finalSourceBreakdown[source] || 0) + 1;
+  });
+  console.log('📤 Final source distribution:', finalSourceBreakdown);
+
+    return NextResponse.json({
+      success: true,
+      data: {
+        postToday,
+        thisWeek,
+        evergreen
+      },
+      meta: {
+        totalSignals: signals.length,
+        diverseSignalsCount: diverseSignals.length,
+        sources: sourceBreakdown,
+        finalSourceDistribution: finalSourceBreakdown,
+        dnaTopics,
+        competitorVideosCount: competitorVideos?.length || 0
+      }
+    });
+  } catch (error) {
+    console.error('❌ Error in /api/studio/signals:', error);
+    console.error('   Stack:', error.stack);
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: error.message || 'Internal server error',
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      }, 
+      { status: 500 }
+    );
+  }
+}

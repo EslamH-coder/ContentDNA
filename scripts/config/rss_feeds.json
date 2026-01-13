@@ -1,0 +1,240 @@
+{
+  "_instructions": "Google News RSS format: https://news.google.com/rss/search?q=QUERY&hl=LANG&gl=COUNTRY&ceid=COUNTRY:LANG",
+  
+  "feeds": [
+    {
+      "name": "Bloomberg Direct",
+      "url": "https://feeds.bloomberg.com/markets/news.rss",
+      "category": "markets",
+      "priority": 1,
+      "enabled": true,
+      "note": "Direct RSS - most reliable"
+    },
+    
+    {
+      "_comment": "========== GOOGLE NEWS - BY TOPIC ==========",
+      "name": "placeholder"
+    },
+    
+    {
+      "name": "GN: US-China Trade & Geopolitics",
+      "url": "https://news.google.com/rss/search?q=china+us+trade+tariffs+geopolitics&hl=en&gl=US&ceid=US:en",
+      "category": "geopolitics",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Trump Economy Policy",
+      "url": "https://news.google.com/rss/search?q=trump+economy+tariffs+policy&hl=en&gl=US&ceid=US:en",
+      "category": "geopolitics",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: AI & Automation Jobs",
+      "url": "https://news.google.com/rss/search?q=artificial+intelligence+automation+jobs+replace&hl=en&gl=US&ceid=US:en",
+      "category": "technology",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Tesla Robotaxi Self-Driving",
+      "url": "https://news.google.com/rss/search?q=tesla+robotaxi+OR+self-driving+OR+autonomous&hl=en&gl=US&ceid=US:en",
+      "category": "technology",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Defense & Missiles",
+      "url": "https://news.google.com/rss/search?q=missile+defense+military+weapons&hl=en&gl=US&ceid=US:en",
+      "category": "defense",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Gold Price Central Banks",
+      "url": "https://news.google.com/rss/search?q=gold+price+central+bank+reserve&hl=en&gl=US&ceid=US:en",
+      "category": "markets",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Oil OPEC Energy",
+      "url": "https://news.google.com/rss/search?q=oil+price+OPEC+energy+crisis&hl=en&gl=US&ceid=US:en",
+      "category": "energy",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Dollar Currency Crisis",
+      "url": "https://news.google.com/rss/search?q=dollar+currency+crisis+inflation&hl=en&gl=US&ceid=US:en",
+      "category": "markets",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: BNPL Fintech Credit",
+      "url": "https://news.google.com/rss/search?q=buy+now+pay+later+OR+BNPL+OR+fintech+credit&hl=en&gl=US&ceid=US:en",
+      "category": "fintech",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Big Tech Antitrust",
+      "url": "https://news.google.com/rss/search?q=google+OR+apple+OR+meta+antitrust+regulation&hl=en&gl=US&ceid=US:en",
+      "category": "technology",
+      "priority": 1,
+      "enabled": true
+    },
+    
+    {
+      "_comment": "========== GOOGLE NEWS - BY SOURCE ==========",
+      "name": "placeholder"
+    },
+    
+    {
+      "name": "GN: Reuters Business",
+      "url": "https://news.google.com/rss/search?q=site:reuters.com+business+OR+economy+OR+markets&hl=en&gl=US&ceid=US:en",
+      "category": "business",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: NYT Business",
+      "url": "https://news.google.com/rss/search?q=site:nytimes.com+business+OR+economy&hl=en&gl=US&ceid=US:en",
+      "category": "business",
+      "priority": 2,
+      "enabled": true
+    },
+    {
+      "name": "GN: Financial Times",
+      "url": "https://news.google.com/rss/search?q=site:ft.com+markets+OR+economy&hl=en&gl=US&ceid=US:en",
+      "category": "business",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Wall Street Journal",
+      "url": "https://news.google.com/rss/search?q=site:wsj.com+markets+OR+economy&hl=en&gl=US&ceid=US:en",
+      "category": "business",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: The Economist",
+      "url": "https://news.google.com/rss/search?q=site:economist.com&hl=en&gl=US&ceid=US:en",
+      "category": "economics",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: TechCrunch AI",
+      "url": "https://news.google.com/rss/search?q=site:techcrunch.com+AI+OR+artificial+intelligence&hl=en&gl=US&ceid=US:en",
+      "category": "technology",
+      "priority": 2,
+      "enabled": true
+    },
+    
+    {
+      "_comment": "========== REGIONAL - GULF & ARAB ==========",
+      "name": "placeholder"
+    },
+    
+    {
+      "name": "GN: Saudi Arabia Economy",
+      "url": "https://news.google.com/rss/search?q=saudi+arabia+economy+OR+investment+OR+vision+2030&hl=en&gl=US&ceid=US:en",
+      "category": "regional",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: UAE Dubai Business",
+      "url": "https://news.google.com/rss/search?q=UAE+OR+dubai+business+OR+economy+OR+investment&hl=en&gl=US&ceid=US:en",
+      "category": "regional",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Qatar Economy",
+      "url": "https://news.google.com/rss/search?q=qatar+economy+OR+investment&hl=en&gl=US&ceid=US:en",
+      "category": "regional",
+      "priority": 2,
+      "enabled": true
+    },
+    {
+      "name": "GN: Egypt Economy",
+      "url": "https://news.google.com/rss/search?q=egypt+economy+OR+pound+OR+inflation+OR+IMF&hl=en&gl=US&ceid=US:en",
+      "category": "regional",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Gulf Business (Arabic)",
+      "url": "https://news.google.com/rss/search?q=اقتصاد+الخليج+OR+السعودية+OR+الإمارات&hl=ar&gl=AE&ceid=AE:ar",
+      "category": "regional_ar",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Al Jazeera Business",
+      "url": "https://news.google.com/rss/search?q=site:aljazeera.com+economy+OR+business&hl=en&gl=US&ceid=US:en",
+      "category": "regional",
+      "priority": 2,
+      "enabled": true
+    },
+    
+    {
+      "_comment": "========== SPECIAL TOPICS (Your DNA Winners) ==========",
+      "name": "placeholder"
+    },
+    
+    {
+      "name": "GN: Shipping Logistics Supply Chain",
+      "url": "https://news.google.com/rss/search?q=shipping+logistics+supply+chain+crisis&hl=en&gl=US&ceid=US:en",
+      "category": "logistics",
+      "priority": 1,
+      "enabled": true,
+      "note": "logistics_supply_chain is a winning topic"
+    },
+    {
+      "name": "GN: Arms Trade Defense Industry",
+      "url": "https://news.google.com/rss/search?q=arms+trade+defense+industry+weapons+export&hl=en&gl=US&ceid=US:en",
+      "category": "defense",
+      "priority": 1,
+      "enabled": true,
+      "note": "arms_industry_exports is a winning topic"
+    },
+    {
+      "name": "GN: Uber Careem Ride-hailing",
+      "url": "https://news.google.com/rss/search?q=uber+OR+careem+OR+ride-hailing+middle+east&hl=en&gl=US&ceid=US:en",
+      "category": "technology",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "name": "GN: Iran Sanctions Oil",
+      "url": "https://news.google.com/rss/search?q=iran+sanctions+oil+nuclear&hl=en&gl=US&ceid=US:en",
+      "category": "geopolitics",
+      "priority": 2,
+      "enabled": true
+    }
+  ],
+  
+  "custom_queries": {
+    "_instructions": "Add your own queries here. Format: keyword+keyword+OR+keyword",
+    "examples": [
+      "tesla+robotaxi+dubai",
+      "saudi+arabia+neom+investment",
+      "egypt+pound+dollar+crisis",
+      "china+belt+road+initiative+gulf"
+    ]
+  },
+  
+  "settings": {
+    "max_items_per_feed": 15,
+    "max_age_hours": 48,
+    "fetch_timeout_seconds": 30,
+    "retry_attempts": 3,
+    "deduplicate_by_title": true
+  }
+}

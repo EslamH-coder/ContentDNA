@@ -1,0 +1,6441 @@
+{
+  "terms": [
+    {
+      "term": "المخبر الاقتصادي",
+      "views": 869020,
+      "watchTimeHours": 165517.8748,
+      "avgViewDuration": "0:11:26",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي aj+",
+      "views": 84508,
+      "watchTimeHours": 16047.6353,
+      "avgViewDuration": "0:11:23",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "مخبر اقتصادي",
+      "views": 26313,
+      "watchTimeHours": 4600.9117,
+      "avgViewDuration": "0:10:29",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادي بلس",
+      "views": 19080,
+      "watchTimeHours": 3497.7736,
+      "avgViewDuration": "0:11:00",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي اشرف ابراهيم",
+      "views": 15734,
+      "watchTimeHours": 2595.3044,
+      "avgViewDuration": "0:09:53",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين",
+      "views": 10847,
+      "watchTimeHours": 1329.5805,
+      "avgViewDuration": "0:07:21",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الدحيح",
+      "views": 8623,
+      "watchTimeHours": 1181.8913,
+      "avgViewDuration": "0:08:13",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "كبريت",
+      "views": 8468,
+      "watchTimeHours": 1371.3073,
+      "avgViewDuration": "0:09:46",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر",
+      "views": 7723,
+      "watchTimeHours": 1399.1875,
+      "avgViewDuration": "0:10:52",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الخبير الاقتصادي",
+      "views": 6855,
+      "watchTimeHours": 1085.2573,
+      "avgViewDuration": "0:09:30",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادى",
+      "views": 6151,
+      "watchTimeHours": 1082.3922,
+      "avgViewDuration": "0:10:34",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "aj+",
+      "views": 5831,
+      "watchTimeHours": 973.1265,
+      "avgViewDuration": "0:10:00",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي+",
+      "views": 5661,
+      "watchTimeHours": 1013.9877,
+      "avgViewDuration": "0:10:45",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "aj+ عربي",
+      "views": 5629,
+      "watchTimeHours": 937.374,
+      "avgViewDuration": "0:10:00",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الإقتصادي",
+      "views": 5460,
+      "watchTimeHours": 919.2664,
+      "avgViewDuration": "0:10:06",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "aj+ كبريت",
+      "views": 5400,
+      "watchTimeHours": 956.1236,
+      "avgViewDuration": "0:10:39",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "مخبر الاقتصادي",
+      "views": 5001,
+      "watchTimeHours": 860.8147,
+      "avgViewDuration": "0:10:19",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الصين وامريكا",
+      "views": 4618,
+      "watchTimeHours": 740.4422,
+      "avgViewDuration": "0:09:37",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "كبريت aj+",
+      "views": 4379,
+      "watchTimeHours": 666.6393,
+      "avgViewDuration": "0:09:11",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجزيرة مباشر",
+      "views": 4307,
+      "watchTimeHours": 586.5018,
+      "avgViewDuration": "0:08:11",
+      "topic": "channel",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اقتصاد الكوكب",
+      "views": 4012,
+      "watchTimeHours": 649.4888,
+      "avgViewDuration": "0:09:43",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "السليط الاخباري",
+      "views": 3973,
+      "watchTimeHours": 439.2228,
+      "avgViewDuration": "0:06:41",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اشرف ابراهيم",
+      "views": 3624,
+      "watchTimeHours": 549.4454,
+      "avgViewDuration": "0:09:05",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الذهب",
+      "views": 3212,
+      "watchTimeHours": 358.786,
+      "avgViewDuration": "0:06:42",
+      "topic": "gold",
+      "intent": "informational",
+      "personas": [
+        "investor"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادي +",
+      "views": 3189,
+      "watchTimeHours": 579.4794,
+      "avgViewDuration": "0:10:54",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادى aj+",
+      "views": 3005,
+      "watchTimeHours": 530.3459,
+      "avgViewDuration": "0:10:35",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصاد",
+      "views": 2644,
+      "watchTimeHours": 317.5797,
+      "avgViewDuration": "0:07:12",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ايران",
+      "views": 2518,
+      "watchTimeHours": 410.7146,
+      "avgViewDuration": "0:09:47",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اشرف ابراهيم المخبر الاقتصادي",
+      "views": 2516,
+      "watchTimeHours": 405.1216,
+      "avgViewDuration": "0:09:39",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "غرينلاند",
+      "views": 2308,
+      "watchTimeHours": 258.6732,
+      "avgViewDuration": "0:06:43",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "امريكا",
+      "views": 2303,
+      "watchTimeHours": 167.8384,
+      "avgViewDuration": "0:04:23",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ترامب",
+      "views": 1976,
+      "watchTimeHours": 232.6437,
+      "avgViewDuration": "0:07:04",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ايران واسرائيل",
+      "views": 1950,
+      "watchTimeHours": 395.3384,
+      "avgViewDuration": "0:12:09",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "روسيا وأوكرانيا",
+      "views": 1911,
+      "watchTimeHours": 218.2267,
+      "avgViewDuration": "0:06:52",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الاقتصادي",
+      "views": 1906,
+      "watchTimeHours": 316.9753,
+      "avgViewDuration": "0:09:59",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "جرينلاند",
+      "views": 1885,
+      "watchTimeHours": 216.7192,
+      "avgViewDuration": "0:06:53",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادي الصين",
+      "views": 1790,
+      "watchTimeHours": 262.465,
+      "avgViewDuration": "0:08:47",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير الفلسطينيين",
+      "views": 1632,
+      "watchTimeHours": 136.8952,
+      "avgViewDuration": "0:05:01",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الاقتصاد",
+      "views": 1604,
+      "watchTimeHours": 194.9719,
+      "avgViewDuration": "0:07:18",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "امريكا والصين",
+      "views": 1497,
+      "watchTimeHours": 268.5932,
+      "avgViewDuration": "0:10:45",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "غزة",
+      "views": 1486,
+      "watchTimeHours": 134.648,
+      "avgViewDuration": "0:05:26",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "جيش المانيا المضحك",
+      "views": 1475,
+      "watchTimeHours": 275.2636,
+      "avgViewDuration": "0:11:11",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "سوريا",
+      "views": 1457,
+      "watchTimeHours": 176.2121,
+      "avgViewDuration": "0:07:17",
+      "topic": "syria",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الجزيرة",
+      "views": 1416,
+      "watchTimeHours": 193.1544,
+      "avgViewDuration": "0:08:13",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "جرين لاند",
+      "views": 1269,
+      "watchTimeHours": 162.5826,
+      "avgViewDuration": "0:07:41",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "mokhbir iktisadi",
+      "views": 1265,
+      "watchTimeHours": 249.2391,
+      "avgViewDuration": "0:11:49",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المُخبر الاقتصادي+",
+      "views": 1258,
+      "watchTimeHours": 220.304,
+      "avgViewDuration": "0:10:30",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الهند وباكستان",
+      "views": 1251,
+      "watchTimeHours": 188.721,
+      "avgViewDuration": "0:09:03",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المحلل الاقتصادي",
+      "views": 1246,
+      "watchTimeHours": 201.1417,
+      "avgViewDuration": "0:09:41",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "باكستان والهند",
+      "views": 1244,
+      "watchTimeHours": 184.1845,
+      "avgViewDuration": "0:08:53",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الصين وأمريكا",
+      "views": 1184,
+      "watchTimeHours": 181.5936,
+      "avgViewDuration": "0:09:12",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "mokhber iktisadi",
+      "views": 1127,
+      "watchTimeHours": 198.6267,
+      "avgViewDuration": "0:10:34",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "aljazeera live arabic",
+      "views": 1108,
+      "watchTimeHours": 150.5048,
+      "avgViewDuration": "0:08:10",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الأقتصادي",
+      "views": 1091,
+      "watchTimeHours": 189.8832,
+      "avgViewDuration": "0:10:27",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا",
+      "views": 1038,
+      "watchTimeHours": 115.4583,
+      "avgViewDuration": "0:06:41",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الجزيرة البث الحي",
+      "views": 1001,
+      "watchTimeHours": 167.0625,
+      "avgViewDuration": "0:10:05",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادي الذهب",
+      "views": 934,
+      "watchTimeHours": 132.3958,
+      "avgViewDuration": "0:08:30",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المواطن سعيد",
+      "views": 925,
+      "watchTimeHours": 162.9444,
+      "avgViewDuration": "0:10:34",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المُخبر الاقتصادي",
+      "views": 920,
+      "watchTimeHours": 136.026,
+      "avgViewDuration": "0:08:52",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "السلفادور",
+      "views": 875,
+      "watchTimeHours": 86.6892,
+      "avgViewDuration": "0:05:57",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "summary",
+      "views": 792,
+      "watchTimeHours": 104.4519,
+      "avgViewDuration": "0:07:54",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "حرب ايران واسرائيل",
+      "views": 791,
+      "watchTimeHours": 170.0288,
+      "avgViewDuration": "0:12:54",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ترحيل المهاجرين من امريكا",
+      "views": 787,
+      "watchTimeHours": 60.4105,
+      "avgViewDuration": "0:04:36",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اثيوبيا",
+      "views": 784,
+      "watchTimeHours": 56.8256,
+      "avgViewDuration": "0:04:21",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ترمب",
+      "views": 778,
+      "watchTimeHours": 106.7566,
+      "avgViewDuration": "0:08:14",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الأقتصادى",
+      "views": 766,
+      "watchTimeHours": 133.5354,
+      "avgViewDuration": "0:10:27",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "ديب سيك الذكاء الاصطناعي",
+      "views": 755,
+      "watchTimeHours": 106.6048,
+      "avgViewDuration": "0:08:28",
+      "topic": "ai",
+      "intent": "informational",
+      "personas": [
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "deepseek",
+      "views": 723,
+      "watchTimeHours": 95.7635,
+      "avgViewDuration": "0:07:56",
+      "topic": "ai",
+      "intent": "informational",
+      "personas": [
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "باكستان",
+      "views": 723,
+      "watchTimeHours": 68.7045,
+      "avgViewDuration": "0:05:42",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ترامب والصين",
+      "views": 720,
+      "watchTimeHours": 117.6341,
+      "avgViewDuration": "0:09:48",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "جيفري إبستين",
+      "views": 681,
+      "watchTimeHours": 120.6864,
+      "avgViewDuration": "0:10:38",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "جزيرة جرينلاند",
+      "views": 652,
+      "watchTimeHours": 73.7556,
+      "avgViewDuration": "0:06:47",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اوكرانيا",
+      "views": 649,
+      "watchTimeHours": 71.7065,
+      "avgViewDuration": "0:06:37",
+      "topic": "ukraine",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ديب سيك",
+      "views": 649,
+      "watchTimeHours": 83.4228,
+      "avgViewDuration": "0:07:42",
+      "topic": "ai",
+      "intent": "informational",
+      "personas": [
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادي - mokhbir eqtisadi",
+      "views": 648,
+      "watchTimeHours": 123.9664,
+      "avgViewDuration": "0:11:29",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "قناة بن غوريون",
+      "views": 644,
+      "watchTimeHours": 107.1855,
+      "avgViewDuration": "0:09:59",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادي سوريا",
+      "views": 639,
+      "watchTimeHours": 109.4566,
+      "avgViewDuration": "0:10:16",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "هواوي",
+      "views": 638,
+      "watchTimeHours": 64.3778,
+      "avgViewDuration": "0:06:03",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "كندا",
+      "views": 620,
+      "watchTimeHours": 64.635,
+      "avgViewDuration": "0:06:15",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اسرائيل",
+      "views": 617,
+      "watchTimeHours": 49.6345,
+      "avgViewDuration": "0:04:49",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "وثائقي",
+      "views": 607,
+      "watchTimeHours": 103.9968,
+      "avgViewDuration": "0:10:18",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "السعودية",
+      "views": 587,
+      "watchTimeHours": 53.5165,
+      "avgViewDuration": "0:05:29",
+      "topic": "saudi",
+      "intent": "informational",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "المخبر الاقتصادي ايران",
+      "views": 580,
+      "watchTimeHours": 136.2115,
+      "avgViewDuration": "0:14:05",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجيش الالماني",
+      "views": 553,
+      "watchTimeHours": 57.7766,
+      "avgViewDuration": "0:06:16",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "صابر مشهور",
+      "views": 553,
+      "watchTimeHours": 80.9917,
+      "avgViewDuration": "0:08:48",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اشرف ابراهيم المخبر الاقتصادي بلس",
+      "views": 536,
+      "watchTimeHours": 91.3004,
+      "avgViewDuration": "0:10:13",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصاد الصين",
+      "views": 536,
+      "watchTimeHours": 61.7211,
+      "avgViewDuration": "0:06:54",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "ابستين",
+      "views": 529,
+      "watchTimeHours": 107.8321,
+      "avgViewDuration": "0:12:13",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الرسوم الجمركية الامريكية",
+      "views": 512,
+      "watchTimeHours": 107.432,
+      "avgViewDuration": "0:12:35",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "كندا وامريكا",
+      "views": 509,
+      "watchTimeHours": 59.777,
+      "avgViewDuration": "0:07:02",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "اخبار",
+      "views": 504,
+      "watchTimeHours": 61.709,
+      "avgViewDuration": "0:07:23",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": true
+    },
+    {
+      "term": "الاقتصاد الامريكي",
+      "views": 494,
+      "watchTimeHours": 64.4133,
+      "avgViewDuration": "0:07:49",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الذكاء الاصطناعي",
+      "views": 494,
+      "watchTimeHours": 53.1646,
+      "avgViewDuration": "0:06:27",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "al mokhbir al iktisadi",
+      "views": 485,
+      "watchTimeHours": 100.7669,
+      "avgViewDuration": "0:12:27",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "دحيح",
+      "views": 483,
+      "watchTimeHours": 59.1518,
+      "avgViewDuration": "0:07:20",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اليمن",
+      "views": 479,
+      "watchTimeHours": 41.3115,
+      "avgViewDuration": "0:05:15",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجزيره",
+      "views": 461,
+      "watchTimeHours": 52.1304,
+      "avgViewDuration": "0:06:47",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اوكرانيا وروسيا",
+      "views": 453,
+      "watchTimeHours": 52.3818,
+      "avgViewDuration": "0:06:56",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جنوب افريقيا",
+      "views": 451,
+      "watchTimeHours": 48.5438,
+      "avgViewDuration": "0:06:27",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب روسيا وأوكرانيا",
+      "views": 434,
+      "watchTimeHours": 44.1767,
+      "avgViewDuration": "0:06:07",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "العربية مباشر",
+      "views": 417,
+      "watchTimeHours": 61.3238,
+      "avgViewDuration": "0:08:49",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "summary egypt",
+      "views": 405,
+      "watchTimeHours": 58.9937,
+      "avgViewDuration": "0:08:44",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "بوتين",
+      "views": 404,
+      "watchTimeHours": 40.7458,
+      "avgViewDuration": "0:06:06",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "احمد بحيري",
+      "views": 401,
+      "watchTimeHours": 74.0747,
+      "avgViewDuration": "0:11:05",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي كندا",
+      "views": 401,
+      "watchTimeHours": 60.6605,
+      "avgViewDuration": "0:09:04",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاقتصاد العالمي",
+      "views": 399,
+      "watchTimeHours": 73.2162,
+      "avgViewDuration": "0:11:00",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "لطفي زكريا",
+      "views": 391,
+      "watchTimeHours": 59.2241,
+      "avgViewDuration": "0:09:05",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصاد امريكا",
+      "views": 383,
+      "watchTimeHours": 48.1276,
+      "avgViewDuration": "0:07:32",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الدهب",
+      "views": 378,
+      "watchTimeHours": 36.4862,
+      "avgViewDuration": "0:05:47",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب الاقتصادية بين الصين وامريكا",
+      "views": 375,
+      "watchTimeHours": 76.2011,
+      "avgViewDuration": "0:12:11",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "التهجير",
+      "views": 368,
+      "watchTimeHours": 41.8845,
+      "avgViewDuration": "0:06:49",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ايلون ماسك",
+      "views": 368,
+      "watchTimeHours": 37.9641,
+      "avgViewDuration": "0:06:11",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "صين",
+      "views": 361,
+      "watchTimeHours": 22.2784,
+      "avgViewDuration": "0:03:42",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ايران واسرائيل الان",
+      "views": 329,
+      "watchTimeHours": 49.7898,
+      "avgViewDuration": "0:09:04",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير سكان غزة",
+      "views": 329,
+      "watchTimeHours": 36.3307,
+      "avgViewDuration": "0:06:37",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب الصين وامريكا",
+      "views": 321,
+      "watchTimeHours": 50.2187,
+      "avgViewDuration": "0:09:23",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "رفع العقوبات عن سوريا",
+      "views": 314,
+      "watchTimeHours": 30.596,
+      "avgViewDuration": "0:05:51",
+      "topic": "syria",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "خبير اقتصادي",
+      "views": 310,
+      "watchTimeHours": 44.8856,
+      "avgViewDuration": "0:08:41",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "أمريكا",
+      "views": 309,
+      "watchTimeHours": 16.3206,
+      "avgViewDuration": "0:03:10",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مخبر",
+      "views": 306,
+      "watchTimeHours": 38.4233,
+      "avgViewDuration": "0:07:32",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غزه",
+      "views": 304,
+      "watchTimeHours": 27.6387,
+      "avgViewDuration": "0:05:27",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب التجارية بين الصين وامريكا",
+      "views": 296,
+      "watchTimeHours": 60.9246,
+      "avgViewDuration": "0:12:20",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سجن السلفادور",
+      "views": 296,
+      "watchTimeHours": 27.039,
+      "avgViewDuration": "0:05:28",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "lotfy zakaria",
+      "views": 293,
+      "watchTimeHours": 43.5,
+      "avgViewDuration": "0:08:54",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "aljazeera live بث مباشر",
+      "views": 290,
+      "watchTimeHours": 41.4007,
+      "avgViewDuration": "0:08:33",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "إيران",
+      "views": 289,
+      "watchTimeHours": 39.5089,
+      "avgViewDuration": "0:08:12",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اسرائيل وايران",
+      "views": 288,
+      "watchTimeHours": 67.9663,
+      "avgViewDuration": "0:14:09",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب",
+      "views": 283,
+      "watchTimeHours": 29.5324,
+      "avgViewDuration": "0:06:15",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الخبر الاقتصادي",
+      "views": 274,
+      "watchTimeHours": 40.8823,
+      "avgViewDuration": "0:08:57",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الدولار",
+      "views": 269,
+      "watchTimeHours": 25.7022,
+      "avgViewDuration": "0:05:43",
+      "topic": "dollar",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "trump",
+      "views": 262,
+      "watchTimeHours": 31.856,
+      "avgViewDuration": "0:07:21",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "انهيار امريكا",
+      "views": 254,
+      "watchTimeHours": 26.6383,
+      "avgViewDuration": "0:06:17",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جزيرة مباشرة",
+      "views": 253,
+      "watchTimeHours": 31.2925,
+      "avgViewDuration": "0:07:25",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصاد",
+      "views": 248,
+      "watchTimeHours": 36.6204,
+      "avgViewDuration": "0:08:51",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين امريكا",
+      "views": 246,
+      "watchTimeHours": 44.395,
+      "avgViewDuration": "0:10:49",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي باكستان",
+      "views": 246,
+      "watchTimeHours": 44.4526,
+      "avgViewDuration": "0:10:50",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "جيش المانيا",
+      "views": 241,
+      "watchTimeHours": 38.4832,
+      "avgViewDuration": "0:09:34",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عصابات السلفادور",
+      "views": 238,
+      "watchTimeHours": 19.6796,
+      "avgViewDuration": "0:04:57",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مصر",
+      "views": 235,
+      "watchTimeHours": 32.2912,
+      "avgViewDuration": "0:08:21",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سياسة",
+      "views": 233,
+      "watchTimeHours": 25.4492,
+      "avgViewDuration": "0:06:33",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مواطن سعيد",
+      "views": 233,
+      "watchTimeHours": 36.9126,
+      "avgViewDuration": "0:09:30",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا وامريكا",
+      "views": 232,
+      "watchTimeHours": 31.2816,
+      "avgViewDuration": "0:08:05",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تقسيم سوريا",
+      "views": 230,
+      "watchTimeHours": 18.4024,
+      "avgViewDuration": "0:04:48",
+      "topic": "syria",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "التعريفات الجمركية الامريكية",
+      "views": 227,
+      "watchTimeHours": 49.0475,
+      "avgViewDuration": "0:12:57",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي ترامب",
+      "views": 221,
+      "watchTimeHours": 36.7062,
+      "avgViewDuration": "0:09:57",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "almokhtabar al iqtisadi",
+      "views": 218,
+      "watchTimeHours": 35.8195,
+      "avgViewDuration": "0:09:51",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "النووي",
+      "views": 218,
+      "watchTimeHours": 31.3473,
+      "avgViewDuration": "0:08:37",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب غزة",
+      "views": 217,
+      "watchTimeHours": 25.192,
+      "avgViewDuration": "0:06:57",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاخبار",
+      "views": 216,
+      "watchTimeHours": 26.219,
+      "avgViewDuration": "0:07:19",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب العالمية الثالثة",
+      "views": 216,
+      "watchTimeHours": 32.3204,
+      "avgViewDuration": "0:08:58",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "بودكاست",
+      "views": 215,
+      "watchTimeHours": 29.4363,
+      "avgViewDuration": "0:08:19",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "القبة الذهبية",
+      "views": 214,
+      "watchTimeHours": 34.2698,
+      "avgViewDuration": "0:09:36",
+      "topic": "gold",
+      "intent": "informational",
+      "personas": [
+        "investor"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "القنبلة النووية",
+      "views": 214,
+      "watchTimeHours": 42.2917,
+      "avgViewDuration": "0:11:51",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سياسه",
+      "views": 212,
+      "watchTimeHours": 21.6816,
+      "avgViewDuration": "0:06:08",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مخبر اقتصادي بلس",
+      "views": 211,
+      "watchTimeHours": 45.7169,
+      "avgViewDuration": "0:13:00",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ملفات ابستين",
+      "views": 210,
+      "watchTimeHours": 37.0676,
+      "avgViewDuration": "0:10:35",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جيفري ابستين",
+      "views": 207,
+      "watchTimeHours": 34.7474,
+      "avgViewDuration": "0:10:07",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مايكروسوفت",
+      "views": 205,
+      "watchTimeHours": 16.1539,
+      "avgViewDuration": "0:04:43",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غرينلاند اكبر جزيرة بعد القارات",
+      "views": 204,
+      "watchTimeHours": 22.6607,
+      "avgViewDuration": "0:06:39",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "رئيس السلفادور",
+      "views": 202,
+      "watchTimeHours": 22.8148,
+      "avgViewDuration": "0:06:46",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نعرف اقتصاد",
+      "views": 201,
+      "watchTimeHours": 28.4157,
+      "avgViewDuration": "0:08:28",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جرينلاند أكبر جزيرة في العالم",
+      "views": 196,
+      "watchTimeHours": 24.2134,
+      "avgViewDuration": "0:07:24",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا وكندا",
+      "views": 195,
+      "watchTimeHours": 20.748,
+      "avgViewDuration": "0:06:23",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "العربية",
+      "views": 194,
+      "watchTimeHours": 25.6899,
+      "avgViewDuration": "0:08:06",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصادي",
+      "views": 193,
+      "watchTimeHours": 31.5543,
+      "avgViewDuration": "0:09:48",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "شركة هواوي",
+      "views": 192,
+      "watchTimeHours": 17.6403,
+      "avgViewDuration": "0:05:30",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "صواريخ الصين",
+      "views": 191,
+      "watchTimeHours": 22.8762,
+      "avgViewDuration": "0:07:11",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب الروسية الاوكرانية",
+      "views": 190,
+      "watchTimeHours": 23.1372,
+      "avgViewDuration": "0:07:18",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "aj كبريت",
+      "views": 189,
+      "watchTimeHours": 31.521,
+      "avgViewDuration": "0:10:00",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاقتصاد الصيني",
+      "views": 189,
+      "watchTimeHours": 26.6499,
+      "avgViewDuration": "0:08:27",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "step news",
+      "views": 187,
+      "watchTimeHours": 25.939,
+      "avgViewDuration": "0:08:19",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير اهل غزة",
+      "views": 187,
+      "watchTimeHours": 17.4136,
+      "avgViewDuration": "0:05:35",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجهبذ",
+      "views": 184,
+      "watchTimeHours": 26.3218,
+      "avgViewDuration": "0:08:40",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "السلاح الصيني",
+      "views": 184,
+      "watchTimeHours": 32.4121,
+      "avgViewDuration": "0:10:34",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نهاية امريكا",
+      "views": 184,
+      "watchTimeHours": 21.206,
+      "avgViewDuration": "0:06:54",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار الاقتصاد",
+      "views": 183,
+      "watchTimeHours": 17.7354,
+      "avgViewDuration": "0:05:48",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سمري",
+      "views": 183,
+      "watchTimeHours": 30.4938,
+      "avgViewDuration": "0:09:59",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير غزة",
+      "views": 182,
+      "watchTimeHours": 23.1014,
+      "avgViewDuration": "0:07:36",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اسامة فوزي",
+      "views": 179,
+      "watchTimeHours": 30.3911,
+      "avgViewDuration": "0:10:14",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب بين ايران واسرائيل",
+      "views": 179,
+      "watchTimeHours": 36.1979,
+      "avgViewDuration": "0:12:08",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قناة بن غوريون الاسرائيلية",
+      "views": 179,
+      "watchTimeHours": 26.2603,
+      "avgViewDuration": "0:08:48",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصاد العالم",
+      "views": 174,
+      "watchTimeHours": 23.6434,
+      "avgViewDuration": "0:08:09",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الذكاء الاصطناعي الصيني",
+      "views": 174,
+      "watchTimeHours": 17.3438,
+      "avgViewDuration": "0:05:58",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جزيرة جرينلاند الدنماركية",
+      "views": 173,
+      "watchTimeHours": 20.5867,
+      "avgViewDuration": "0:07:08",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصاد سوريا",
+      "views": 170,
+      "watchTimeHours": 16.225,
+      "avgViewDuration": "0:05:43",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كوريا الشمالية",
+      "views": 168,
+      "watchTimeHours": 13.2867,
+      "avgViewDuration": "0:04:44",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "زي الكتاب مابيقول",
+      "views": 166,
+      "watchTimeHours": 32.4406,
+      "avgViewDuration": "0:11:43",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الذهب المخبر الاقتصادي",
+      "views": 165,
+      "watchTimeHours": 24.6274,
+      "avgViewDuration": "0:08:57",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "السليط الإخباري",
+      "views": 165,
+      "watchTimeHours": 19.3932,
+      "avgViewDuration": "0:07:03",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاقتصاد السوري",
+      "views": 161,
+      "watchTimeHours": 14.6136,
+      "avgViewDuration": "0:05:26",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سلفادور",
+      "views": 161,
+      "watchTimeHours": 10.4067,
+      "avgViewDuration": "0:03:52",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قناة السويس",
+      "views": 161,
+      "watchTimeHours": 19.9203,
+      "avgViewDuration": "0:07:25",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الإقتصادي بلس",
+      "views": 158,
+      "watchTimeHours": 28.6554,
+      "avgViewDuration": "0:10:52",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المانيا",
+      "views": 157,
+      "watchTimeHours": 13.2771,
+      "avgViewDuration": "0:05:04",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب وغزة",
+      "views": 157,
+      "watchTimeHours": 17.8366,
+      "avgViewDuration": "0:06:48",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "النووي الباكستاني",
+      "views": 156,
+      "watchTimeHours": 26.4321,
+      "avgViewDuration": "0:10:09",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تصريحات ترامب",
+      "views": 155,
+      "watchTimeHours": 18.7677,
+      "avgViewDuration": "0:07:15",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المغرب",
+      "views": 154,
+      "watchTimeHours": 15.5314,
+      "avgViewDuration": "0:06:07",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب اليمن",
+      "views": 152,
+      "watchTimeHours": 8.0037,
+      "avgViewDuration": "0:03:09",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سقوط امريكا",
+      "views": 151,
+      "watchTimeHours": 15.0697,
+      "avgViewDuration": "0:05:59",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جو شو",
+      "views": 148,
+      "watchTimeHours": 19.7342,
+      "avgViewDuration": "0:08:00",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "aj",
+      "views": 147,
+      "watchTimeHours": 20.9146,
+      "avgViewDuration": "0:08:32",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ستيب نيوز",
+      "views": 146,
+      "watchTimeHours": 18.6905,
+      "avgViewDuration": "0:07:40",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ajplus",
+      "views": 145,
+      "watchTimeHours": 21.0912,
+      "avgViewDuration": "0:08:47",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قوة الصين",
+      "views": 145,
+      "watchTimeHours": 19.4745,
+      "avgViewDuration": "0:08:03",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قناة الجزيرة",
+      "views": 144,
+      "watchTimeHours": 19.3909,
+      "avgViewDuration": "0:08:04",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب وكندا",
+      "views": 143,
+      "watchTimeHours": 15.2753,
+      "avgViewDuration": "0:06:24",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "deepseek شرح",
+      "views": 141,
+      "watchTimeHours": 20.3065,
+      "avgViewDuration": "0:08:38",
+      "topic": "ai",
+      "intent": "informational",
+      "personas": [
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "احمد البحيرى",
+      "views": 138,
+      "watchTimeHours": 29.0433,
+      "avgViewDuration": "0:12:43",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اعادة اعمار غزة",
+      "views": 138,
+      "watchTimeHours": 15.5806,
+      "avgViewDuration": "0:06:46",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "al mokhbir iktisadi",
+      "views": 135,
+      "watchTimeHours": 27.2098,
+      "avgViewDuration": "0:12:05",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "التعريفات الجمركية",
+      "views": 134,
+      "watchTimeHours": 27.5886,
+      "avgViewDuration": "0:12:21",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "وائل عواد",
+      "views": 134,
+      "watchTimeHours": 24.5296,
+      "avgViewDuration": "0:10:59",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "امبراطور امريكا الاخير",
+      "views": 133,
+      "watchTimeHours": 21.9375,
+      "avgViewDuration": "0:09:53",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "خمسينة اقتصاد",
+      "views": 133,
+      "watchTimeHours": 22.8564,
+      "avgViewDuration": "0:10:18",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار العالم",
+      "views": 132,
+      "watchTimeHours": 10.1004,
+      "avgViewDuration": "0:04:35",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير الفلسطينيين لمصر",
+      "views": 132,
+      "watchTimeHours": 16.5313,
+      "avgViewDuration": "0:07:30",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخر الاخبار",
+      "views": 130,
+      "watchTimeHours": 13.0318,
+      "avgViewDuration": "0:06:03",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي الذكاء الاصطناعي",
+      "views": 128,
+      "watchTimeHours": 13.506,
+      "avgViewDuration": "0:06:19",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "اسامة جاويش",
+      "views": 127,
+      "watchTimeHours": 17.9971,
+      "avgViewDuration": "0:08:30",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اوروبا",
+      "views": 127,
+      "watchTimeHours": 13.9606,
+      "avgViewDuration": "0:06:35",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نهاية الدولار",
+      "views": 127,
+      "watchTimeHours": 20.4961,
+      "avgViewDuration": "0:09:40",
+      "topic": "dollar",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين والسعودية",
+      "views": 126,
+      "watchTimeHours": 7.5198,
+      "avgViewDuration": "0:03:34",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "القبة الذهبية الامريكية",
+      "views": 126,
+      "watchTimeHours": 26.091,
+      "avgViewDuration": "0:12:25",
+      "topic": "gold",
+      "intent": "informational",
+      "personas": [
+        "investor"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين ضد امريكا",
+      "views": 125,
+      "watchTimeHours": 13.0732,
+      "avgViewDuration": "0:06:16",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "هجوم اوكرانيا على روسيا",
+      "views": 125,
+      "watchTimeHours": 15.2991,
+      "avgViewDuration": "0:07:20",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "القاتل الاقتصادي",
+      "views": 123,
+      "watchTimeHours": 13.7826,
+      "avgViewDuration": "0:06:43",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب الاقتصادية",
+      "views": 118,
+      "watchTimeHours": 25.0578,
+      "avgViewDuration": "0:12:44",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عبدالله الشريف",
+      "views": 118,
+      "watchTimeHours": 18.7314,
+      "avgViewDuration": "0:09:36",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين وامريكا المخبر الاقتصادي",
+      "views": 114,
+      "watchTimeHours": 18.1123,
+      "avgViewDuration": "0:09:31",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي السعودية",
+      "views": 114,
+      "watchTimeHours": 15.5132,
+      "avgViewDuration": "0:08:09",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "العربي",
+      "views": 113,
+      "watchTimeHours": 17.4572,
+      "avgViewDuration": "0:09:26",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا وأوكرانيا الان",
+      "views": 113,
+      "watchTimeHours": 8.9419,
+      "avgViewDuration": "0:04:44",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عبد الحميد العوني",
+      "views": 112,
+      "watchTimeHours": 15.6124,
+      "avgViewDuration": "0:08:21",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نتنياهو",
+      "views": 112,
+      "watchTimeHours": 8.2227,
+      "avgViewDuration": "0:04:24",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الروائي",
+      "views": 109,
+      "watchTimeHours": 16.4745,
+      "avgViewDuration": "0:09:09",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سكاي نيوز عربية بث مباشر",
+      "views": 109,
+      "watchTimeHours": 13.9791,
+      "avgViewDuration": "0:07:45",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اعمار غزة",
+      "views": 108,
+      "watchTimeHours": 12.4864,
+      "avgViewDuration": "0:06:56",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين المخبر الاقتصادي",
+      "views": 108,
+      "watchTimeHours": 15.9917,
+      "avgViewDuration": "0:08:53",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "تحليل حرب ايران واسرائيل",
+      "views": 108,
+      "watchTimeHours": 29.1945,
+      "avgViewDuration": "0:16:13",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تحليلات سياسية",
+      "views": 108,
+      "watchTimeHours": 8.1139,
+      "avgViewDuration": "0:04:30",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ثمانية",
+      "views": 108,
+      "watchTimeHours": 19.7591,
+      "avgViewDuration": "0:10:58",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا واوكرانيا",
+      "views": 106,
+      "watchTimeHours": 13.6145,
+      "avgViewDuration": "0:07:42",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "أمريكا والصين",
+      "views": 105,
+      "watchTimeHours": 14.9057,
+      "avgViewDuration": "0:08:31",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "شو قالوا بالعبري",
+      "views": 105,
+      "watchTimeHours": 14.2834,
+      "avgViewDuration": "0:08:19",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نووي باكستان",
+      "views": 103,
+      "watchTimeHours": 17.1203,
+      "avgViewDuration": "0:09:58",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "السليط الاخباري حلقة اليوم",
+      "views": 101,
+      "watchTimeHours": 12.2168,
+      "avgViewDuration": "0:07:15",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "إسرائيل",
+      "views": 100,
+      "watchTimeHours": 8.2931,
+      "avgViewDuration": "0:04:58",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين وامريكا الان",
+      "views": 100,
+      "watchTimeHours": 12.2161,
+      "avgViewDuration": "0:07:19",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا وروسيا",
+      "views": 100,
+      "watchTimeHours": 12.4574,
+      "avgViewDuration": "0:07:28",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كرين لاند",
+      "views": 100,
+      "watchTimeHours": 9.3417,
+      "avgViewDuration": "0:05:36",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي المانيا",
+      "views": 99,
+      "watchTimeHours": 17.6429,
+      "avgViewDuration": "0:10:41",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار اليوم",
+      "views": 98,
+      "watchTimeHours": 8.6733,
+      "avgViewDuration": "0:05:21",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب الصين",
+      "views": 98,
+      "watchTimeHours": 15.32,
+      "avgViewDuration": "0:09:22",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب الهند وباكستان",
+      "views": 98,
+      "watchTimeHours": 16.5884,
+      "avgViewDuration": "0:10:09",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سجن سلفادور",
+      "views": 98,
+      "watchTimeHours": 6.1509,
+      "avgViewDuration": "0:03:45",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار اقتصادية",
+      "views": 97,
+      "watchTimeHours": 9.8764,
+      "avgViewDuration": "0:06:06",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير",
+      "views": 97,
+      "watchTimeHours": 13.7074,
+      "avgViewDuration": "0:08:28",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب اليمن وامريكا",
+      "views": 97,
+      "watchTimeHours": 7.2846,
+      "avgViewDuration": "0:04:30",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جو حطاب",
+      "views": 96,
+      "watchTimeHours": 7.1724,
+      "avgViewDuration": "0:04:37",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غريلاند",
+      "views": 95,
+      "watchTimeHours": 8.6449,
+      "avgViewDuration": "0:05:27",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجزيره مباشر",
+      "views": 94,
+      "watchTimeHours": 15.6459,
+      "avgViewDuration": "0:10:05",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "انقذوا غزة",
+      "views": 94,
+      "watchTimeHours": 17.4521,
+      "avgViewDuration": "0:11:08",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب نووية اقتصادية",
+      "views": 93,
+      "watchTimeHours": 23.2327,
+      "avgViewDuration": "0:14:59",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصاد الكوكب برو",
+      "views": 92,
+      "watchTimeHours": 18.1116,
+      "avgViewDuration": "0:11:48",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ايران وامريكا",
+      "views": 92,
+      "watchTimeHours": 10.2905,
+      "avgViewDuration": "0:06:42",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ذهب",
+      "views": 92,
+      "watchTimeHours": 6.8589,
+      "avgViewDuration": "0:04:28",
+      "topic": "gold",
+      "intent": "informational",
+      "personas": [
+        "investor"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كوكب الاقتصاد",
+      "views": 91,
+      "watchTimeHours": 14.3857,
+      "avgViewDuration": "0:09:29",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تميم البرغوثي",
+      "views": 90,
+      "watchTimeHours": 11.2408,
+      "avgViewDuration": "0:07:29",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نهضة الصين",
+      "views": 90,
+      "watchTimeHours": 11.7536,
+      "avgViewDuration": "0:07:50",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "sky news arabia بث مباشر",
+      "views": 89,
+      "watchTimeHours": 11.1356,
+      "avgViewDuration": "0:07:30",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "بن غوريون",
+      "views": 89,
+      "watchTimeHours": 12.9661,
+      "avgViewDuration": "0:08:44",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب باكستان والهند",
+      "views": 89,
+      "watchTimeHours": 11.5043,
+      "avgViewDuration": "0:07:45",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "daheeh",
+      "views": 88,
+      "watchTimeHours": 16.7788,
+      "avgViewDuration": "0:11:26",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "السعوديه",
+      "views": 88,
+      "watchTimeHours": 9.905,
+      "avgViewDuration": "0:06:45",
+      "topic": "saudi",
+      "intent": "informational",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا الصين",
+      "views": 88,
+      "watchTimeHours": 15.4158,
+      "avgViewDuration": "0:10:30",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "انهيار الدولار",
+      "views": 88,
+      "watchTimeHours": 9.8571,
+      "avgViewDuration": "0:06:43",
+      "topic": "dollar",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اوروبا وروسيا",
+      "views": 88,
+      "watchTimeHours": 10.9609,
+      "avgViewDuration": "0:07:28",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سليط الاخباري",
+      "views": 88,
+      "watchTimeHours": 9.888,
+      "avgViewDuration": "0:06:44",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كيف",
+      "views": 88,
+      "watchTimeHours": 5.004,
+      "avgViewDuration": "0:03:24",
+      "topic": "other",
+      "intent": "how_to",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "إقتصاد الكوكب",
+      "views": 87,
+      "watchTimeHours": 10.4261,
+      "avgViewDuration": "0:07:11",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجيش الالماني المضحك",
+      "views": 87,
+      "watchTimeHours": 21.2814,
+      "avgViewDuration": "0:14:40",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "انهيار اقتصاد امريكا",
+      "views": 87,
+      "watchTimeHours": 11.1073,
+      "avgViewDuration": "0:07:39",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "إثيوبيا",
+      "views": 86,
+      "watchTimeHours": 4.8815,
+      "avgViewDuration": "0:03:24",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير الفلسطينيين الى مصر والاردن",
+      "views": 86,
+      "watchTimeHours": 12.1711,
+      "avgViewDuration": "0:08:29",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "دروس اونلاين",
+      "views": 86,
+      "watchTimeHours": 8.0756,
+      "avgViewDuration": "0:05:38",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غزة الان",
+      "views": 85,
+      "watchTimeHours": 10.1823,
+      "avgViewDuration": "0:07:11",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين و امريكا",
+      "views": 84,
+      "watchTimeHours": 18.3403,
+      "avgViewDuration": "0:13:06",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "انهيار امريكا وشيك",
+      "views": 84,
+      "watchTimeHours": 9.7571,
+      "avgViewDuration": "0:06:58",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "البلاتفورم",
+      "views": 83,
+      "watchTimeHours": 8.8246,
+      "avgViewDuration": "0:06:22",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادى بلس",
+      "views": 83,
+      "watchTimeHours": 13.7171,
+      "avgViewDuration": "0:09:54",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير غزه",
+      "views": 82,
+      "watchTimeHours": 9.188,
+      "avgViewDuration": "0:06:43",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "زي الكتاب ما بيقول",
+      "views": 82,
+      "watchTimeHours": 15.5128,
+      "avgViewDuration": "0:11:29",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "القنبلة النووية الباكستانية",
+      "views": 81,
+      "watchTimeHours": 10.152,
+      "avgViewDuration": "0:07:31",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي ابستين",
+      "views": 81,
+      "watchTimeHours": 16.8714,
+      "avgViewDuration": "0:12:29",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي جنوب افريقيا",
+      "views": 81,
+      "watchTimeHours": 11.4822,
+      "avgViewDuration": "0:08:30",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "تطور الصين",
+      "views": 81,
+      "watchTimeHours": 10.511,
+      "avgViewDuration": "0:07:47",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جزيره جرينلاند",
+      "views": 81,
+      "watchTimeHours": 9.1024,
+      "avgViewDuration": "0:06:44",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سوريا بعد رفع العقوبات",
+      "views": 81,
+      "watchTimeHours": 7.8491,
+      "avgViewDuration": "0:05:48",
+      "topic": "syria",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "فلسطين",
+      "views": 81,
+      "watchTimeHours": 8.4371,
+      "avgViewDuration": "0:06:19",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "السودان",
+      "views": 80,
+      "watchTimeHours": 10.7728,
+      "avgViewDuration": "0:08:04",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ابستين وترامب",
+      "views": 79,
+      "watchTimeHours": 12.3597,
+      "avgViewDuration": "0:09:23",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا الان",
+      "views": 79,
+      "watchTimeHours": 6.7825,
+      "avgViewDuration": "0:05:09",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مضيق هرمز المخبر الاقتصادي",
+      "views": 78,
+      "watchTimeHours": 6.7338,
+      "avgViewDuration": "0:05:10",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "mokhbir iktisadi aj+",
+      "views": 77,
+      "watchTimeHours": 17.6159,
+      "avgViewDuration": "0:13:43",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا تضرب ايران",
+      "views": 77,
+      "watchTimeHours": 6.6052,
+      "avgViewDuration": "0:05:08",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قنبلة ايران النووية",
+      "views": 77,
+      "watchTimeHours": 21.7247,
+      "avgViewDuration": "0:16:55",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الش خانة",
+      "views": 76,
+      "watchTimeHours": 14.4475,
+      "avgViewDuration": "0:11:42",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين وروسيا",
+      "views": 76,
+      "watchTimeHours": 6.9592,
+      "avgViewDuration": "0:05:29",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الميادين بث مباشر",
+      "views": 76,
+      "watchTimeHours": 8.9017,
+      "avgViewDuration": "0:07:01",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب امريكا والصين",
+      "views": 76,
+      "watchTimeHours": 14.569,
+      "avgViewDuration": "0:11:30",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "شفا",
+      "views": 76,
+      "watchTimeHours": 7.8154,
+      "avgViewDuration": "0:08:50",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "إيران وإسرائيل",
+      "views": 75,
+      "watchTimeHours": 11.2233,
+      "avgViewDuration": "0:08:58",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "القنبله النوويه",
+      "views": 75,
+      "watchTimeHours": 11.4895,
+      "avgViewDuration": "0:09:11",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المهاجرين في امريكا",
+      "views": 75,
+      "watchTimeHours": 5.4461,
+      "avgViewDuration": "0:04:21",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ايران المخبر الاقتصادي",
+      "views": 75,
+      "watchTimeHours": 22.1318,
+      "avgViewDuration": "0:17:42",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "ضم كندا لامريكا",
+      "views": 75,
+      "watchTimeHours": 10.1894,
+      "avgViewDuration": "0:08:09",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كندا المخبر الاقتصادي",
+      "views": 75,
+      "watchTimeHours": 12.4895,
+      "avgViewDuration": "0:09:59",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "البث الحي لقناة الجزيرة",
+      "views": 74,
+      "watchTimeHours": 9.3099,
+      "avgViewDuration": "0:07:39",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجزيرة مباشر العربية الحدث سكاي نيوز",
+      "views": 74,
+      "watchTimeHours": 11.3183,
+      "avgViewDuration": "0:09:10",
+      "topic": "channel",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اليمن وامريكا",
+      "views": 74,
+      "watchTimeHours": 8.5232,
+      "avgViewDuration": "0:06:54",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "بحيري",
+      "views": 74,
+      "watchTimeHours": 14.5286,
+      "avgViewDuration": "0:11:46",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جزيرة جرين لاند",
+      "views": 74,
+      "watchTimeHours": 8.7083,
+      "avgViewDuration": "0:07:03",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب الاقتصاد بين الصين وامريكا",
+      "views": 74,
+      "watchTimeHours": 13.6104,
+      "avgViewDuration": "0:11:02",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "صين وامريكا",
+      "views": 74,
+      "watchTimeHours": 8.4833,
+      "avgViewDuration": "0:06:52",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي plus",
+      "views": 73,
+      "watchTimeHours": 13.7033,
+      "avgViewDuration": "0:11:15",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "خطة ترامب",
+      "views": 73,
+      "watchTimeHours": 9.7199,
+      "avgViewDuration": "0:07:59",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ai",
+      "views": 72,
+      "watchTimeHours": 6.3374,
+      "avgViewDuration": "0:05:16",
+      "topic": "ai",
+      "intent": "informational",
+      "personas": [
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "al jazeera",
+      "views": 72,
+      "watchTimeHours": 8.1275,
+      "avgViewDuration": "0:06:46",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "أشرف ابراهيم",
+      "views": 72,
+      "watchTimeHours": 11.0439,
+      "avgViewDuration": "0:09:12",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "news",
+      "views": 71,
+      "watchTimeHours": 8.1052,
+      "avgViewDuration": "0:06:50",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب",
+      "views": 71,
+      "watchTimeHours": 8.8582,
+      "avgViewDuration": "0:07:35",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا وأوروبا",
+      "views": 71,
+      "watchTimeHours": 11.3585,
+      "avgViewDuration": "0:09:35",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قرية العجائب",
+      "views": 71,
+      "watchTimeHours": 8.8526,
+      "avgViewDuration": "0:07:28",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مع معتز",
+      "views": 71,
+      "watchTimeHours": 13.7728,
+      "avgViewDuration": "0:11:38",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نووي ايران",
+      "views": 71,
+      "watchTimeHours": 10.4789,
+      "avgViewDuration": "0:08:51",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "aljazeera arabic live",
+      "views": 70,
+      "watchTimeHours": 11.1502,
+      "avgViewDuration": "0:09:33",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "mbridge",
+      "views": 70,
+      "watchTimeHours": 7.8974,
+      "avgViewDuration": "0:06:46",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "احمد الشرع",
+      "views": 70,
+      "watchTimeHours": 9.6813,
+      "avgViewDuration": "0:08:32",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجيش الألماني",
+      "views": 70,
+      "watchTimeHours": 8.5191,
+      "avgViewDuration": "0:07:18",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "النووي الايراني",
+      "views": 70,
+      "watchTimeHours": 12.5093,
+      "avgViewDuration": "0:10:43",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "فرنسا وروسيا",
+      "views": 70,
+      "watchTimeHours": 7.7797,
+      "avgViewDuration": "0:06:40",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قرارات ترامب الجديده",
+      "views": 70,
+      "watchTimeHours": 8.5069,
+      "avgViewDuration": "0:07:17",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحوثي",
+      "views": 69,
+      "watchTimeHours": 8.0354,
+      "avgViewDuration": "0:06:59",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تحليل سياسي",
+      "views": 69,
+      "watchTimeHours": 9.7271,
+      "avgViewDuration": "0:08:27",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "احمد ابو زيد",
+      "views": 68,
+      "watchTimeHours": 6.0536,
+      "avgViewDuration": "0:05:25",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحوثيين",
+      "views": 68,
+      "watchTimeHours": 7.3513,
+      "avgViewDuration": "0:06:34",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي غزة",
+      "views": 68,
+      "watchTimeHours": 11.3156,
+      "avgViewDuration": "0:09:59",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "زوايا مظلمة",
+      "views": 68,
+      "watchTimeHours": 7.1625,
+      "avgViewDuration": "0:06:24",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "aj+ المخبر الاقتصادي",
+      "views": 67,
+      "watchTimeHours": 10.6843,
+      "avgViewDuration": "0:09:34",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب التجارية",
+      "views": 67,
+      "watchTimeHours": 13.9753,
+      "avgViewDuration": "0:12:30",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سومري",
+      "views": 67,
+      "watchTimeHours": 8.6727,
+      "avgViewDuration": "0:07:45",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا والصين",
+      "views": 66,
+      "watchTimeHours": 7.3807,
+      "avgViewDuration": "0:06:42",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "أوكرانيا",
+      "views": 65,
+      "watchTimeHours": 5.7651,
+      "avgViewDuration": "0:05:19",
+      "topic": "ukraine",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الكبريت",
+      "views": 65,
+      "watchTimeHours": 10.0861,
+      "avgViewDuration": "0:09:18",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "السبيل",
+      "views": 64,
+      "watchTimeHours": 10.7584,
+      "avgViewDuration": "0:10:05",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عربي",
+      "views": 64,
+      "watchTimeHours": 6.7906,
+      "avgViewDuration": "0:06:21",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "دونالد ترامب",
+      "views": 63,
+      "watchTimeHours": 8.2248,
+      "avgViewDuration": "0:07:49",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غرين لاند",
+      "views": 63,
+      "watchTimeHours": 7.0212,
+      "avgViewDuration": "0:06:41",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "youtube",
+      "views": 62,
+      "watchTimeHours": 5.3273,
+      "avgViewDuration": "0:05:09",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "باكستان وإسرائيل",
+      "views": 62,
+      "watchTimeHours": 9.7002,
+      "avgViewDuration": "0:09:23",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "احمد البحيري",
+      "views": 61,
+      "watchTimeHours": 10.8313,
+      "avgViewDuration": "0:10:39",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاقتصاد المصري",
+      "views": 61,
+      "watchTimeHours": 7.7507,
+      "avgViewDuration": "0:07:37",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجيش الروسي",
+      "views": 61,
+      "watchTimeHours": 5.545,
+      "avgViewDuration": "0:05:27",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الرسوم الجمركية",
+      "views": 61,
+      "watchTimeHours": 16.2534,
+      "avgViewDuration": "0:15:59",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترمب غزة",
+      "views": 61,
+      "watchTimeHours": 6.5399,
+      "avgViewDuration": "0:06:25",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب اسرائيل وايران",
+      "views": 61,
+      "watchTimeHours": 11.6758,
+      "avgViewDuration": "0:11:29",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب اوروبا وروسيا",
+      "views": 61,
+      "watchTimeHours": 6.0791,
+      "avgViewDuration": "0:05:58",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "دخول امريكا الحرب",
+      "views": 61,
+      "watchTimeHours": 7.0704,
+      "avgViewDuration": "0:06:57",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سوريا الان",
+      "views": 61,
+      "watchTimeHours": 5.2343,
+      "avgViewDuration": "0:05:19",
+      "topic": "syria",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سوريا اليوم",
+      "views": 61,
+      "watchTimeHours": 9.2016,
+      "avgViewDuration": "0:09:03",
+      "topic": "syria",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غرينلاند وترامب",
+      "views": 61,
+      "watchTimeHours": 6.5566,
+      "avgViewDuration": "0:06:26",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "أحمد بحيري",
+      "views": 60,
+      "watchTimeHours": 9.9489,
+      "avgViewDuration": "0:09:56",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي deepseek",
+      "views": 60,
+      "watchTimeHours": 8.0324,
+      "avgViewDuration": "0:08:01",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا و الصين",
+      "views": 60,
+      "watchTimeHours": 14.1225,
+      "avgViewDuration": "0:14:07",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ايران اسرائيل",
+      "views": 60,
+      "watchTimeHours": 13.3268,
+      "avgViewDuration": "0:13:19",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب روسيا وأوكرانيا اليوم",
+      "views": 60,
+      "watchTimeHours": 6.2608,
+      "avgViewDuration": "0:06:15",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "وثائقيات",
+      "views": 60,
+      "watchTimeHours": 9.4883,
+      "avgViewDuration": "0:09:29",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاقتصاد العالمي 2025",
+      "views": 59,
+      "watchTimeHours": 9.4299,
+      "avgViewDuration": "0:09:35",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحدث مباشر",
+      "views": 59,
+      "watchTimeHours": 7.307,
+      "avgViewDuration": "0:07:41",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب وغزه",
+      "views": 59,
+      "watchTimeHours": 7.0134,
+      "avgViewDuration": "0:07:07",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي صواريخ ايران",
+      "views": 58,
+      "watchTimeHours": 13.7593,
+      "avgViewDuration": "0:14:14",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب اوكرانيا وروسيا",
+      "views": 58,
+      "watchTimeHours": 4.7129,
+      "avgViewDuration": "0:04:52",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب كندا",
+      "views": 57,
+      "watchTimeHours": 6.9411,
+      "avgViewDuration": "0:07:18",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "سجون السلفادور",
+      "views": 57,
+      "watchTimeHours": 4.3231,
+      "avgViewDuration": "0:04:33",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عماد البحيري",
+      "views": 57,
+      "watchTimeHours": 10.605,
+      "avgViewDuration": "0:11:09",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نعرف ne3raf",
+      "views": 57,
+      "watchTimeHours": 9.6206,
+      "avgViewDuration": "0:10:07",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار كندا",
+      "views": 56,
+      "watchTimeHours": 4.5857,
+      "avgViewDuration": "0:04:54",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاقتصاد السعودي",
+      "views": 56,
+      "watchTimeHours": 4.9492,
+      "avgViewDuration": "0:05:18",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجزيرة مباشر اخبار",
+      "views": 56,
+      "watchTimeHours": 7.0572,
+      "avgViewDuration": "0:07:33",
+      "topic": "channel",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي اسرائيل",
+      "views": 56,
+      "watchTimeHours": 10.1948,
+      "avgViewDuration": "0:10:55",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "جزيرة ابستين",
+      "views": 56,
+      "watchTimeHours": 10.7424,
+      "avgViewDuration": "0:11:30",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "أثيوبيا",
+      "views": 55,
+      "watchTimeHours": 2.902,
+      "avgViewDuration": "0:03:09",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اسرائيل الان",
+      "views": 55,
+      "watchTimeHours": 8.7068,
+      "avgViewDuration": "0:09:29",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اقتصاد السعودية",
+      "views": 55,
+      "watchTimeHours": 5.6782,
+      "avgViewDuration": "0:06:11",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الاقتصاد الجديد",
+      "views": 55,
+      "watchTimeHours": 6.5436,
+      "avgViewDuration": "0:07:08",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي روسيا",
+      "views": 55,
+      "watchTimeHours": 9.8789,
+      "avgViewDuration": "0:10:46",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترحيل سكان غزة",
+      "views": 55,
+      "watchTimeHours": 7.0889,
+      "avgViewDuration": "0:07:44",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جيش ألمانيا المضحك",
+      "views": 55,
+      "watchTimeHours": 10.5446,
+      "avgViewDuration": "0:11:30",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا اوكرانيا",
+      "views": 55,
+      "watchTimeHours": 7.7885,
+      "avgViewDuration": "0:08:29",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ضرب امريكا لايران",
+      "views": 55,
+      "watchTimeHours": 4.65,
+      "avgViewDuration": "0:05:04",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "فالكون",
+      "views": 55,
+      "watchTimeHours": 8.6507,
+      "avgViewDuration": "0:09:58",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كيف صنعت باكستان القنبلة النووية",
+      "views": 55,
+      "watchTimeHours": 9.0804,
+      "avgViewDuration": "0:09:54",
+      "topic": "other",
+      "intent": "how_to",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "aj عربي",
+      "views": 54,
+      "watchTimeHours": 9.091,
+      "avgViewDuration": "0:10:06",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "iran israel",
+      "views": 54,
+      "watchTimeHours": 8.3284,
+      "avgViewDuration": "0:09:15",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الضرائب الامريكية",
+      "views": 54,
+      "watchTimeHours": 15.3672,
+      "avgViewDuration": "0:17:04",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "العالم",
+      "views": 54,
+      "watchTimeHours": 3.2503,
+      "avgViewDuration": "0:03:36",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "العربي مباشر",
+      "views": 54,
+      "watchTimeHours": 6.1761,
+      "avgViewDuration": "0:06:51",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "cnbc arabia بث مباشر",
+      "views": 53,
+      "watchTimeHours": 8.0751,
+      "avgViewDuration": "0:09:08",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار الصين وامريكا",
+      "views": 53,
+      "watchTimeHours": 6.2647,
+      "avgViewDuration": "0:07:05",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الجزيرة الوثائقية",
+      "views": 53,
+      "watchTimeHours": 11.5159,
+      "avgViewDuration": "0:13:02",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي ديب سيك",
+      "views": 53,
+      "watchTimeHours": 9.95,
+      "avgViewDuration": "0:11:15",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب والمهاجرين",
+      "views": 53,
+      "watchTimeHours": 4.0378,
+      "avgViewDuration": "0:04:34",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب ونتنياهو",
+      "views": 53,
+      "watchTimeHours": 5.4614,
+      "avgViewDuration": "0:06:10",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "mohamed assem",
+      "views": 52,
+      "watchTimeHours": 7.3195,
+      "avgViewDuration": "0:08:26",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار امريكا",
+      "views": 52,
+      "watchTimeHours": 4.5393,
+      "avgViewDuration": "0:05:14",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي الجيش الالماني",
+      "views": 52,
+      "watchTimeHours": 10.9688,
+      "avgViewDuration": "0:12:39",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب ايران",
+      "views": 52,
+      "watchTimeHours": 10.0217,
+      "avgViewDuration": "0:11:47",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ايران الان",
+      "views": 51,
+      "watchTimeHours": 3.3922,
+      "avgViewDuration": "0:03:59",
+      "topic": "iran",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مباشر",
+      "views": 51,
+      "watchTimeHours": 7.0589,
+      "avgViewDuration": "0:08:18",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نايف بن نهار",
+      "views": 51,
+      "watchTimeHours": 9.5702,
+      "avgViewDuration": "0:11:15",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نهاية كندا",
+      "views": 51,
+      "watchTimeHours": 10.3141,
+      "avgViewDuration": "0:12:08",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار روسيا واوكرانيا",
+      "views": 50,
+      "watchTimeHours": 5.4238,
+      "avgViewDuration": "0:06:30",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "خطة التهجير",
+      "views": 50,
+      "watchTimeHours": 5.6276,
+      "avgViewDuration": "0:06:45",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عبودا",
+      "views": 50,
+      "watchTimeHours": 7.0102,
+      "avgViewDuration": "0:08:24",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "محلل اقتصادي",
+      "views": 50,
+      "watchTimeHours": 7.3442,
+      "avgViewDuration": "0:08:48",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "summary channel",
+      "views": 49,
+      "watchTimeHours": 6.5208,
+      "avgViewDuration": "0:07:59",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ابراهيم الشرقاوي",
+      "views": 49,
+      "watchTimeHours": 5.0691,
+      "avgViewDuration": "0:06:12",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب وبوتين",
+      "views": 49,
+      "watchTimeHours": 5.9815,
+      "avgViewDuration": "0:07:19",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب الصين",
+      "views": 49,
+      "watchTimeHours": 4.2673,
+      "avgViewDuration": "0:05:13",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ضم كندا الى امريكا",
+      "views": 49,
+      "watchTimeHours": 4.2708,
+      "avgViewDuration": "0:05:13",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عبد الله شريف",
+      "views": 49,
+      "watchTimeHours": 7.9475,
+      "avgViewDuration": "0:09:43",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كندا امريكا",
+      "views": 49,
+      "watchTimeHours": 6.8142,
+      "avgViewDuration": "0:08:20",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "abdallah cherif",
+      "views": 48,
+      "watchTimeHours": 7.1521,
+      "avgViewDuration": "0:08:56",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "تهجير اهل غزه",
+      "views": 48,
+      "watchTimeHours": 4.2211,
+      "avgViewDuration": "0:05:16",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غزة ترامب",
+      "views": 48,
+      "watchTimeHours": 3.8426,
+      "avgViewDuration": "0:04:48",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "mukhbir eqtisadi",
+      "views": 47,
+      "watchTimeHours": 8.1113,
+      "avgViewDuration": "0:11:18",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي جيش المانيا",
+      "views": 47,
+      "watchTimeHours": 11.708,
+      "avgViewDuration": "0:14:56",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "تايوان",
+      "views": 47,
+      "watchTimeHours": 6.1575,
+      "avgViewDuration": "0:07:51",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "جيفري إبستين المخبر الاقتصادي",
+      "views": 47,
+      "watchTimeHours": 11.5886,
+      "avgViewDuration": "0:14:47",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب اوكرانيا",
+      "views": 47,
+      "watchTimeHours": 2.9948,
+      "avgViewDuration": "0:03:49",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "كيف انتصر بوتين",
+      "views": 47,
+      "watchTimeHours": 11.2793,
+      "avgViewDuration": "0:14:23",
+      "topic": "russia",
+      "intent": "how_to",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "لماذا تندفع ايران",
+      "views": 47,
+      "watchTimeHours": 15.2881,
+      "avgViewDuration": "0:19:31",
+      "topic": "iran",
+      "intent": "why",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ملخص",
+      "views": 47,
+      "watchTimeHours": 5.5559,
+      "avgViewDuration": "0:07:05",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قناه الجزيره",
+      "views": 46,
+      "watchTimeHours": 3.0686,
+      "avgViewDuration": "0:04:00",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مخبر إقتصادي",
+      "views": 46,
+      "watchTimeHours": 7.4084,
+      "avgViewDuration": "0:09:39",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار الاقتصاد العالمي",
+      "views": 45,
+      "watchTimeHours": 5.8738,
+      "avgViewDuration": "0:07:49",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا تستعد للحرب",
+      "views": 45,
+      "watchTimeHours": 7.1794,
+      "avgViewDuration": "0:09:34",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا وايران",
+      "views": 45,
+      "watchTimeHours": 3.7535,
+      "avgViewDuration": "0:05:00",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب واوروبا",
+      "views": 45,
+      "watchTimeHours": 7.8792,
+      "avgViewDuration": "0:10:30",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب وزيلينسكي",
+      "views": 45,
+      "watchTimeHours": 7.4196,
+      "avgViewDuration": "0:09:53",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "حرب اقتصادية",
+      "views": 45,
+      "watchTimeHours": 7.1246,
+      "avgViewDuration": "0:09:29",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ذكاء اصطناعي",
+      "views": 45,
+      "watchTimeHours": 3.5773,
+      "avgViewDuration": "0:04:52",
+      "topic": "ai",
+      "intent": "informational",
+      "personas": [
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "راهب المخا",
+      "views": 45,
+      "watchTimeHours": 0.2022,
+      "avgViewDuration": "0:00:25",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "قناة بن غوريون المائية",
+      "views": 45,
+      "watchTimeHours": 7.1699,
+      "avgViewDuration": "0:09:33",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "مباشر الجزيرة",
+      "views": 45,
+      "watchTimeHours": 7.7253,
+      "avgViewDuration": "0:10:18",
+      "topic": "channel",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "معتز مطر",
+      "views": 45,
+      "watchTimeHours": 5.7444,
+      "avgViewDuration": "0:07:39",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "dahih",
+      "views": 44,
+      "watchTimeHours": 7.1093,
+      "avgViewDuration": "0:09:41",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "deep seek",
+      "views": 44,
+      "watchTimeHours": 6.3648,
+      "avgViewDuration": "0:08:40",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "deepseek المخبر الاقتصادي",
+      "views": 44,
+      "watchTimeHours": 8.3289,
+      "avgViewDuration": "0:11:21",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "joe hattab",
+      "views": 44,
+      "watchTimeHours": 4.4511,
+      "avgViewDuration": "0:06:04",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب الروسية الاوكرانية اليوم",
+      "views": 44,
+      "watchTimeHours": 6.5204,
+      "avgViewDuration": "0:08:53",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "السلاح الصيني انتصر",
+      "views": 44,
+      "watchTimeHours": 9.2374,
+      "avgViewDuration": "0:12:35",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المخبر الاقتصادي اوكرانيا",
+      "views": 44,
+      "watchTimeHours": 9.1702,
+      "avgViewDuration": "0:12:30",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "امريكا امريكا",
+      "views": 44,
+      "watchTimeHours": 0.505,
+      "avgViewDuration": "0:00:41",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترحيل الفلسطينيين من غزة",
+      "views": 44,
+      "watchTimeHours": 5.3476,
+      "avgViewDuration": "0:07:17",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "لونا الشبل",
+      "views": 44,
+      "watchTimeHours": 0.3072,
+      "avgViewDuration": "0:00:59",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار الصين",
+      "views": 43,
+      "watchTimeHours": 2.2946,
+      "avgViewDuration": "0:03:12",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب المخبر الاقتصادي",
+      "views": 43,
+      "watchTimeHours": 7.8675,
+      "avgViewDuration": "0:10:58",
+      "topic": "channel",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": true,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا وسوريا",
+      "views": 43,
+      "watchTimeHours": 4.2807,
+      "avgViewDuration": "0:05:58",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "نعرف",
+      "views": 43,
+      "watchTimeHours": 5.6238,
+      "avgViewDuration": "0:07:50",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "greenland",
+      "views": 42,
+      "watchTimeHours": 3.2027,
+      "avgViewDuration": "0:04:34",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "summary قناة",
+      "views": 42,
+      "watchTimeHours": 6.6414,
+      "avgViewDuration": "0:09:29",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار كندا اليوم",
+      "views": 42,
+      "watchTimeHours": 2.3079,
+      "avgViewDuration": "0:03:17",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "التضخم",
+      "views": 42,
+      "watchTimeHours": 6.918,
+      "avgViewDuration": "0:09:52",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الحرب العالمية الثانية",
+      "views": 42,
+      "watchTimeHours": 7.5851,
+      "avgViewDuration": "0:10:50",
+      "topic": "war",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الشاكوش الاقتصادي",
+      "views": 42,
+      "watchTimeHours": 3.3014,
+      "avgViewDuration": "0:04:42",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصواريخ الصينية",
+      "views": 42,
+      "watchTimeHours": 4.4649,
+      "avgViewDuration": "0:06:22",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصىن",
+      "views": 42,
+      "watchTimeHours": 5.2101,
+      "avgViewDuration": "0:07:26",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "باكستان واسرائيل",
+      "views": 42,
+      "watchTimeHours": 6.2757,
+      "avgViewDuration": "0:08:57",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "بودكاست فنجان",
+      "views": 42,
+      "watchTimeHours": 7.1591,
+      "avgViewDuration": "0:10:13",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب و الصين",
+      "views": 42,
+      "watchTimeHours": 6.2372,
+      "avgViewDuration": "0:08:54",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترحيل الفلسطينيين",
+      "views": 42,
+      "watchTimeHours": 6.1249,
+      "avgViewDuration": "0:08:44",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "وثائقي ناشيونال جيوغرافيك",
+      "views": 42,
+      "watchTimeHours": 7.4865,
+      "avgViewDuration": "0:10:41",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "bbc arabic بث مباشر",
+      "views": 41,
+      "watchTimeHours": 4.6881,
+      "avgViewDuration": "0:06:51",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "dw arabic",
+      "views": 41,
+      "watchTimeHours": 4.7049,
+      "avgViewDuration": "0:07:03",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار روسيا",
+      "views": 41,
+      "watchTimeHours": 4.0911,
+      "avgViewDuration": "0:05:59",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار سوريا",
+      "views": 41,
+      "watchTimeHours": 3.5641,
+      "avgViewDuration": "0:05:37",
+      "topic": "syria",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "اخبار مباشر",
+      "views": 41,
+      "watchTimeHours": 6.1134,
+      "avgViewDuration": "0:08:56",
+      "topic": "other",
+      "intent": "live",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "السعوديه والصين",
+      "views": 41,
+      "watchTimeHours": 1.9417,
+      "avgViewDuration": "0:02:50",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الصين وترامب",
+      "views": 41,
+      "watchTimeHours": 6.7991,
+      "avgViewDuration": "0:09:56",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "الغد",
+      "views": 41,
+      "watchTimeHours": 5.9752,
+      "avgViewDuration": "0:08:44",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "المدوان",
+      "views": 41,
+      "watchTimeHours": 5.7077,
+      "avgViewDuration": "0:08:21",
+      "topic": "other",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "انهيار الاقتصاد الأمريكي",
+      "views": 41,
+      "watchTimeHours": 1.9056,
+      "avgViewDuration": "0:02:47",
+      "topic": "economy",
+      "intent": "informational",
+      "personas": [
+        "investor",
+        "egyptian_business"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "ترامب ترحيل المهاجرين",
+      "views": 41,
+      "watchTimeHours": 3.8342,
+      "avgViewDuration": "0:05:36",
+      "topic": "usa",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "خطة تهجير غزة",
+      "views": 41,
+      "watchTimeHours": 6.046,
+      "avgViewDuration": "0:08:50",
+      "topic": "gaza",
+      "intent": "informational",
+      "personas": [],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "روسيا سوريا",
+      "views": 41,
+      "watchTimeHours": 3.0788,
+      "avgViewDuration": "0:04:30",
+      "topic": "russia",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "صعود الصين",
+      "views": 41,
+      "watchTimeHours": 5.1318,
+      "avgViewDuration": "0:07:30",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "عصر الصين قادم",
+      "views": 41,
+      "watchTimeHours": 6.6128,
+      "avgViewDuration": "0:09:40",
+      "topic": "china",
+      "intent": "informational",
+      "personas": [
+        "geopolitics",
+        "tech_future"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    },
+    {
+      "term": "غرينلاند أكبر جزيرة في العالم",
+      "views": 41,
+      "watchTimeHours": 3.1942,
+      "avgViewDuration": "0:04:40",
+      "topic": "greenland",
+      "intent": "informational",
+      "personas": [
+        "geopolitics"
+      ],
+      "isBranded": false,
+      "isOpportunity": false
+    }
+  ],
+  "insights": {
+    "viewsByTopic": [
+      {
+        "topic": "channel",
+        "views": 1068529
+      },
+      {
+        "topic": "other",
+        "views": 58450
+      },
+      {
+        "topic": "economy",
+        "views": 55827
+      },
+      {
+        "topic": "china",
+        "views": 23644
+      },
+      {
+        "topic": "usa",
+        "views": 11225
+      },
+      {
+        "topic": "iran",
+        "views": 7070
+      },
+      {
+        "topic": "gaza",
+        "views": 5671
+      },
+      {
+        "topic": "greenland",
+        "views": 5582
+      },
+      {
+        "topic": "russia",
+        "views": 5269
+      },
+      {
+        "topic": "gold",
+        "views": 3644
+      },
+      {
+        "topic": "ai",
+        "views": 2385
+      },
+      {
+        "topic": "syria",
+        "views": 2245
+      },
+      {
+        "topic": "war",
+        "views": 1299
+      },
+      {
+        "topic": "ukraine",
+        "views": 714
+      },
+      {
+        "topic": "saudi",
+        "views": 675
+      },
+      {
+        "topic": "dollar",
+        "views": 484
+      }
+    ],
+    "topOpportunities": [
+      {
+        "term": "مخبر اقتصادي",
+        "views": 26313,
+        "topic": "economy",
+        "personas": [
+          "investor",
+          "egyptian_business"
+        ]
+      },
+      {
+        "term": "الصين",
+        "views": 10847,
+        "topic": "china",
+        "personas": [
+          "geopolitics",
+          "tech_future"
+        ]
+      },
+      {
+        "term": "الدحيح",
+        "views": 8623,
+        "topic": "channel",
+        "personas": []
+      },
+      {
+        "term": "الخبير الاقتصادي",
+        "views": 6855,
+        "topic": "economy",
+        "personas": [
+          "investor",
+          "egyptian_business"
+        ]
+      },
+      {
+        "term": "مخبر الاقتصادي",
+        "views": 5001,
+        "topic": "economy",
+        "personas": [
+          "investor",
+          "egyptian_business"
+        ]
+      },
+      {
+        "term": "الصين وامريكا",
+        "views": 4618,
+        "topic": "china",
+        "personas": [
+          "geopolitics",
+          "tech_future"
+        ]
+      },
+      {
+        "term": "الجزيرة مباشر",
+        "views": 4307,
+        "topic": "channel",
+        "personas": []
+      },
+      {
+        "term": "اقتصاد الكوكب",
+        "views": 4012,
+        "topic": "economy",
+        "personas": [
+          "investor",
+          "egyptian_business"
+        ]
+      },
+      {
+        "term": "السليط الاخباري",
+        "views": 3973,
+        "topic": "other",
+        "personas": []
+      },
+      {
+        "term": "الذهب",
+        "views": 3212,
+        "topic": "gold",
+        "personas": [
+          "investor"
+        ]
+      },
+      {
+        "term": "اقتصاد",
+        "views": 2644,
+        "topic": "economy",
+        "personas": [
+          "investor",
+          "egyptian_business"
+        ]
+      },
+      {
+        "term": "ايران",
+        "views": 2518,
+        "topic": "iran",
+        "personas": [
+          "geopolitics",
+          "gulf_oil"
+        ]
+      },
+      {
+        "term": "غرينلاند",
+        "views": 2308,
+        "topic": "greenland",
+        "personas": [
+          "geopolitics"
+        ]
+      },
+      {
+        "term": "امريكا",
+        "views": 2303,
+        "topic": "usa",
+        "personas": [
+          "geopolitics"
+        ]
+      },
+      {
+        "term": "ترامب",
+        "views": 1976,
+        "topic": "usa",
+        "personas": [
+          "geopolitics"
+        ]
+      },
+      {
+        "term": "ايران واسرائيل",
+        "views": 1950,
+        "topic": "iran",
+        "personas": [
+          "geopolitics",
+          "gulf_oil"
+        ]
+      },
+      {
+        "term": "روسيا وأوكرانيا",
+        "views": 1911,
+        "topic": "russia",
+        "personas": [
+          "geopolitics"
+        ]
+      },
+      {
+        "term": "الاقتصادي",
+        "views": 1906,
+        "topic": "economy",
+        "personas": [
+          "investor",
+          "egyptian_business"
+        ]
+      },
+      {
+        "term": "جرينلاند",
+        "views": 1885,
+        "topic": "greenland",
+        "personas": [
+          "geopolitics"
+        ]
+      },
+      {
+        "term": "تهجير الفلسطينيين",
+        "views": 1632,
+        "topic": "gaza",
+        "personas": []
+      }
+    ],
+    "brandedRatio": {
+      "branded": 63,
+      "nonBranded": 437,
+      "brandedViews": 1068947,
+      "nonBrandedViews": 183766
+    },
+    "topSearches": [
+      {
+        "term": "المخبر الاقتصادي",
+        "views": 869020,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الاقتصادي aj+",
+        "views": 84508,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "مخبر اقتصادي",
+        "views": 26313,
+        "topic": "economy",
+        "isBranded": false
+      },
+      {
+        "term": "المخبر الاقتصادي بلس",
+        "views": 19080,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الاقتصادي اشرف ابراهيم",
+        "views": 15734,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "الصين",
+        "views": 10847,
+        "topic": "china",
+        "isBranded": false
+      },
+      {
+        "term": "الدحيح",
+        "views": 8623,
+        "topic": "channel",
+        "isBranded": false
+      },
+      {
+        "term": "كبريت",
+        "views": 8468,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر",
+        "views": 7723,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "الخبير الاقتصادي",
+        "views": 6855,
+        "topic": "economy",
+        "isBranded": false
+      },
+      {
+        "term": "المخبر الاقتصادى",
+        "views": 6151,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "aj+",
+        "views": 5831,
+        "topic": "other",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الاقتصادي+",
+        "views": 5661,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "aj+ عربي",
+        "views": 5629,
+        "topic": "other",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الإقتصادي",
+        "views": 5460,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "aj+ كبريت",
+        "views": 5400,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "مخبر الاقتصادي",
+        "views": 5001,
+        "topic": "economy",
+        "isBranded": false
+      },
+      {
+        "term": "الصين وامريكا",
+        "views": 4618,
+        "topic": "china",
+        "isBranded": false
+      },
+      {
+        "term": "كبريت aj+",
+        "views": 4379,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "الجزيرة مباشر",
+        "views": 4307,
+        "topic": "channel",
+        "isBranded": false
+      },
+      {
+        "term": "اقتصاد الكوكب",
+        "views": 4012,
+        "topic": "economy",
+        "isBranded": false
+      },
+      {
+        "term": "السليط الاخباري",
+        "views": 3973,
+        "topic": "other",
+        "isBranded": false
+      },
+      {
+        "term": "اشرف ابراهيم",
+        "views": 3624,
+        "topic": "other",
+        "isBranded": true
+      },
+      {
+        "term": "الذهب",
+        "views": 3212,
+        "topic": "gold",
+        "isBranded": false
+      },
+      {
+        "term": "المخبر الاقتصادي +",
+        "views": 3189,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الاقتصادى aj+",
+        "views": 3005,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "اقتصاد",
+        "views": 2644,
+        "topic": "economy",
+        "isBranded": false
+      },
+      {
+        "term": "ايران",
+        "views": 2518,
+        "topic": "iran",
+        "isBranded": false
+      },
+      {
+        "term": "اشرف ابراهيم المخبر الاقتصادي",
+        "views": 2516,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "غرينلاند",
+        "views": 2308,
+        "topic": "greenland",
+        "isBranded": false
+      }
+    ]
+  },
+  "meta": {
+    "total": 500,
+    "convertedAt": "2025-12-29T08:28:14.702Z"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "channel_name": "المُخبر الاقتصادي+",
+    "last_updated": null,
+    "total_videos_analyzed": 0,
+    "version": 1
+  },
+  "topics": {},
+  "hooks": {
+    "patterns": {},
+    "effective_phrases": [],
+    "failed_phrases": []
+  },
+  "style": {
+    "dialect": "egyptian_simplified",
+    "power_words": [],
+    "weak_words": [],
+    "tone_notes": []
+  },
+  "format": {
+    "optimal_duration": {
+      "long_form": {
+        "min": 20,
+        "max": 27,
+        "unit": "minutes"
+      },
+      "shorts": {
+        "min": 60,
+        "max": 80,
+        "unit": "seconds"
+      }
+    },
+    "successful_structures": [],
+    "beat_patterns": []
+  },
+  "audience": {
+    "behaviors": [],
+    "click_triggers": [],
+    "retention_triggers": [],
+    "share_triggers": [],
+    "traps": []
+  },
+  "insights": {
+    "recent": [],
+    "key_learnings": [],
+    "warnings": [],
+    "experiments": []
+  },
+  "banned": {
+    "phrases": [
+      "هل تعلم أن",
+      "ما لا تعرفه",
+      "الحقائق المخفية",
+      "السر الذي",
+      "في بلدك",
+      "فاتورتك الشهرية",
+      "أسعارك"
+    ],
+    "weak_topics": [],
+    "failed_patterns": []
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "channels": [
+    {
+      "id": "1766936280784-jxajid4ei",
+      "channelId": "Eqkawkab",
+      "name": "اقتصاد الكوكب",
+      "url": "https://www.youtube.com/@Eqkawkab",
+      "type": "direct_competitor",
+      "subType": null,
+      "formatType": null,
+      "language": "ar",
+      "notes": "",
+      "reasonToWatch": "منافس مباشر بمواضيع عن الشركات والبزنس والجيوسياسية",
+      "learnFrom": [
+        "Topics they cover",
+        "Angles they use",
+        "Keywords in titles",
+        "Upload frequency",
+        "What performs well for them"
+      ],
+      "monitor": true,
+      "priority": "medium",
+      "addedAt": "2025-12-28T15:38:00.784Z",
+      "lastFetched": null,
+      "lastAnalyzed": null,
+      "stats": {
+        "videoCount": 0,
+        "avgViews": 0,
+        "lastVideoDate": null
+      },
+      "insights": []
+    },
+    {
+      "id": "1766952158379-a5ezvchce",
+      "channelId": "UC3WziBdrb8ztqlt0n4k9dNw",
+      "name": "Summary",
+      "url": "https://www.youtube.com/channel/UC3WziBdrb8ztqlt0n4k9dNw",
+      "type": "direct_competitor",
+      "subType": null,
+      "formatType": null,
+      "language": "ar",
+      "notes": "",
+      "reasonToWatch": "audience interest ",
+      "learnFrom": [
+        "What performs well for them",
+        "Topics they cover"
+      ],
+      "monitor": true,
+      "priority": "medium",
+      "addedAt": "2025-12-28T20:02:38.379Z",
+      "lastFetched": null,
+      "lastAnalyzed": null,
+      "stats": {
+        "videoCount": 0,
+        "avgViews": 0,
+        "lastVideoDate": null
+      },
+      "insights": []
+    }
+  ],
+  "videos": [
+    {
+      "id": "1766949110985-bsw1r3mqz",
+      "videoId": "r7Tzq-MtPpM",
+      "url": "https://www.youtube.com/watch?v=r7Tzq-MtPpM",
+      "title": "",
+      "channelName": "",
+      "channelId": null,
+      "reason": "getting high views and interaction. ",
+      "contentType": "adjacent_content",
+      "learnPoints": [],
+      "tags": [],
+      "analyzed": false,
+      "analysis": null,
+      "addedAt": "2025-12-28T19:11:50.985Z"
+    }
+  ],
+  "insights": [],
+  "lastUpdated": "2025-12-28T20:02:38.379Z"
+}

@@ -1,0 +1,2554 @@
+{
+  "channels": [
+    {
+      "id": "xUzvEbq7fb",
+      "name": "قناة العربية  Al Arabiya",
+      "url": "http://youtube.com/channel/UCahpxixMCwoANAftn6IxkTg",
+      "country": "AE",
+      "relevanceScore": 274.5885171722246,
+      "audienceOverlap": 0.5358024691358024,
+      "affinity": 512.4808730633686,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Entertainment",
+        "Politics",
+        "Television show",
+        "Society"
+      ],
+      "subscribers": 18700000,
+      "totalViews": 15271357409,
+      "monthlyViews": 699766724,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "74tSuPX7m03XDpXd01",
+      "name": "Al Mashhad المشهد",
+      "url": "http://youtube.com/channel/UCWnBTuzUUDpKhJPGuDQMynA",
+      "country": "AE",
+      "relevanceScore": 207.41734350460803,
+      "audienceOverlap": 0.45925925925925926,
+      "affinity": 451.63453827616263,
+      "industry": "Media",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Military",
+        "Television show",
+        "Society",
+        "Politics"
+      ],
+      "subscribers": 5200000,
+      "totalViews": 2177810733,
+      "monthlyViews": 648717143,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "BUnKpiSxm9",
+      "name": "Al Jazeera Channel - قناة الجزيرة",
+      "url": "http://youtube.com/channel/UCfiwzLy-8yKzIbsmZTzxDgw",
+      "country": "QA",
+      "relevanceScore": 362.1047494316234,
+      "audienceOverlap": 0.38271604938271603,
+      "affinity": 946.1446678697258,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Politics",
+        "Society"
+      ],
+      "subscribers": 22300000,
+      "totalViews": 18780542447,
+      "monthlyViews": 1079468019,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "5H35wnqYQa03ZQgNj01",
+      "name": "blinx",
+      "url": "http://youtube.com/channel/UCrMBDzyrDtDKFzj6PMtMJWg",
+      "country": "AE",
+      "relevanceScore": 269.2283267283726,
+      "audienceOverlap": 0.34074074074074073,
+      "affinity": 790.1266110506589,
+      "industry": "Media",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Military",
+        "Unmanned aerial vehicle",
+        "Human rights",
+        "War crime",
+        "War",
+        "Conflict (process)"
+      ],
+      "subscribers": 1520000,
+      "totalViews": 2003922203,
+      "monthlyViews": 533781799,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "5MCxdMKNW03b7Rpq01",
+      "name": "Blinxnews",
+      "url": "http://youtube.com/channel/UCJ3GwjNga1hBk1OFDfRp4mw",
+      "country": "AE",
+      "relevanceScore": 376.61380949803964,
+      "audienceOverlap": 0.32098765432098764,
+      "affinity": 1173.296868051585,
+      "industry": "Media",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Entertainment",
+        "Pop music",
+        "Society",
+        "Association football",
+        "Politics",
+        "Music",
+        "Sport"
+      ],
+      "subscribers": 91300,
+      "totalViews": 82868533,
+      "monthlyViews": 54096616,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "2pjRQsTF703Vpzhf01",
+      "name": "تالا صفوان - Tala Safwan",
+      "url": "http://youtube.com/channel/UCG88qvYf5W4QK7BWPVWjHoA",
+      "country": "SA",
+      "relevanceScore": 170.78155745087759,
+      "audienceOverlap": 0.3135802469135803,
+      "affinity": 544.61835250083,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [],
+      "subscribers": 793000,
+      "totalViews": 93027442,
+      "monthlyViews": 98876,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "5T2PnFbuoM03XRYbT03",
+      "name": "TRT • عربي",
+      "url": "http://youtube.com/channel/UCxYWkW-6ZRCz1C50ZUjCulg",
+      "country": "TR",
+      "relevanceScore": 305.3238883787975,
+      "audienceOverlap": 0.29876543209876544,
+      "affinity": 1021.9518577968016,
+      "industry": "",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Entertainment"
+      ],
+      "subscribers": 90,
+      "totalViews": 45286,
+      "monthlyViews": 105,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "6euMFePed03RZuL801",
+      "name": "نانا🐹*",
+      "url": "",
+      "country": "",
+      "relevanceScore": 155.19052291383878,
+      "audienceOverlap": 0.28888888888888886,
+      "affinity": 537.1979639325189,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Humour",
+        "Cosmetics",
+        "Cultural identity"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "693PKWhPUp03b9CZQ01",
+      "name": "👑Lë Roi👑",
+      "url": "",
+      "country": "",
+      "relevanceScore": 205.26421652608744,
+      "audienceOverlap": 0.2691358024691358,
+      "affinity": 762.6789696611505,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 496113,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "Q3A91owh2M",
+      "name": "Sky News Arabia سكاي نيوز عربية",
+      "url": "http://youtube.com/channel/UCIJXOvggjKtCagMfxvcCzAA",
+      "country": "AE",
+      "relevanceScore": 228.840184559108,
+      "audienceOverlap": 0.2641975308641975,
+      "affinity": 866.170792022792,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Society",
+        "Television show",
+        "Politics"
+      ],
+      "subscribers": 7100000,
+      "totalViews": 3890774187,
+      "monthlyViews": 202867509,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "HZ7JQLDHzd",
+      "name": "العين الإخبارية",
+      "url": "http://youtube.com/channel/UCQqkDCzglMefUmIl6rcE0eA",
+      "country": "AE",
+      "relevanceScore": 187.10203768983672,
+      "audienceOverlap": 0.2641975308641975,
+      "affinity": 708.1899557419055,
+      "industry": "Media",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "IGTV",
+        "Car",
+        "Performance",
+        "Brake"
+      ],
+      "subscribers": 685000,
+      "totalViews": 234755933,
+      "monthlyViews": 14352966,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4wrR7pqrW03RiKKX01",
+      "name": "Asharq News الشرق للأخبار",
+      "url": "http://youtube.com/channel/UCRJUVYt9gjg8MnlGacySUdg",
+      "country": "AE",
+      "relevanceScore": 243.9518366858063,
+      "audienceOverlap": 0.254320987654321,
+      "affinity": 959.2280957063258,
+      "industry": "Media",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Politics",
+        "Entertainment",
+        "Society"
+      ],
+      "subscribers": 1600000,
+      "totalViews": 616957658,
+      "monthlyViews": 109134071,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "7M2z5XCPG803gCSXn01",
+      "name": "⸙ 𝐒𝐀𝐌𝐄𝐄𝐑  100K",
+      "url": "http://youtube.com/channel/UCU1614ixo1_evIXzqn_8ihw",
+      "country": "IN",
+      "relevanceScore": 238.79644388421346,
+      "audienceOverlap": 0.24938271604938272,
+      "affinity": 957.5500967634301,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Love",
+        "Nostalgia",
+        "Hindi cinema",
+        "Emotion",
+        "Sad Song (The Cars song)"
+      ],
+      "subscribers": 1050,
+      "totalViews": 400697,
+      "monthlyViews": 22780,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "as2jQr6Z1p03dspgH01",
+      "name": "weaam4life",
+      "url": "",
+      "country": "",
+      "relevanceScore": 178.61459077592784,
+      "audienceOverlap": 0.24938271604938272,
+      "affinity": 716.2268243985225,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Internet meme",
+        "Humour",
+        "Entertainment"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "EcuMFzhU03Vpzhf01",
+      "name": "وسامز",
+      "url": "http://youtube.com/channel/UCvY-wn-TQYUNGvc01GckENg",
+      "country": "SA",
+      "relevanceScore": 303.7651845218211,
+      "audienceOverlap": 0.2345679012345679,
+      "affinity": 1294.9989445403953,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [],
+      "subscribers": 286000,
+      "totalViews": 199898817,
+      "monthlyViews": 16615471,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3AxjZbEm803RZTeK01",
+      "name": "أحمد المهنا إبن العظيمة رويدة الصائغ",
+      "url": "",
+      "country": "SA",
+      "relevanceScore": 175.0050167543626,
+      "audienceOverlap": 0.2345679012345679,
+      "affinity": 746.0740187949143,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "7K3M4e4kCE03aQgwC01",
+      "name": "OMAR.",
+      "url": "",
+      "country": "",
+      "relevanceScore": 171.5962054892923,
+      "audienceOverlap": 0.23209876543209876,
+      "affinity": 739.3240768421635,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "zMu3OkkwmT",
+      "name": "افيخاي أدرعي-  Avichay Adraee",
+      "url": "http://youtube.com/channel/UCifQ8WDg0zpCItTeTWBHsNA",
+      "country": "IL",
+      "relevanceScore": 151.43981919625526,
+      "audienceOverlap": 0.22962962962962963,
+      "affinity": 659.495986822402,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [
+        "Military",
+        "Religion",
+        "Society",
+        "Politics"
+      ],
+      "subscribers": 115000,
+      "totalViews": 66410783,
+      "monthlyViews": 18532824,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "spSK4fKv9d",
+      "name": "OSHA SALAH",
+      "url": "http://youtube.com/channel/UC_H8GiIU-dDZl6fJA32qYYQ",
+      "country": "AE",
+      "relevanceScore": 290.78187735726874,
+      "audienceOverlap": 0.21728395061728395,
+      "affinity": 1338.257503746521,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Knowledge",
+        "Entertainment",
+        "Society",
+        "Religion",
+        "Health",
+        "Film"
+      ],
+      "subscribers": 7120000,
+      "totalViews": 3897412342,
+      "monthlyViews": 66202151,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "curious_learner",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "EWrddzExZE",
+      "name": "Erem News - إرم نيوز",
+      "url": "http://youtube.com/channel/UCduaSMjIlv4MywNPLN-28gg",
+      "country": "AE",
+      "relevanceScore": 180.95418986621402,
+      "audienceOverlap": 0.21728395061728395,
+      "affinity": 832.8005329070078,
+      "industry": "Digital First Media",
+      "contentGenre": "Entertainment",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 31349075,
+      "monthlyViews": 10147605,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "T628DEF7sy03Vr4mk01",
+      "name": "أنس",
+      "url": "",
+      "country": "",
+      "relevanceScore": 221.47954658362067,
+      "audienceOverlap": 0.21481481481481482,
+      "affinity": 1031.0254754754756,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Social interaction",
+        "Stitch (textile arts)",
+        "Engagement",
+        "Collaboration"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "29aAqHAya03RXGXE01",
+      "name": "Anas Habib",
+      "url": "http://youtube.com/channel/UCpmBOnuphrIjidON_O0UsRA",
+      "country": "",
+      "relevanceScore": 176.96002196134702,
+      "audienceOverlap": 0.2123456790123457,
+      "affinity": 833.3582429575063,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Performing arts",
+        "Lifestyle",
+        "Film",
+        "Music of Asia",
+        "Entertainment",
+        "Music"
+      ],
+      "subscribers": 192,
+      "totalViews": 28780,
+      "monthlyViews": 4875738,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "fjVxrLpLbo",
+      "name": "قناة الجزيرة مباشر - Aljazeera Mubasher Channel",
+      "url": "http://youtube.com/channel/UCCv1Pd24oPErw5S7zJWltnQ",
+      "country": "QA",
+      "relevanceScore": 246.5628550878532,
+      "audienceOverlap": 0.20493827160493827,
+      "affinity": 1203.1079073563922,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Politics",
+        "Society",
+        "Religion"
+      ],
+      "subscribers": 10100000,
+      "totalViews": 5505374947,
+      "monthlyViews": 564301674,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "6nnMYghH603bGHWF01",
+      "name": "احمد صبري / Ahmed Sapry",
+      "url": "",
+      "country": "EG",
+      "relevanceScore": 173.6752010661227,
+      "audienceOverlap": 0.20246913580246914,
+      "affinity": 857.7860540460938,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 29,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "BCYJKGYAA6",
+      "name": "عمر فاروق Omar Farooq",
+      "url": "http://youtube.com/channel/UC7lfpgPpjx7YvuE12_UcGrg",
+      "country": "BH",
+      "relevanceScore": 160.00750270738573,
+      "audienceOverlap": 0.1925925925925926,
+      "affinity": 830.8081871345029,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Sport",
+        "Film",
+        "Entertainment",
+        "Society",
+        "Lifestyle",
+        "Association football"
+      ],
+      "subscribers": 8080000,
+      "totalViews": 1853392116,
+      "monthlyViews": 50664260,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "6HgVH49eR03YJ2Y201",
+      "name": "ARABY",
+      "url": "",
+      "country": "",
+      "relevanceScore": 152.83533846083645,
+      "audienceOverlap": 0.18765432098765433,
+      "affinity": 814.4514746926152,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2f0bu8B3KY",
+      "name": "عربي بوست",
+      "url": "http://youtube.com/channel/UCdUp5vHINCdtZS31flL_prg",
+      "country": "EG",
+      "relevanceScore": 281.20368588370735,
+      "audienceOverlap": 0.18271604938271604,
+      "affinity": 1539.020172741912,
+      "industry": "Media",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Society",
+        "Politics",
+        "Religion"
+      ],
+      "subscribers": 464000,
+      "totalViews": 89832878,
+      "monthlyViews": 23883238,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "2A2LArarjD03Pm9pR01",
+      "name": "joe",
+      "url": "http://youtube.com/channel/UClVMioXhjczWbvN3eMfuXYw",
+      "country": "QA",
+      "relevanceScore": 289.6849346748474,
+      "audienceOverlap": 0.18024691358024691,
+      "affinity": 1607.1561444289478,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Politics",
+        "Society"
+      ],
+      "subscribers": 117000,
+      "totalViews": 13900329,
+      "monthlyViews": 1199487,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "oKJrpcSalh",
+      "name": "Nabd Albalad - نبض البلد",
+      "url": "http://youtube.com/channel/UCkMElDpv-YjUZM9S-11kYSg",
+      "country": "JO",
+      "relevanceScore": 180.29869632106386,
+      "audienceOverlap": 0.18024691358024691,
+      "affinity": 1000.287287808642,
+      "industry": "Media",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Military",
+        "Politics",
+        "Society"
+      ],
+      "subscribers": 15100,
+      "totalViews": 5033750,
+      "monthlyViews": 72763428,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "uivuqtZ3gZ",
+      "name": "Jousef Elkott - يوسف القط",
+      "url": "http://youtube.com/channel/UCAvEMg9Gdfvtmc8U9zb4KIQ",
+      "country": "AE",
+      "relevanceScore": 176.61913109002174,
+      "audienceOverlap": 0.18024691358024691,
+      "affinity": 979.873261526833,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [
+        "Religion",
+        "Entertainment"
+      ],
+      "subscribers": 402000,
+      "totalViews": 82206683,
+      "monthlyViews": 14445190,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4g2AvH1LDa03YvnHe01",
+      "name": "⚔️🟩الُِرٍاجل رٍاجلُِ🟩⚔️",
+      "url": "",
+      "country": "",
+      "relevanceScore": 153.51374586981936,
+      "audienceOverlap": 0.18024691358024691,
+      "affinity": 851.6858503736553,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6i2i4KiDEB03XrnaV01",
+      "name": "Ali El-Meshwady",
+      "url": "http://youtube.com/channel/UCSc8tPOJv11E0CIRSNJ2UIw",
+      "country": "EG",
+      "relevanceScore": 319.19834298753733,
+      "audienceOverlap": 0.17777777777777778,
+      "affinity": 1795.4906793048974,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [],
+      "subscribers": 2100,
+      "totalViews": 85319,
+      "monthlyViews": 0,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "5AJpu18Dx03YFNSa01",
+      "name": "TunneT",
+      "url": "http://youtube.com/channel/UCSSyFNarnyNlDwMrBtM7IFw",
+      "country": "ES",
+      "relevanceScore": 241.40089738484005,
+      "audienceOverlap": 0.17777777777777778,
+      "affinity": 1357.8800477897253,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Music",
+        "Electronic music"
+      ],
+      "subscribers": 227,
+      "totalViews": 317454,
+      "monthlyViews": 334,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "7HcCcrLZK03WCFX401",
+      "name": "Omar Dash⚡️",
+      "url": "http://youtube.com/channel/UCp92XlzKNduDTHrnVF3-Qbg",
+      "country": "SA",
+      "relevanceScore": 189.18778193924263,
+      "audienceOverlap": 0.17777777777777778,
+      "affinity": 1064.1812734082398,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "IPhone",
+        "Association football",
+        "Viral phenomenon",
+        "Fish",
+        "Animal"
+      ],
+      "subscribers": 23200,
+      "totalViews": 2571690,
+      "monthlyViews": 10235420,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2k2wpeZPpz03ZZ6MQ01",
+      "name": "Ahmed ibrahim",
+      "url": "",
+      "country": "",
+      "relevanceScore": 153.40025231240463,
+      "audienceOverlap": 0.1728395061728395,
+      "affinity": 887.5300312360554,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "5336Pxxydf03eubz201",
+      "name": "رائد الزهراني🇸🇦",
+      "url": "",
+      "country": "",
+      "relevanceScore": 151.57405883249504,
+      "audienceOverlap": 0.1728395061728395,
+      "affinity": 876.9641975308642,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6acst3jRi03awF6u01",
+      "name": "علاء إبراهيم",
+      "url": "http://youtube.com/channel/UCuZd3yHJJKqnS4zsALysceg",
+      "country": "EG",
+      "relevanceScore": 178.2570837632381,
+      "audienceOverlap": 0.17037037037037037,
+      "affinity": 1046.2915786103106,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [
+        "Religion"
+      ],
+      "subscribers": 100,
+      "totalViews": 33832,
+      "monthlyViews": 1114933,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "52KxLJyh403SDz9K01",
+      "name": "سعدني في الحضارة",
+      "url": "http://youtube.com/channel/UCOPzqbQi9upj1g0Q70J4Opg",
+      "country": "EG",
+      "relevanceScore": 171.82002240512116,
+      "audienceOverlap": 0.17037037037037037,
+      "affinity": 1008.5088271604939,
+      "industry": "Media",
+      "contentGenre": "People & Blogs",
+      "themes": [],
+      "subscribers": 37200,
+      "totalViews": 775309,
+      "monthlyViews": 28925327,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3q35GXeNZ303eJcy501",
+      "name": "Rama",
+      "url": "",
+      "country": "",
+      "relevanceScore": 167.62929015133773,
+      "audienceOverlap": 0.17037037037037037,
+      "affinity": 983.9110508882867,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "Dm0H9sT1ld",
+      "name": "قناة الحدث Al Hadath",
+      "url": "http://youtube.com/channel/UCrj5BGAhtWxDfqbza9T9hqA",
+      "country": "AE",
+      "relevanceScore": 161.50184873588412,
+      "audienceOverlap": 0.17037037037037037,
+      "affinity": 947.9456338845373,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Politics",
+        "Television show",
+        "Society"
+      ],
+      "subscribers": 8190000,
+      "totalViews": 5838323389,
+      "monthlyViews": 496782886,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "7AhqoS82K03cfvw301",
+      "name": "إعتدال 🇸🇦",
+      "url": "",
+      "country": "",
+      "relevanceScore": 190.11169476712217,
+      "audienceOverlap": 0.16790123456790124,
+      "affinity": 1132.2828879512424,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6L32nZxLPk03cCKV701",
+      "name": "Osama Gaweesh 2",
+      "url": "",
+      "country": "",
+      "relevanceScore": 216.80805632471703,
+      "audienceOverlap": 0.1654320987654321,
+      "affinity": 1310.5561613658267,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6T2tDFZJh503eisLR01",
+      "name": "فـارس",
+      "url": "",
+      "country": "",
+      "relevanceScore": 180.56150820851047,
+      "audienceOverlap": 0.1654320987654321,
+      "affinity": 1091.45389290219,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 32500447,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "7D2ovbM4De03Pgy8v01",
+      "name": "Tarek Habib - طارق حبيب",
+      "url": "",
+      "country": "",
+      "relevanceScore": 196.040938336926,
+      "audienceOverlap": 0.16049382716049382,
+      "affinity": 1221.4858465608465,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 1633796,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6y2CGoPSJC03dC3Re01",
+      "name": "✨نور التسبيح✨",
+      "url": "http://youtube.com/channel/UCCobgWJPZDDG4J2MZBNsWUw",
+      "country": "",
+      "relevanceScore": 177.6422742211627,
+      "audienceOverlap": 0.16049382716049382,
+      "affinity": 1106.8480163010906,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 1895474,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "Yf2eg1kzzZ03RH5LM01",
+      "name": "Yasmin Nasir ياسمين ناصر",
+      "url": "",
+      "country": "MA",
+      "relevanceScore": 254.61955364780576,
+      "audienceOverlap": 0.1580246913580247,
+      "affinity": 1611.2643629275208,
+      "industry": "",
+      "contentGenre": "Food & Drink",
+      "themes": [
+        "Paste (food)",
+        "Crispiness",
+        "Eggs as food",
+        "Frying",
+        "Sustainability",
+        "Dough",
+        "Samosa",
+        "Stuffing",
+        "Calcium",
+        "Resource"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 28695590,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "maghreb"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4kZGV2VDf03RGNWX01",
+      "name": "BRIKI",
+      "url": "http://youtube.com/channel/UCmXcJg7AqkiRo7PQ48DrBww",
+      "country": "MA",
+      "relevanceScore": 203.81618503879375,
+      "audienceOverlap": 0.15555555555555556,
+      "affinity": 1310.246903820817,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Music"
+      ],
+      "subscribers": 42,
+      "totalViews": 23202,
+      "monthlyViews": 2168,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "maghreb"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "763Bp4Ujog03bmxLa01",
+      "name": "Maram",
+      "url": "",
+      "country": "",
+      "relevanceScore": 167.96578115574857,
+      "audienceOverlap": 0.15555555555555556,
+      "affinity": 1079.7800217155266,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Spirituality",
+        "Islam",
+        "Guideline",
+        "Quran",
+        "Allah",
+        "Faith"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3128SKKBUN03X5B9S01",
+      "name": "Ahmed Seleem أحمد سليم",
+      "url": "http://youtube.com/channel/UCXwoUnmdVV8oMCp4wNfva8Q",
+      "country": "EG",
+      "relevanceScore": 230.1451015742374,
+      "audienceOverlap": 0.15308641975308643,
+      "affinity": 1503.3671957671959,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Food",
+        "Health",
+        "Television show",
+        "Sport",
+        "Society",
+        "Entertainment",
+        "Religion",
+        "Lifestyle"
+      ],
+      "subscribers": 749000,
+      "totalViews": 1230404443,
+      "monthlyViews": 101463992,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "3d2ppwbyPu03XKnhz01",
+      "name": "حكاوي📙 | أبو سعيد",
+      "url": "",
+      "country": "",
+      "relevanceScore": 239.3240762018589,
+      "audienceOverlap": 0.1506172839506173,
+      "affinity": 1588.9549321598827,
+      "industry": "",
+      "contentGenre": "Music & Dance",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2e28tVS7VA03WAUnq01",
+      "name": "zeinhom3s",
+      "url": "http://youtube.com/channel/UCxX5bnAv8Nbla0idvvcvH4g",
+      "country": "",
+      "relevanceScore": 169.03308878592833,
+      "audienceOverlap": 0.1506172839506173,
+      "affinity": 1122.2688681688683,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Social media",
+        "Communication",
+        "Engagement",
+        "Social interaction",
+        "Reply (TV series)",
+        "Reply (company)",
+        "Reply",
+        "Answer (response)",
+        "Dialogue",
+        "Responsibility",
+        "Community",
+        "Content creation"
+      ],
+      "subscribers": 462,
+      "totalViews": 352546,
+      "monthlyViews": 130,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4W2dYaTQqm03eUohE01",
+      "name": "زين خير الله الصفحة الرسمية",
+      "url": "",
+      "country": "",
+      "relevanceScore": 163.87614709415422,
+      "audienceOverlap": 0.1506172839506173,
+      "affinity": 1088.0301569365977,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2B2qxNvZxR03ZySxG01",
+      "name": "omier.elsawaf",
+      "url": "",
+      "country": "",
+      "relevanceScore": 151.546907187384,
+      "audienceOverlap": 0.1506172839506173,
+      "affinity": 1006.1720887031232,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "5cDBiR17a03W1BS301",
+      "name": "أيمن المحمد",
+      "url": "",
+      "country": "TR",
+      "relevanceScore": 222.72106603958457,
+      "audienceOverlap": 0.14814814814814814,
+      "affinity": 1503.3671957671959,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 78239915,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2D2MkU2ZDB03b7Rpq01",
+      "name": "Khalid Ali",
+      "url": "",
+      "country": "",
+      "relevanceScore": 214.54781590969154,
+      "audienceOverlap": 0.14814814814814814,
+      "affinity": 1448.197757390418,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Real estate investing",
+        "Capital appreciation",
+        "Dubai",
+        "Investment",
+        "Luxury goods",
+        "Real estate development"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 2329345,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3pqHgWynN03avMjd01",
+      "name": "Discovery الشرق",
+      "url": "http://youtube.com/channel/UCJdfy_z2iMsODx70_c2HHxQ",
+      "country": "AE",
+      "relevanceScore": 187.83704364784236,
+      "audienceOverlap": 0.14814814814814814,
+      "affinity": 1267.900044622936,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Television show",
+        "Entertainment",
+        "Food",
+        "Film",
+        "Knowledge",
+        "Society",
+        "Health",
+        "Lifestyle"
+      ],
+      "subscribers": 368000,
+      "totalViews": 104484636,
+      "monthlyViews": 78403860,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "curious_learner",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "37P7ZBrSP03RHX3301",
+      "name": "Mohamed Aamer - محمد عامر",
+      "url": "http://youtube.com/channel/UCvxkxiHMq-KrTZJgLNSrePQ",
+      "country": "AE",
+      "relevanceScore": 181.28458863687112,
+      "audienceOverlap": 0.14814814814814814,
+      "affinity": 1223.6709732988802,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [
+        "Society",
+        "Film",
+        "Technology",
+        "Knowledge",
+        "Association football",
+        "Video game culture",
+        "Entertainment"
+      ],
+      "subscribers": 531000,
+      "totalViews": 350235690,
+      "monthlyViews": 66804607,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "tech_future",
+        "curious_learner",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "5L3UjcCrvk03WM7CL01",
+      "name": "علي كشاكش - ali kashakesh",
+      "url": "http://youtube.com/channel/UCBCf7Jx-m8WAk2egb_KQ_lQ",
+      "country": "JO",
+      "relevanceScore": 175.17387216596535,
+      "audienceOverlap": 0.14814814814814814,
+      "affinity": 1182.4236371202662,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [
+        "Religion",
+        "Politics",
+        "Knowledge",
+        "Society"
+      ],
+      "subscribers": 688000,
+      "totalViews": 345139737,
+      "monthlyViews": 17379438,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "curious_learner"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "7Wx4JQQkH03Vpzhf01",
+      "name": "Dr. Food",
+      "url": "",
+      "country": "TR",
+      "relevanceScore": 181.62798581614985,
+      "audienceOverlap": 0.145679012345679,
+      "affinity": 1246.768377212554,
+      "industry": "",
+      "contentGenre": "Food & Drink",
+      "themes": [
+        "Food"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 32623719,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4sbXMfFmy03NDwou01",
+      "name": "قبل وبعد",
+      "url": "",
+      "country": "",
+      "relevanceScore": 155.41363734783954,
+      "audienceOverlap": 0.145679012345679,
+      "affinity": 1066.8224258622884,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3d5jqLhiK03exhmW01",
+      "name": "Belalhani🇵🇸",
+      "url": "",
+      "country": "",
+      "relevanceScore": 191.00095041245368,
+      "audienceOverlap": 0.14074074074074075,
+      "affinity": 1357.1120160884866,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6e3Pzmt88Y03dX1Yq01",
+      "name": "MUKHAWAR2",
+      "url": "",
+      "country": "",
+      "relevanceScore": 162.97764494653384,
+      "audienceOverlap": 0.14074074074074075,
+      "affinity": 1157.9990561990562,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "Rqx4JQ7vT03f6EPo01",
+      "name": "التلفزيون العربي",
+      "url": "http://youtube.com/channel/UC65i3Fyq91uiUkIS0i5GLNQ",
+      "country": "QA",
+      "relevanceScore": 161.72877410403166,
+      "audienceOverlap": 0.14074074074074075,
+      "affinity": 1149.1255002128564,
+      "industry": "Media",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Bomb",
+        "News"
+      ],
+      "subscribers": 10200000,
+      "totalViews": 7179245385,
+      "monthlyViews": 422961686,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "6A2S38Egg903cacjB01",
+      "name": "Weknow",
+      "url": "",
+      "country": "",
+      "relevanceScore": 217.8775776159073,
+      "audienceOverlap": 0.1382716049382716,
+      "affinity": 1575.7217666864726,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3M2Lr7nLen03fGroN01",
+      "name": "rahal.syr 🇸🇾🇩🇪",
+      "url": "",
+      "country": "",
+      "relevanceScore": 213.59232669330626,
+      "audienceOverlap": 0.13580246913580246,
+      "affinity": 1572.816223832528,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4xCHNAm2r03W1d7P01",
+      "name": "واقع بلاد الحرمين",
+      "url": "http://youtube.com/channel/UCfGpbWeGZxgcO9iZnWGGw4g",
+      "country": "SA",
+      "relevanceScore": 179.4565667194902,
+      "audienceOverlap": 0.13580246913580246,
+      "affinity": 1321.4529003889734,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 141978518,
+      "monthlyViews": 4718021,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2c2xVumHSP03b7Rpq01",
+      "name": "احمد",
+      "url": "http://youtube.com/channel/UChC_PEA7xXVJbcElLepxwsQ",
+      "country": "EG",
+      "relevanceScore": 157.85355555555554,
+      "audienceOverlap": 0.13333333333333333,
+      "affinity": 1183.9016666666666,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 334890702,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "vhGdPKU0YT",
+      "name": "الميادين | Al Mayadeen",
+      "url": "",
+      "country": "SY",
+      "relevanceScore": 206.18476090095814,
+      "audienceOverlap": 0.1308641975308642,
+      "affinity": 1575.5627955639254,
+      "industry": "",
+      "contentGenre": "Entertainment",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 7448777,
+      "category": "entertainment",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "z42P6zR9iZ03eDJmJ01",
+      "name": "Antirafidite",
+      "url": "",
+      "country": "",
+      "relevanceScore": 172.14482395976225,
+      "audienceOverlap": 0.1308641975308642,
+      "affinity": 1315.4462962962964,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2S2u7boq8s03aiqxS01",
+      "name": "Fadi maaz",
+      "url": "http://youtube.com/channel/UCHUbIZHlNStxqReft9B8bfA",
+      "country": "AE",
+      "relevanceScore": 159.3655138841467,
+      "audienceOverlap": 0.1308641975308642,
+      "affinity": 1217.7930777939512,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Entertainment",
+        "Religion",
+        "Film",
+        "Lifestyle"
+      ],
+      "subscribers": 6470,
+      "totalViews": 949347,
+      "monthlyViews": 34216953,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "mR25WBVcQr03cLK8D01",
+      "name": "ishak_إسحاق",
+      "url": "",
+      "country": "",
+      "relevanceScore": 200.7459208570122,
+      "audienceOverlap": 0.12839506172839507,
+      "affinity": 1563.5018835978835,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "233NeFWUDu03e41QV01",
+      "name": "العلم والإيمان | مصطفي محمود",
+      "url": "",
+      "country": "",
+      "relevanceScore": 161.14924839439055,
+      "audienceOverlap": 0.12839506172839507,
+      "affinity": 1255.1047230716956,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "NvuveLEFhV",
+      "name": "DW جعفر توك",
+      "url": "http://youtube.com/channel/UC2KCI1AXQVx1_XJmykB7cHA",
+      "country": "DZ",
+      "relevanceScore": 158.24565833323035,
+      "audienceOverlap": 0.12839506172839507,
+      "affinity": 1232.4902235568902,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "News & Politics",
+      "themes": [
+        "Politics",
+        "Religion",
+        "Society",
+        "Television show",
+        "Lifestyle",
+        "Entertainment"
+      ],
+      "subscribers": 626000,
+      "totalViews": 363777847,
+      "monthlyViews": 62327186,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "maghreb"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "2H3NeFWU5z03egEA301",
+      "name": "3Fhd",
+      "url": "",
+      "country": "",
+      "relevanceScore": 156.83275066954081,
+      "audienceOverlap": 0.12839506172839507,
+      "affinity": 1221.4858465608465,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3K3J8WFB2703aq3Xh01",
+      "name": "IBNAZZOUZ",
+      "url": "",
+      "country": "",
+      "relevanceScore": 186.6980869881545,
+      "audienceOverlap": 0.1259259259259259,
+      "affinity": 1482.6024554941682,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6tfMqjqo903Y7qpG01",
+      "name": "حسن ثامر",
+      "url": "http://youtube.com/channel/UCOwf6sABunLlmLxw0-cqkLw",
+      "country": "",
+      "relevanceScore": 164.04055215949498,
+      "audienceOverlap": 0.1259259259259259,
+      "affinity": 1302.6749730312838,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 23982,
+      "monthlyViews": 2514323,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "Wm2Y8Uw6KF03XfGnb01",
+      "name": "Mostafa Zoheer (القناة القديمة)",
+      "url": "http://youtube.com/channel/UC9HeqNYYXCq2LAQ14X0skKw",
+      "country": "EG",
+      "relevanceScore": 212.2885978046149,
+      "audienceOverlap": 0.12345679012345678,
+      "affinity": 1719.5376422173808,
+      "industry": "",
+      "contentGenre": "Education",
+      "themes": [
+        "Religion"
+      ],
+      "subscribers": 1920000,
+      "totalViews": 456627451,
+      "monthlyViews": 8627722,
+      "category": "education",
+      "relevanceToUs": "adjacent",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6C2q42g5jv03eqB9M01",
+      "name": "Achra10k",
+      "url": "",
+      "country": "",
+      "relevanceScore": 170.05316996914178,
+      "audienceOverlap": 0.12345679012345678,
+      "affinity": 1377.4306767500484,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "5oDBiR34203WnMAe01",
+      "name": "jo",
+      "url": "",
+      "country": "",
+      "relevanceScore": 156.90896359471535,
+      "audienceOverlap": 0.12345679012345678,
+      "affinity": 1270.9626051171945,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2qfavoCBq03SrJCc01",
+      "name": "Asharq Business اقتصاد الشرق",
+      "url": "http://youtube.com/channel/UCxjpGbfoLy6oodYdiyzQE4g",
+      "country": "AE",
+      "relevanceScore": 154.6674069719337,
+      "audienceOverlap": 0.12345679012345678,
+      "affinity": 1252.805996472663,
+      "industry": "Media",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Politics",
+        "Society",
+        "Television show"
+      ],
+      "subscribers": 178000,
+      "totalViews": 91324397,
+      "monthlyViews": 21045908,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "3E8u4Dq3r03amwkB01",
+      "name": "يوسف",
+      "url": "",
+      "country": "",
+      "relevanceScore": 216.62459241477416,
+      "audienceOverlap": 0.12098765432098765,
+      "affinity": 1790.4685699588476,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "rMWPuwKiTU",
+      "name": "د. مأمون علواني",
+      "url": "",
+      "country": "AE",
+      "relevanceScore": 193.75118824675454,
+      "audienceOverlap": 0.12098765432098765,
+      "affinity": 1601.412882447665,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 20118521,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4l442ejVBK",
+      "name": "CNNArabic",
+      "url": "http://youtube.com/channel/UCSC_8gNeqj7hVDSPRzTc9_A",
+      "country": "AE",
+      "relevanceScore": 174.03320509139633,
+      "audienceOverlap": 0.11851851851851852,
+      "affinity": 1468.4051679586564,
+      "industry": "Broadcast, Cable, Radio, Film",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "CNN"
+      ],
+      "subscribers": 1340000,
+      "totalViews": 632511045,
+      "monthlyViews": 42083544,
+      "category": "news",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "BnCYDsvwY9",
+      "name": "Ahmad Aburob",
+      "url": "http://youtube.com/channel/UCQB9yZWLvcSNI9ruw74iF8Q",
+      "country": "JO",
+      "relevanceScore": 154.29748080268126,
+      "audienceOverlap": 0.11851851851851852,
+      "affinity": 1301.884994272623,
+      "industry": "",
+      "contentGenre": "Education",
+      "themes": [
+        "Entertainment",
+        "Film",
+        "Lifestyle",
+        "Food"
+      ],
+      "subscribers": 10100000,
+      "totalViews": 2188012348,
+      "monthlyViews": 32896907,
+      "category": "education",
+      "relevanceToUs": "adjacent",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "4i25xMczek03ZhWLi01",
+      "name": "Dr Honda",
+      "url": "http://youtube.com/channel/UC-ISmUin9R3YY03pcEONaIQ",
+      "country": "US",
+      "relevanceScore": 193.915306541109,
+      "audienceOverlap": 0.11604938271604938,
+      "affinity": 1670.9723223223223,
+      "industry": "",
+      "contentGenre": "Cars, Trucks & Racing",
+      "themes": [
+        "Spare tire",
+        "Engine",
+        "Honda",
+        "Hybrid electric vehicle",
+        "Service (motor vehicle)",
+        "Car",
+        "Tire"
+      ],
+      "subscribers": 6520,
+      "totalViews": 2075120,
+      "monthlyViews": 73036,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "633E4w79KV03XePRT01",
+      "name": "محمد لي - Mohammed Li",
+      "url": "http://youtube.com/channel/UCVQ_ITes7zeyC5UCHz9WO9w",
+      "country": "SA",
+      "relevanceScore": 151.84902311155625,
+      "audienceOverlap": 0.11604938271604938,
+      "affinity": 1308.4862629825593,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Entertainment",
+        "Association football",
+        "Boxing",
+        "Sport",
+        "Mixed martial arts"
+      ],
+      "subscribers": 428000,
+      "totalViews": 710431170,
+      "monthlyViews": 24013102,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "mgfMqk19503czXee01",
+      "name": "محمود نصار",
+      "url": "",
+      "country": "",
+      "relevanceScore": 165.46494293035173,
+      "audienceOverlap": 0.1111111111111111,
+      "affinity": 1489.1844863731656,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "Cr2K3RHFis03eTvKr01",
+      "name": "مجد الدين",
+      "url": "http://youtube.com/channel/UC-nckbSZ69vMqk-z2KP9o2g",
+      "country": "",
+      "relevanceScore": 152.95887166236002,
+      "audienceOverlap": 0.1111111111111111,
+      "affinity": 1376.6298449612402,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Music"
+      ],
+      "subscribers": 3390,
+      "totalViews": 1534274,
+      "monthlyViews": 4305235,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "Hg32naLS103fWazf01",
+      "name": "عبدالرحمن سبارك",
+      "url": "",
+      "country": "",
+      "relevanceScore": 202.84380960809474,
+      "audienceOverlap": 0.10864197530864197,
+      "affinity": 1867.0850657108722,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 10868414,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "epCQIqH1lW",
+      "name": "هرجة",
+      "url": "http://youtube.com/channel/UCBgOSjiXl5hf7v_0e0inBMQ",
+      "country": "AE",
+      "relevanceScore": 187.67439829103796,
+      "audienceOverlap": 0.10617283950617284,
+      "affinity": 1767.6309606481482,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Health",
+        "Entertainment",
+        "Society",
+        "Lifestyle"
+      ],
+      "subscribers": 536000,
+      "totalViews": 99777624,
+      "monthlyViews": 4516973,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "2N2LPwfCwo03dUo8N01",
+      "name": "Dr. Omar Osama",
+      "url": "",
+      "country": "",
+      "relevanceScore": 222.50483199488593,
+      "audienceOverlap": 0.1037037037037037,
+      "affinity": 2145.5823085221145,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Dentist"
+      ],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "gryWDVYzfP",
+      "name": "NoonPost نون بوست",
+      "url": "http://youtube.com/channel/UCXoa8ahntIc4Gahzvcs9ouA",
+      "country": "TR",
+      "relevanceScore": 174.71725227251943,
+      "audienceOverlap": 0.10123456790123457,
+      "affinity": 1725.8655407407407,
+      "industry": "Media",
+      "contentGenre": "Entertainment",
+      "themes": [
+        "Politics",
+        "Religion",
+        "Society"
+      ],
+      "subscribers": 614000,
+      "totalViews": 312839617,
+      "monthlyViews": 63789179,
+      "category": "politics",
+      "relevanceToUs": "direct_competitor",
+      "personas": [
+        "geopolitics"
+      ],
+      "isDirectCompetitor": true
+    },
+    {
+      "id": "7X2mDYbXMt03ZiPhs01",
+      "name": "Ahmed | احمد الكثيري",
+      "url": "http://youtube.com/channel/UCuG2An7XretRHjjwKm-BveQ",
+      "country": "SA",
+      "relevanceScore": 161.77523358566614,
+      "audienceOverlap": 0.10123456790123457,
+      "affinity": 1598.0236488340192,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Food",
+        "Knowledge",
+        "Entertainment",
+        "Religion"
+      ],
+      "subscribers": 92300,
+      "totalViews": 32183185,
+      "monthlyViews": 4506806,
+      "category": "education",
+      "relevanceToUs": "adjacent",
+      "personas": [
+        "curious_learner",
+        "gulf_oil"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "7KiHyZGmd03ZnpYh01",
+      "name": "Poulla Tawfik | بولا توفيق",
+      "url": "http://youtube.com/channel/UCzYDoHZKqvfbuTjVJwTZ9lA",
+      "country": "DE",
+      "relevanceScore": 174.68318905065453,
+      "audienceOverlap": 0.09876543209876543,
+      "affinity": 1768.6672891378773,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Travel",
+        "Tourism"
+      ],
+      "subscribers": 155000,
+      "totalViews": 40183301,
+      "monthlyViews": 2150983,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "8tC4H6szS03QDXJL01",
+      "name": "مع بندق",
+      "url": "http://youtube.com/channel/UCgLiqye1s9mm9Csus3zQ_0w",
+      "country": "DE",
+      "relevanceScore": 190.0089094650206,
+      "audienceOverlap": 0.0962962962962963,
+      "affinity": 1973.1694444444445,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Entertainment",
+        "Film"
+      ],
+      "subscribers": 195000,
+      "totalViews": 8237382,
+      "monthlyViews": 49393,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "6c2S38DxgC03M3kNs01",
+      "name": "Deya Elayyan | ضياء عليان",
+      "url": "http://youtube.com/channel/UCv1QTqaLS4nNaeziuwpajfA",
+      "country": "JO",
+      "relevanceScore": 166.0224583722803,
+      "audienceOverlap": 0.09382716049382717,
+      "affinity": 1769.4498852835136,
+      "industry": "",
+      "contentGenre": "People & Blogs",
+      "themes": [
+        "Guideline",
+        "Spiritual development",
+        "Gratitude",
+        "Ummah",
+        "Dhikr",
+        "Self-help",
+        "Dunya",
+        "Faith",
+        "Islam",
+        "Spirituality",
+        "Balance (ability)",
+        "Meaning of life"
+      ],
+      "subscribers": 657000,
+      "totalViews": 94497180,
+      "monthlyViews": 24174593,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "T72n7trKuE03Zzn1G01",
+      "name": "سلمى",
+      "url": "http://youtube.com/channel/UC5FK9Pc8ze0bW588nogyBfQ",
+      "country": "",
+      "relevanceScore": 161.7287741040317,
+      "audienceOverlap": 0.09382716049382717,
+      "affinity": 1723.6882503192849,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [
+        "Food"
+      ],
+      "subscribers": 193,
+      "totalViews": 86536,
+      "monthlyViews": 3,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "3FmuNZzNU03b2ZJz01",
+      "name": "RoOROo",
+      "url": "",
+      "country": "",
+      "relevanceScore": 153.77489996776782,
+      "audienceOverlap": 0.09382716049382717,
+      "affinity": 1638.9166970248937,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "iLbleYqckG",
+      "name": "Screen Mix",
+      "url": "http://youtube.com/channel/UCpCOgi8WuuJHgBnzGtr0omA",
+      "country": "EG",
+      "relevanceScore": 169.3917441156618,
+      "audienceOverlap": 0.09135802469135802,
+      "affinity": 1854.1528747795414,
+      "industry": "Media",
+      "contentGenre": "Sports",
+      "themes": [
+        "Unexpected (Star Trek: Enterprise)",
+        "Surprise (emotion)",
+        "Anticipation"
+      ],
+      "subscribers": 9,
+      "totalViews": 1795,
+      "monthlyViews": 25120962,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [
+        "egyptian_business"
+      ],
+      "isDirectCompetitor": false
+    },
+    {
+      "id": "2jhAYFESQ03bhXUY01",
+      "name": "حماده بن الحاج سعد⚛️☪️",
+      "url": "",
+      "country": "",
+      "relevanceScore": 165.07561365286855,
+      "audienceOverlap": 0.08888888888888889,
+      "affinity": 1857.1006535947713,
+      "industry": "",
+      "contentGenre": "General Interest",
+      "themes": [],
+      "subscribers": 0,
+      "totalViews": 0,
+      "monthlyViews": 0,
+      "category": "other",
+      "relevanceToUs": "audience_overlap",
+      "personas": [],
+      "isDirectCompetitor": false
+    }
+  ],
+  "insights": {
+    "categoryDistribution": [
+      {
+        "category": "other",
+        "count": 61
+      },
+      {
+        "category": "politics",
+        "count": 14
+      },
+      {
+        "category": "news",
+        "count": 11
+      },
+      {
+        "category": "entertainment",
+        "count": 11
+      },
+      {
+        "category": "education",
+        "count": 3
+      }
+    ],
+    "countryDistribution": [
+      {
+        "country": "unknown",
+        "count": 43
+      },
+      {
+        "country": "AE",
+        "count": 18
+      },
+      {
+        "country": "EG",
+        "count": 9
+      },
+      {
+        "country": "SA",
+        "count": 7
+      },
+      {
+        "country": "QA",
+        "count": 4
+      },
+      {
+        "country": "TR",
+        "count": 4
+      },
+      {
+        "country": "JO",
+        "count": 4
+      },
+      {
+        "country": "MA",
+        "count": 2
+      },
+      {
+        "country": "DE",
+        "count": 2
+      },
+      {
+        "country": "ES",
+        "count": 1
+      }
+    ],
+    "directCompetitors": [
+      {
+        "name": "Blinxnews",
+        "country": "AE",
+        "overlap": "32.1%",
+        "themes": [
+          "Entertainment",
+          "Pop music",
+          "Society"
+        ]
+      },
+      {
+        "name": "Al Jazeera Channel - قناة الجزيرة",
+        "country": "QA",
+        "overlap": "38.3%",
+        "themes": [
+          "Politics",
+          "Society"
+        ]
+      },
+      {
+        "name": "TRT • عربي",
+        "country": "TR",
+        "overlap": "29.9%",
+        "themes": [
+          "Entertainment"
+        ]
+      },
+      {
+        "name": "OSHA SALAH",
+        "country": "AE",
+        "overlap": "21.7%",
+        "themes": [
+          "Knowledge",
+          "Entertainment",
+          "Society"
+        ]
+      },
+      {
+        "name": "joe",
+        "country": "QA",
+        "overlap": "18.0%",
+        "themes": [
+          "Politics",
+          "Society"
+        ]
+      },
+      {
+        "name": "عربي بوست",
+        "country": "EG",
+        "overlap": "18.3%",
+        "themes": [
+          "Society",
+          "Politics",
+          "Religion"
+        ]
+      },
+      {
+        "name": "قناة العربية  Al Arabiya",
+        "country": "AE",
+        "overlap": "53.6%",
+        "themes": [
+          "Entertainment",
+          "Politics",
+          "Television show"
+        ]
+      },
+      {
+        "name": "قناة الجزيرة مباشر - Aljazeera Mubasher Channel",
+        "country": "QA",
+        "overlap": "20.5%",
+        "themes": [
+          "Politics",
+          "Society",
+          "Religion"
+        ]
+      },
+      {
+        "name": "Asharq News الشرق للأخبار",
+        "country": "AE",
+        "overlap": "25.4%",
+        "themes": [
+          "Politics",
+          "Entertainment",
+          "Society"
+        ]
+      },
+      {
+        "name": "Ahmed Seleem أحمد سليم",
+        "country": "EG",
+        "overlap": "15.3%",
+        "themes": [
+          "Food",
+          "Health",
+          "Television show"
+        ]
+      },
+      {
+        "name": "Sky News Arabia سكاي نيوز عربية",
+        "country": "AE",
+        "overlap": "26.4%",
+        "themes": [
+          "Society",
+          "Television show",
+          "Politics"
+        ]
+      },
+      {
+        "name": "Al Mashhad المشهد",
+        "country": "AE",
+        "overlap": "45.9%",
+        "themes": [
+          "Military",
+          "Television show",
+          "Society"
+        ]
+      },
+      {
+        "name": "Discovery الشرق",
+        "country": "AE",
+        "overlap": "14.8%",
+        "themes": [
+          "Television show",
+          "Entertainment",
+          "Food"
+        ]
+      },
+      {
+        "name": "هرجة",
+        "country": "AE",
+        "overlap": "10.6%",
+        "themes": [
+          "Health",
+          "Entertainment",
+          "Society"
+        ]
+      },
+      {
+        "name": "Mohamed Aamer - محمد عامر",
+        "country": "AE",
+        "overlap": "14.8%",
+        "themes": [
+          "Society",
+          "Film",
+          "Technology"
+        ]
+      }
+    ],
+    "topByOverlap": [
+      {
+        "name": "قناة العربية  Al Arabiya",
+        "overlap": "53.6%"
+      },
+      {
+        "name": "Al Mashhad المشهد",
+        "overlap": "45.9%"
+      },
+      {
+        "name": "Al Jazeera Channel - قناة الجزيرة",
+        "overlap": "38.3%"
+      },
+      {
+        "name": "blinx",
+        "overlap": "34.1%"
+      },
+      {
+        "name": "Blinxnews",
+        "overlap": "32.1%"
+      },
+      {
+        "name": "تالا صفوان - Tala Safwan",
+        "overlap": "31.4%"
+      },
+      {
+        "name": "TRT • عربي",
+        "overlap": "29.9%"
+      },
+      {
+        "name": "نانا🐹*",
+        "overlap": "28.9%"
+      },
+      {
+        "name": "👑Lë Roi👑",
+        "overlap": "26.9%"
+      },
+      {
+        "name": "Sky News Arabia سكاي نيوز عربية",
+        "overlap": "26.4%"
+      }
+    ]
+  },
+  "meta": {
+    "total": 100,
+    "convertedAt": "2025-12-29T08:28:14.666Z"
+  }
+}

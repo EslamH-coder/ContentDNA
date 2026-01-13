@@ -1,0 +1,401 @@
+{
+  "generatedAt": "2025-12-29T08:28:14.720Z",
+  "audienceProfile": {
+    "topChannels": [
+      {
+        "name": "Blinxnews",
+        "country": "AE",
+        "overlap": "32.1%",
+        "themes": [
+          "Entertainment",
+          "Pop music",
+          "Society"
+        ]
+      },
+      {
+        "name": "Al Jazeera Channel - قناة الجزيرة",
+        "country": "QA",
+        "overlap": "38.3%",
+        "themes": [
+          "Politics",
+          "Society"
+        ]
+      },
+      {
+        "name": "TRT • عربي",
+        "country": "TR",
+        "overlap": "29.9%",
+        "themes": [
+          "Entertainment"
+        ]
+      },
+      {
+        "name": "OSHA SALAH",
+        "country": "AE",
+        "overlap": "21.7%",
+        "themes": [
+          "Knowledge",
+          "Entertainment",
+          "Society"
+        ]
+      },
+      {
+        "name": "joe",
+        "country": "QA",
+        "overlap": "18.0%",
+        "themes": [
+          "Politics",
+          "Society"
+        ]
+      },
+      {
+        "name": "عربي بوست",
+        "country": "EG",
+        "overlap": "18.3%",
+        "themes": [
+          "Society",
+          "Politics",
+          "Religion"
+        ]
+      },
+      {
+        "name": "قناة العربية  Al Arabiya",
+        "country": "AE",
+        "overlap": "53.6%",
+        "themes": [
+          "Entertainment",
+          "Politics",
+          "Television show"
+        ]
+      },
+      {
+        "name": "قناة الجزيرة مباشر - Aljazeera Mubasher Channel",
+        "country": "QA",
+        "overlap": "20.5%",
+        "themes": [
+          "Politics",
+          "Society",
+          "Religion"
+        ]
+      },
+      {
+        "name": "Asharq News الشرق للأخبار",
+        "country": "AE",
+        "overlap": "25.4%",
+        "themes": [
+          "Politics",
+          "Entertainment",
+          "Society"
+        ]
+      },
+      {
+        "name": "Ahmed Seleem أحمد سليم",
+        "country": "EG",
+        "overlap": "15.3%",
+        "themes": [
+          "Food",
+          "Health",
+          "Television show"
+        ]
+      }
+    ],
+    "topSearches": [
+      {
+        "term": "المخبر الاقتصادي",
+        "views": 869020,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الاقتصادي aj+",
+        "views": 84508,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "مخبر اقتصادي",
+        "views": 26313,
+        "topic": "economy",
+        "isBranded": false
+      },
+      {
+        "term": "المخبر الاقتصادي بلس",
+        "views": 19080,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الاقتصادي اشرف ابراهيم",
+        "views": 15734,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "الصين",
+        "views": 10847,
+        "topic": "china",
+        "isBranded": false
+      },
+      {
+        "term": "الدحيح",
+        "views": 8623,
+        "topic": "channel",
+        "isBranded": false
+      },
+      {
+        "term": "كبريت",
+        "views": 8468,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر",
+        "views": 7723,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "الخبير الاقتصادي",
+        "views": 6855,
+        "topic": "economy",
+        "isBranded": false
+      },
+      {
+        "term": "المخبر الاقتصادى",
+        "views": 6151,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "aj+",
+        "views": 5831,
+        "topic": "other",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الاقتصادي+",
+        "views": 5661,
+        "topic": "channel",
+        "isBranded": true
+      },
+      {
+        "term": "aj+ عربي",
+        "views": 5629,
+        "topic": "other",
+        "isBranded": true
+      },
+      {
+        "term": "المخبر الإقتصادي",
+        "views": 5460,
+        "topic": "channel",
+        "isBranded": true
+      }
+    ]
+  },
+  "audienceVoice": {
+    "topQuestions": [
+      {
+        "question": "المخبر الاقتصادي هو احد افضل البرامج التي يمكن متابعتها على منصه اليوتيوب، وهي جزء اساسي من يومياتي وحينما تكون الحلقات متوفره، ولا يسعني بما يكفي ان اشكر مقدم البرنامج اشرف ابراهيم وفريق العمل على هذ",
+        "author": "Blurreth",
+        "likes": 10,
+        "topic": "economy"
+      },
+      {
+        "question": "ربك هوا من يقبض الرزق عمن يشاء ويبسط الرزق لمن يشاء ❤",
+        "author": "EXATUBE",
+        "likes": 3,
+        "topic": "general"
+      },
+      {
+        "question": "هولندا سريت تكنولوجيا الـ Euv من الحضارات القديمة . الكثير لن يفهمني",
+        "author": "kadarezki5859",
+        "likes": 2,
+        "topic": "general"
+      },
+      {
+        "question": "حلقه مميزه استاذ اشرف، ياريت تسلط الضوء على ارتفاع أسعار قطع الكمبيوتر وخاصة الرامات، ارتفعت إلى مستويات خياليه في أقل من سنه وهذا كان من أسباب الذكاء الاصطناعي وغيره.",
+        "author": "HArge-j3p",
+        "likes": 2,
+        "topic": "general"
+      },
+      {
+        "question": "متابعينك من تونس سؤال : ممكن تعمل حلقة على مركز الحبوب والبذور اللي في سفالبارد ( النرويج ) وهل ممكن الوثوق فيه ومين الدول او الهيئات اللي بتراقبوا ؟",
+        "author": "badrzandr3351",
+        "likes": 2,
+        "topic": "economy"
+      },
+      {
+        "question": "عايزين حلقة عن ازاي الصين استنسخت ال EUV وكيف سيؤثر على مجرى الاقتصاد والحرب؟",
+        "author": "mo3tsmstudy",
+        "likes": 2,
+        "topic": "china"
+      },
+      {
+        "question": "مفتكرينك ديمن يامتألق",
+        "author": "ZIANIFatma-l1e",
+        "likes": 1,
+        "topic": "general"
+      },
+      {
+        "question": "كيف شخص يحسن من وضعه المادي",
+        "author": "alaaalhassan6918",
+        "likes": 1,
+        "topic": "general"
+      },
+      {
+        "question": "شكرا لحضرتك على المحتوى بس ياريت تعمل حلقات للطبقه الفقيرة والمتوسطه ازازي يقدروا يرفعوا من مستواهم المعيشي حضرتك ياريت تحضر لهم افكار يقدروا من خلالها يحسنوا من مستواهم ودا شئ صعب علي فكره بس حد زي ح",
+        "author": "adelfahmi1746",
+        "likes": 1,
+        "topic": "general"
+      },
+      {
+        "question": "سلام عليكم عاوز اسال انت استعملت ايه بلدقيقة 14:00 للترجمة السريعه من اللغة الانجليزيه للعربية وشكرا سلف",
+        "author": "AbouKhaled-Fawzi",
+        "likes": 1,
+        "topic": "general"
+      }
+    ],
+    "topRequests": [
+      {
+        "request": "تنجح فيما فشل فيه اليابان، لأن الموضوع بالنسبة للصين هوا معركة حياة او موت.",
+        "author": "LOL_2011_S",
+        "likes": 2,
+        "topic": "china"
+      },
+      {
+        "request": "يحصل فى سوق العقارات فى 2026",
+        "author": "ahmedramadan7941",
+        "likes": 1,
+        "topic": "real_estate"
+      },
+      {
+        "request": "ياخد وقت بس مع الإصرار هيتحقق",
+        "author": "MostafaAbrahem-o9i",
+        "likes": 1,
+        "topic": "general"
+      },
+      {
+        "request": "ان تنجح لكسر هيمنة الغرب حقا واتمنى أن العرب يكون لهم تطور هم ايضا",
+        "author": "ElkhattatElalia",
+        "likes": 1,
+        "topic": "china"
+      },
+      {
+        "request": "يكون في سلسله لفهم الاقتصاد للمهتمين بيه ولكن غير دارسين",
+        "author": "kaokabsheen9707",
+        "likes": 0,
+        "topic": "economy"
+      },
+      {
+        "request": "طرق الادخار وإيه أفضل الطرق في الوضع الحالي خصوصا للطبقة الوسطى",
+        "author": "mohammedelqady9856",
+        "likes": 0,
+        "topic": "investment"
+      },
+      {
+        "request": "تعمل حلقه عن الشباب البتغترب واهم الخطوات وطبعا عارف ان مش كل البيغترب بيقدر يتقلم أو يعمل فلوس تقدر تنصح الشباب حاليا ب اي ف ظل أن كل الشباب مبتفكرش ",
+        "author": "mnazih9870",
+        "likes": 0,
+        "topic": "general"
+      },
+      {
+        "request": "حلقة عن سوق العقارات فى مصر",
+        "author": "OnceUponTime9",
+        "likes": 0,
+        "topic": "egypt"
+      },
+      {
+        "request": "حلقه عن الاقتصاد المصري و ايه مستجداته بعد ازنك",
+        "author": "omarmostafa6051",
+        "likes": 0,
+        "topic": "egypt"
+      },
+      {
+        "request": "تتكلم عن الزيادة الاستثنائية لأسعار الذهب (محليا) والصدمة اللي حصلت للمستثمرين بالعقارات (خصوصا الوحدات التجارية والادارية بالمدن الجديدة)",
+        "author": "ahmed.ghalwash",
+        "likes": 0,
+        "topic": "gold"
+      }
+    ]
+  },
+  "opportunities": [
+    {
+      "type": "SEARCH",
+      "priority": "HIGH",
+      "title": "\"مخبر اقتصادي\" - 26313 views",
+      "action": "اصنع فيديو عن \"مخبر اقتصادي\""
+    },
+    {
+      "type": "SEARCH",
+      "priority": "HIGH",
+      "title": "\"الصين\" - 10847 views",
+      "action": "اصنع فيديو عن \"الصين\""
+    },
+    {
+      "type": "SEARCH",
+      "priority": "HIGH",
+      "title": "\"الدحيح\" - 8623 views",
+      "action": "اصنع فيديو عن \"الدحيح\""
+    },
+    {
+      "type": "SEARCH",
+      "priority": "HIGH",
+      "title": "\"الخبير الاقتصادي\" - 6855 views",
+      "action": "اصنع فيديو عن \"الخبير الاقتصادي\""
+    },
+    {
+      "type": "SEARCH",
+      "priority": "HIGH",
+      "title": "\"مخبر الاقتصادي\" - 5001 views",
+      "action": "اصنع فيديو عن \"مخبر الاقتصادي\""
+    },
+    {
+      "type": "AUDIENCE_REQUEST",
+      "priority": "HIGH",
+      "title": "المخبر الاقتصادي هو احد افضل البرامج التي يمكن متابعتها على منصه اليوتيوب، وهي جزء اساسي من يومياتي وحينما تكون الحلقات متوفره، ولا يسعني بما يكفي ان اشكر مقدم البرنامج اشرف ابراهيم وفريق العمل على هذ",
+      "action": "الجمهور يطلب هذا"
+    },
+    {
+      "type": "AUDIENCE_REQUEST",
+      "priority": "MEDIUM",
+      "title": "ربك هوا من يقبض الرزق عمن يشاء ويبسط الرزق لمن يشاء ❤",
+      "action": "الجمهور يطلب هذا"
+    },
+    {
+      "type": "AUDIENCE_REQUEST",
+      "priority": "MEDIUM",
+      "title": "هولندا سريت تكنولوجيا الـ Euv من الحضارات القديمة . الكثير لن يفهمني",
+      "action": "الجمهور يطلب هذا"
+    },
+    {
+      "type": "AUDIENCE_REQUEST",
+      "priority": "MEDIUM",
+      "title": "حلقه مميزه استاذ اشرف، ياريت تسلط الضوء على ارتفاع أسعار قطع الكمبيوتر وخاصة الرامات، ارتفعت إلى مستويات خياليه في أقل من سنه وهذا كان من أسباب الذكاء الاصطناعي وغيره.",
+      "action": "الجمهور يطلب هذا"
+    },
+    {
+      "type": "AUDIENCE_REQUEST",
+      "priority": "MEDIUM",
+      "title": "متابعينك من تونس سؤال : ممكن تعمل حلقة على مركز الحبوب والبذور اللي في سفالبارد ( النرويج ) وهل ممكن الوثوق فيه ومين الدول او الهيئات اللي بتراقبوا ؟",
+      "action": "الجمهور يطلب هذا"
+    },
+    {
+      "type": "AUDIENCE_WATCHES",
+      "priority": "MEDIUM",
+      "title": "جمهورك يشاهد 9 فيديو عن \"history\" - فرصة!",
+      "action": "جمهورك يشاهد 9 فيديو عن \"history\""
+    },
+    {
+      "type": "AUDIENCE_WATCHES",
+      "priority": "MEDIUM",
+      "title": "جمهورك يشاهد 8 فيديو عن \"food\" - فرصة!",
+      "action": "جمهورك يشاهد 8 فيديو عن \"food\""
+    },
+    {
+      "type": "AUDIENCE_WATCHES",
+      "priority": "MEDIUM",
+      "title": "جمهورك يشاهد 7 فيديو عن \"economy\" - فرصة!",
+      "action": "جمهورك يشاهد 7 فيديو عن \"economy\""
+    }
+  ]
+}

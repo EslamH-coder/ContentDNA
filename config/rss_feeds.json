@@ -1,0 +1,116 @@
+{
+    "feeds": [
+        {
+            "name": "Reuters Business",
+            "url": "https://feeds.reuters.com/reuters/businessNews",
+            "category": "business",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "Reuters World",
+            "url": "https://feeds.reuters.com/Reuters/worldNews",
+            "category": "world",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "Bloomberg Markets",
+            "url": "https://feeds.bloomberg.com/markets/news.rss",
+            "category": "markets",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "Bloomberg Technology",
+            "url": "https://feeds.bloomberg.com/technology/news.rss",
+            "category": "technology",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "Financial Times",
+            "url": "https://www.ft.com/rss/home",
+            "category": "business",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "NYT Business",
+            "url": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
+            "category": "business",
+            "priority": 2,
+            "enabled": true
+        },
+        {
+            "name": "NYT World",
+            "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+            "category": "world",
+            "priority": 2,
+            "enabled": true
+        },
+        {
+            "name": "NYT Technology",
+            "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+            "category": "technology",
+            "priority": 2,
+            "enabled": true
+        },
+        {
+            "name": "Al Jazeera English",
+            "url": "https://www.aljazeera.com/xml/rss/all.xml",
+            "category": "world",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "BBC Business",
+            "url": "http://feeds.bbci.co.uk/news/business/rss.xml",
+            "category": "business",
+            "priority": 2,
+            "enabled": true
+        },
+        {
+            "name": "BBC Middle East",
+            "url": "http://feeds.bbci.co.uk/news/world/middle_east/rss.xml",
+            "category": "middle_east",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "The Economist",
+            "url": "https://www.economist.com/finance-and-economics/rss.xml",
+            "category": "economics",
+            "priority": 1,
+            "enabled": true
+        },
+        {
+            "name": "TechCrunch",
+            "url": "https://techcrunch.com/feed/",
+            "category": "technology",
+            "priority": 2,
+            "enabled": true
+        },
+        {
+            "name": "Ars Technica",
+            "url": "https://feeds.arstechnica.com/arstechnica/index",
+            "category": "technology",
+            "priority": 3,
+            "enabled": true
+        },
+        {
+            "name": "CNBC",
+            "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114",
+            "category": "business",
+            "priority": 2,
+            "enabled": true
+        }
+    ],
+    
+    "settings": {
+        "max_items_per_feed": 20,
+        "max_age_hours": 48,
+        "fetch_timeout_seconds": 30,
+        "retry_attempts": 3
+    }
+}
