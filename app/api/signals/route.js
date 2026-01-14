@@ -6,6 +6,10 @@ import { calculateIdeaScore, getUrgencyTier } from '@/lib/scoring/multiSignalSco
 import { getLearnedAdjustments, applyLearnedAdjustments } from '@/lib/learning/signalEffectiveness';
 import { getShowPatterns, scoreSignalByPatterns } from '@/lib/behaviorPatterns';
 import { getChannelEntities } from '@/lib/entities/channelEntities';
+import { checkRssQuality } from '@/lib/testing/rssQualityCheck';
+
+// Debug: Verify file loaded
+console.log('✅ Signals route file loaded');
 
 // Service role client for operations that need to bypass RLS
 // Validate environment variables before creating client
@@ -24,7 +28,23 @@ const supabaseAdmin = createClient(
 );
 
 export async function GET(request) {
+  // Performance timing
+  const startTime = Date.now();
+  const timings = {
+    auth: 0,
+    fetch: 0,
+    processing: 0,
+    scoring: 0,
+    filtering: 0,
+    total: 0
+  };
+  
+  // Early logging to verify route is being called
+  console.log('📡 GET /api/signals called');
+  
   try {
+    console.log('🔍 DEBUG: Starting signals route execution');
+    const authStart = Date.now();
     // Validate Supabase configuration first
     if (!supabaseUrl || !supabaseServiceKey) {
       console.error('❌ Signals API: Supabase not configured');
@@ -50,7 +70,13 @@ export async function GET(request) {
 
     const { searchParams } = new URL(request.url);
     const showId = searchParams.get('show_id') || searchParams.get('showId');
-    const limit = parseInt(searchParams.get('limit') || '50', 10); // Default to 50, allow override
+    // For Ideas page, request all quality signals (no artificial limit)
+    // Default to 500 to show all quality signals, but allow override for Studio page
+    const limit = parseInt(searchParams.get('limit') || '500', 10);
+    
+    // PERFORMANCE: Skip scoring on page load - signals are already scored during refresh
+    // Only re-score if explicitly requested (for debugging)
+    const forceRescore = searchParams.get('force_rescore') === 'true';
 
     if (!showId) {
       return NextResponse.json({ error: 'show_id is required' }, { status: 400 });
@@ -62,8 +88,42 @@ export async function GET(request) {
     if (!authorized) {
       return NextResponse.json({ error: accessError || 'Access denied to this show' }, { status: 403 });
     }
+    
+    timings.auth = Date.now() - startTime;
+    const fetchStart = Date.now();
 
     console.log('📡 Fetching signals for show:', showId);
+
+    // Validate Supabase connection before querying
+    if (!supabaseUrl || supabaseUrl === 'https://placeholder.supabase.co') {
+      console.error('❌ Supabase URL not configured');
+      return NextResponse.json(
+        { 
+          error: 'Database connection failed',
+          details: 'NEXT_PUBLIC_SUPABASE_URL is missing or invalid',
+          troubleshooting: {
+            checkEnvFile: 'Check .env.local file for NEXT_PUBLIC_SUPABASE_URL',
+            hasUrl: false
+          }
+        },
+        { status: 500 }
+      );
+    }
+
+    if (!supabaseServiceKey || supabaseServiceKey === 'placeholder-key') {
+      console.error('❌ Supabase service key not configured');
+      return NextResponse.json(
+        { 
+          error: 'Database connection failed',
+          details: 'SUPABASE_SERVICE_ROLE_KEY is missing or invalid',
+          troubleshooting: {
+            checkEnvFile: 'Check .env.local file for SUPABASE_SERVICE_ROLE_KEY',
+            hasKey: false
+          }
+        },
+        { status: 500 }
+      );
+    }
 
     // 1. Get all signals (use admin client for RLS bypass)
     // Note: We fetch all signals first, then apply multi-signal scoring filter
@@ -71,12 +131,29 @@ export async function GET(request) {
     let signals, error;
     try {
       console.log('   Attempting to query Supabase signals table...');
-      const result = await supabaseAdmin
+      console.log('   Supabase URL:', supabaseUrl ? `${supabaseUrl.substring(0, 30)}...` : 'MISSING');
+      console.log('   Service key:', supabaseServiceKey ? `${supabaseServiceKey.substring(0, 10)}...` : 'MISSING');
+      // PERFORMANCE: For fast path, filter at database level
+      // For force_rescore mode, fetch all signals for re-scoring
+      let query = supabaseAdmin
         .from('signals')
         .select('*')
-        .eq('show_id', showId)
-        .order('created_at', { ascending: false })
-        .limit(100);
+        .eq('show_id', showId);
+      
+      if (!forceRescore) {
+        // Fast path: Filter at database level for speed
+        query = query
+          .eq('is_visible', true)
+          .neq('status', 'rejected')
+          .gte('score', 40) // Only quality signals
+          .order('score', { ascending: false })
+          .limit(limit || 500);
+      } else {
+        // Force rescore mode: Fetch all signals for re-scoring
+        query = query.order('created_at', { ascending: false });
+      }
+      
+      const result = await query;
       
       signals = result.data;
       error = result.error;
@@ -109,8 +186,46 @@ export async function GET(request) {
       throw error;
     }
 
+    timings.fetch = Date.now() - fetchStart;
+    
     const rawRssItems = signals?.length || 0;
     console.log(`📰 STEP 1 - Raw RSS items from DB: ${rawRssItems} signals for show ${showId}`);
+    console.log(`⏱️ Timing: Auth=${timings.auth}ms, Fetch=${timings.fetch}ms`);
+
+    // PERFORMANCE OPTIMIZATION: Skip ALL scoring on page load - just read from DB
+    // Scoring happens during refresh only. Page load should be fast (< 1 second)
+    if (!forceRescore) {
+      console.log('⚡ FAST PATH: Skipping scoring - using scores from database');
+      
+      // Database already filtered by is_visible=true, status!=rejected, score>=40
+      // Just use the signals as-is (already sorted by score DESC)
+      const finalSignals = (signals || []).slice(0, limit);
+      
+      timings.total = Date.now() - startTime;
+      console.log(`\n⏱️ FAST PATH PERFORMANCE:`);
+      console.log(`   Auth: ${timings.auth}ms`);
+      console.log(`   Fetch: ${timings.fetch}ms`);
+      console.log(`   Filtering: ${Date.now() - timings.fetch - startTime}ms`);
+      console.log(`   TOTAL: ${timings.total}ms`);
+      console.log(`   Signals returned: ${finalSignals.length} (from ${rawRssItems} total)\n`);
+      
+      return NextResponse.json({
+        success: true,
+        signals: finalSignals,
+        stats: {
+          total: rawRssItems,
+          visible: finalSignals.length,
+          hidden: rawRssItems - finalSignals.length,
+          scoring_skipped: true,
+          message: 'Signals loaded from database (scoring skipped for performance)'
+        },
+        multi_signal_scoring: false // Indicates we used cached scores
+      });
+    }
+    
+    // If force_rescore=true, continue with full scoring (for debugging)
+    console.log('⚠️ FORCE RE-SCORE MODE: Re-scoring all signals (slow, for debugging only)');
+    const processingStart = Date.now();
 
     // If no signals at all, return early
     if (!signals || signals.length === 0) {
@@ -147,11 +262,13 @@ export async function GET(request) {
       .eq('show_id', showId)
       .eq('action', 'liked');
 
+    console.log('🔍 DEBUG: About to process liked feedback');
     const likedTitles = new Set(
-      (likedFeedback || []).map(f => f.topic?.toLowerCase().trim()).filter(Boolean)
+      (likedFeedback || []).map(f => (f?.topic || '').toLowerCase().trim()).filter(Boolean)
     );
 
     console.log(`💚 Found ${likedTitles.size} liked signals (protected)`);
+    console.log('🔍 DEBUG: Liked feedback processed successfully');
 
     // Helper: Check if signal was liked
     function wasSignalLiked(signalTitle) {
@@ -182,7 +299,7 @@ export async function GET(request) {
 
     const rejectedTitles = (feedbacks || [])
       .filter(f => f.action === 'rejected')
-      .map(f => normalizeText(f.topic));
+      .map(f => normalizeText(f?.topic || ''));
 
     console.log(`🚫 Rejected: ${rejectedTitles.length}`);
 
@@ -428,33 +545,48 @@ export async function GET(request) {
       .single();
     
     // ✨ NEW: Load channel entities once at start (cached)
-    const channelEntities = await getChannelEntities(showId);
-    console.log(`📊 Loaded ${channelEntities.entities.length} entities from DNA for scoring`);
-    
-    // ✨ NEW: Load excluded names (channel/source names that shouldn't count as matches)
-    const { getExcludedNames } = await import('@/lib/entities/channelEntities');
-    const excludedNames = await getExcludedNames(showId);
-    console.log(`🚫 Loaded ${excludedNames.length} excluded names (channel/source names)`);
-
-    // Also try to fetch topic_definitions if they exist (for better DNA matching)
-    let topicDefinitions = [];
+    let channelEntities = { entities: [] };
     try {
-      const { data: topicDefs, error: topicDefError } = await supabaseAdmin
-        .from('topic_definitions')
-        .select('*')
-        .eq('show_id', showId);
-      
-      if (topicDefError) {
-        console.log('ℹ️  topic_definitions table not available or error:', topicDefError.message);
-      } else if (topicDefs && Array.isArray(topicDefs)) {
-        topicDefinitions = topicDefs;
-        console.log(`📚 Found ${topicDefinitions.length} topic definitions`);
-      }
-    } catch (e) {
-      // topic_definitions table might not exist, that's okay
-      console.log('ℹ️  topic_definitions table not available (optional)');
+      channelEntities = await getChannelEntities(showId);
+      console.log(`📊 Loaded ${channelEntities.entities.length} entities from DNA for scoring`);
+    } catch (entitiesError) {
+      console.error('❌ Error loading channel entities (non-fatal):', entitiesError);
+      // Continue with empty entities
     }
     
+    // ✨ NEW: Load excluded names (channel/source names that shouldn't count as matches)
+    let excludedNames = [];
+    try {
+      const { getExcludedNames } = await import('@/lib/entities/channelEntities');
+      excludedNames = await getExcludedNames(showId);
+      console.log(`🚫 Loaded ${excludedNames.length} excluded names (channel/source names)`);
+    } catch (excludedError) {
+      console.error('❌ Error loading excluded names (non-fatal):', excludedError);
+      // Continue with empty excluded names
+    }
+
+    // ===========================================
+    // Load DNA topics from topic_definitions (single source of truth)
+    // Using unified taxonomy service
+    // ===========================================
+    console.log('🔍 Loading topics from unified taxonomy service...');
+    let dnaTopics = [];
+    try {
+      const { loadTopics } = await import('@/lib/taxonomy/unifiedTaxonomyService');
+      dnaTopics = await loadTopics(showId, supabaseAdmin);
+      console.log(`✅ Loaded ${dnaTopics.length} topics from topic_definitions`);
+    } catch (loadError) {
+      console.error('❌ Error loading topics from unified service:', loadError);
+      console.error('   Error type:', loadError?.constructor?.name);
+      console.error('   Error message:', loadError?.message);
+      // Continue with empty array - no fallback to show_dna.topics (deprecated)
+    }
+    
+    if (dnaTopics.length === 0) {
+      console.warn('⚠️ No topics found in topic_definitions. Run migration to migrate from show_dna.topics if needed.');
+    }
+    
+    // Get scoring keywords from show_dna (still used for quality scoring)
     const dnaKeywords = [];
     if (showDna?.scoring_keywords) {
       const keywords = showDna.scoring_keywords;
@@ -462,139 +594,17 @@ export async function GET(request) {
       if (keywords.medium_engagement) dnaKeywords.push(...keywords.medium_engagement);
     }
     
-    // Ensure dnaTopics is always an array
-    let dnaTopics = [];
-    if (showDna?.topics) {
-      if (Array.isArray(showDna.topics)) {
-        // Validate array structure - check if topics have proper structure
-        dnaTopics = showDna.topics.filter(topic => {
-          if (!topic || typeof topic !== 'object') return false;
-          // Check if topic has at least topic_id OR valid keywords OR name
-          const hasTopicId = !!(topic.topic_id || topic.topicId || topic.id);
-          // Keywords should not just be "what if" or "ماذا لو" (these are generic/question keywords, not topic-specific)
-          const hasValidKeywords = Array.isArray(topic.keywords) && topic.keywords.length > 0 &&
-                                   !topic.keywords.every(kw => ['what if', 'ماذا لو'].includes(String(kw).toLowerCase()));
-          const hasName = !!(topic.name || topic.topic_name) && 
-                          topic.name !== 'no name' && topic.topic_name !== 'no name';
-          return hasTopicId || hasValidKeywords || hasName;
-        });
-        
-        // If all topics are invalid, log critical warning
-        if (dnaTopics.length === 0 && showDna.topics.length > 0) {
-          console.error('❌ CRITICAL: All DNA topics are invalid/malformed.');
-          console.error('   Sample invalid topic:', showDna.topics[0]);
-          console.error('   Action required: Run fix_almokhbir_dna_topics.sql to fix the show_dna.topics column');
-        } else if (dnaTopics.length < showDna.topics.length) {
-          console.warn(`⚠️  Filtered out ${showDna.topics.length - dnaTopics.length} invalid DNA topics (missing topic_id/keywords/name or only generic keywords)`);
-        }
-      } else if (typeof showDna.topics === 'string') {
-        try {
-          const parsed = JSON.parse(showDna.topics);
-          if (Array.isArray(parsed)) {
-            dnaTopics = parsed.filter(topic => {
-              if (!topic || typeof topic !== 'object') return false;
-              const hasTopicId = !!(topic.topic_id || topic.topicId || topic.id);
-              const hasValidKeywords = Array.isArray(topic.keywords) && topic.keywords.length > 0 &&
-                                       !topic.keywords.every(kw => ['what if', 'ماذا لو'].includes(String(kw).toLowerCase()));
-              const hasName = !!(topic.name || topic.topic_name) && 
-                              topic.name !== 'no name' && topic.topic_name !== 'no name';
-              return hasTopicId || hasValidKeywords || hasName;
-            });
-          } else if (typeof parsed === 'object' && parsed !== null) {
-            // If it's an object, try to convert to array
-            dnaTopics = Object.values(parsed).filter(Boolean);
-          }
-        } catch (e) {
-          console.warn('⚠️ Failed to parse dnaTopics as JSON:', e);
-          console.warn('   Raw topics string:', showDna.topics.substring(0, 200));
-          dnaTopics = [];
-        }
-      } else if (typeof showDna.topics === 'object' && showDna.topics !== null) {
-        // If it's an object, try to convert to array
-        dnaTopics = Object.values(showDna.topics).filter(Boolean);
-      }
-    }
+    // Create allKeywords array for fallback (used if topics don't have keywords)
+    const allKeywords = [...dnaKeywords];
     
-    // Ensure it's still an array after processing
-    if (!Array.isArray(dnaTopics)) {
-      console.warn('⚠️ dnaTopics is not an array, defaulting to empty array. Type:', typeof dnaTopics);
-      console.warn('   showDna.topics raw value:', showDna?.topics);
-      dnaTopics = [];
-    }
-    
-    // Additional validation: Check if topics have required fields
-    const validTopics = dnaTopics.filter(topic => {
-      const hasTopicId = !!(topic?.topic_id || topic?.topicId || topic?.id);
-      const hasKeywords = Array.isArray(topic?.keywords) && topic.keywords.length > 0;
-      return hasTopicId || hasKeywords; // At least one of these should exist
-    });
-    
-    if (validTopics.length < dnaTopics.length) {
-      console.warn(`⚠️ Found ${dnaTopics.length - validTopics.length} invalid DNA topics (missing topic_id and keywords)`);
-      dnaTopics = validTopics;
-    }
-
-    // DEBUG: Log DNA topics structure for debugging
-    console.log(`📊 DNA Topics loaded: ${dnaTopics.length} topics`);
+    console.log(`📊 DNA Topics loaded: ${dnaTopics.length} topics from topic_definitions`);
     if (dnaTopics.length > 0) {
       console.log('Sample DNA topic structure:', {
-        first_topic: dnaTopics[0],
-        has_topic_id: !!dnaTopics[0]?.topic_id,
-        topic_id_value: dnaTopics[0]?.topic_id || dnaTopics[0]?.topicId || dnaTopics[0]?.id || 'undefined',
-        has_keywords: Array.isArray(dnaTopics[0]?.keywords),
+        topic_id: dnaTopics[0]?.topic_id,
+        topic_name_en: dnaTopics[0]?.topic_name_en,
         keywords_count: dnaTopics[0]?.keywords?.length || 0,
-        keywords_sample: Array.isArray(dnaTopics[0]?.keywords) ? dnaTopics[0].keywords.slice(0, 5) : dnaTopics[0]?.keywords,
-        has_name: !!dnaTopics[0]?.name,
-        name_value: dnaTopics[0]?.name || 'undefined',
-        all_keys: Object.keys(dnaTopics[0] || {})
+        keywords_sample: Array.isArray(dnaTopics[0]?.keywords) ? dnaTopics[0].keywords.slice(0, 5) : []
       });
-    } else {
-      console.warn('⚠️ No DNA topics found. Checking show_dna.topics structure:');
-      console.warn('   showDna.topics type:', typeof showDna?.topics);
-      console.warn('   showDna.topics value:', showDna?.topics);
-      console.warn('   showDna structure:', {
-        show_id: showDna?.show_id,
-        has_scoring_keywords: !!showDna?.scoring_keywords,
-        topics_type: typeof showDna?.topics,
-        topics_value: showDna?.topics
-      });
-    }
-
-    // Also try to get keywords from scoring_keywords if topics don't have keywords
-    const scoringKeywords = showDna?.scoring_keywords || {};
-    const allKeywords = [
-      ...(scoringKeywords.high_engagement || []),
-      ...(scoringKeywords.medium_engagement || [])
-    ];
-
-    console.log('🔑 Scoring keywords available:', allKeywords.length);
-
-    // Enhance DNA topics with topic_definitions if available
-    if (topicDefinitions.length > 0 && dnaTopics.length > 0) {
-      // Merge topic_definitions with dnaTopics to add keywords
-      const enhancedDnaTopics = dnaTopics.map(dnaTopic => {
-        const topicId = dnaTopic.topic_id || dnaTopic.topicId || dnaTopic.id;
-        if (!topicId) return dnaTopic;
-        
-        // Find matching topic definition
-        const topicDef = topicDefinitions.find(td => 
-          td.topic_id === topicId || td.id === topicId || td.topic === topicId
-        );
-        
-        if (topicDef) {
-          return {
-            ...dnaTopic,
-            topic_id: topicId,
-            keywords: topicDef.keywords || dnaTopic.keywords || [],
-            name: topicDef.name || topicDef.topic_name || dnaTopic.name
-          };
-        }
-        
-        return dnaTopic;
-      });
-      
-      dnaTopics = enhancedDnaTopics;
-      console.log(`✅ Enhanced ${dnaTopics.length} DNA topics with topic definitions`);
     }
 
     // If DNA topics don't have keywords, try to use scoring_keywords as fallback
@@ -645,7 +655,7 @@ export async function GET(request) {
       
       // Boost for DNA keyword matches
       for (const keyword of dnaKeywords) {
-        if (title.includes(keyword.toLowerCase())) {
+        if (keyword && title.includes((keyword || '').toLowerCase())) {
           score += 15;
         }
       }
@@ -793,10 +803,73 @@ export async function GET(request) {
 
     if (competitorError) {
       console.warn('⚠️ Error fetching competitor videos (non-fatal):', competitorError.message);
+      console.warn('   Error details:', JSON.stringify(competitorError, null, 2));
     }
 
-    console.log(`📊 Competitor videos fetched: ${competitorVideos?.length || 0} videos in last 7 days`);
+    const competitorVideosCount = competitorVideos?.length || 0;
+    console.log(`📊 Competitor videos fetched: ${competitorVideosCount} videos in last 7 days`);
     console.log(`📊 Competitor IDs for this show: ${competitorIds.length} competitors`);
+
+    // ENHANCED DIAGNOSTICS: If no videos found, provide detailed diagnostics
+    if (competitorVideosCount === 0 && competitorIds.length > 0) {
+      console.warn('\n⚠️ ===== COMPETITOR VIDEOS DIAGNOSTIC =====');
+      console.warn(`   Show ID: ${showId}`);
+      console.warn(`   Competitor IDs: [${competitorIds.join(', ')}]`);
+      
+      // Check if videos exist at all (no date filter)
+      const { data: allVideosCheck, error: allVideosError } = await supabaseAdmin
+        .from('competitor_videos')
+        .select('id, published_at, competitor_id')
+        .in('competitor_id', competitorIds)
+        .limit(10);
+      
+      if (allVideosError) {
+        console.warn(`   ❌ Error checking all videos: ${allVideosError.message}`);
+      } else {
+        const allVideosCount = allVideosCheck?.length || 0;
+        if (allVideosCount === 0) {
+          console.warn(`   ❌ No competitor videos found in database at all`);
+          console.warn(`   💡 Possible causes:`);
+          console.warn(`      1. Competitor video sync job is not running`);
+          console.warn(`      2. YouTube channel IDs are incorrect in competitors table`);
+          console.warn(`      3. Competitors have not posted any videos yet`);
+        } else {
+          // Videos exist but not in last 7 days
+          const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+          const oldestVideo = allVideosCheck
+            .map(v => v.published_at ? new Date(v.published_at) : null)
+            .filter(Boolean)
+            .sort((a, b) => a - b)[0];
+          
+          if (oldestVideo && oldestVideo < sevenDaysAgo) {
+            const daysSinceOldest = Math.floor((Date.now() - oldestVideo.getTime()) / (1000 * 60 * 60 * 24));
+            console.warn(`   ⚠️ Videos exist (${allVideosCount} found) but none in last 7 days`);
+            console.warn(`   📅 Oldest video found: ${daysSinceOldest} days ago`);
+            console.warn(`   💡 Consider increasing time window or checking sync frequency`);
+          } else {
+            console.warn(`   ⚠️ Videos exist but date filtering might be too strict`);
+            console.warn(`   📅 Sample dates: ${allVideosCheck.slice(0, 3).map(v => v.published_at).join(', ')}`);
+          }
+        }
+      }
+      
+      // Check join query separately
+      const { data: joinTest, error: joinError } = await supabaseAdmin
+        .from('competitor_videos')
+        .select('id, competitors!inner(id)')
+        .in('competitor_id', competitorIds)
+        .limit(1);
+      
+      if (joinError) {
+        console.warn(`   ❌ Join query failed: ${joinError.message}`);
+        console.warn(`   💡 Check foreign key relationship between competitor_videos and competitors tables`);
+      } else {
+        console.warn(`   ✅ Join query works (found ${joinTest?.length || 0} result(s))`);
+      }
+      
+      console.warn(`   💡 Run full diagnostic: GET /api/diagnostics/competitors?showId=${showId}`);
+      console.warn(`========================================\n`);
+    }
 
     // Normalize competitor videos data structure
     // NOTE: competitor_videos uses 'published_at', channel_videos uses 'publish_date'
@@ -1030,6 +1103,11 @@ export async function GET(request) {
     // CRITICAL: Fix title field - check multiple possible column names
     // CRITICAL: channel_videos uses 'publish_date', videos table uses 'published_at'
     // Normalize both to 'published_at' for consistency in scoring functions
+    console.log(`📹 Normalizing ${userVideos?.length || 0} user videos for scoring`);
+    if (!userVideos || userVideos.length === 0) {
+      console.warn(`⚠️ WARNING: No user videos available for show ${showId}. This will cause daysSinceLastPost to be 999 (never posted).`);
+      console.warn(`   This is expected if the channel is new or videos haven't been synced yet.`);
+    }
     const normalizedUserVideos = (userVideos || []).map(video => {
       // Try multiple possible title fields (title_ar, title_en, title)
       const actualTitle = video.title_ar || video.title_en || video.title || '';
@@ -1117,18 +1195,84 @@ export async function GET(request) {
     const uniqueStories = new Set(learnedSignals.map(s => normalizeText(s.title || ''))).size;
     console.log(`📊 STEP 4 - After learning adjustments: ${learnedSignals.length} signals (${uniqueStories} unique stories)`);
     
+    timings.processing = Date.now() - processingStart;
+    const scoringStart = Date.now();
+    
+    // NOTE: forceRescore is already defined above (line 79)
+    // If we reach here, forceRescore=true was explicitly requested (force re-score mode)
+    const signalsWithScores = learnedSignals.filter(s => s.score && s.score > 0 && !s.is_evergreen);
+    const needsScoring = true; // In force_rescore mode, always re-score
+    
+    console.log(`⏱️ Timing: Processing=${timings.processing}ms`);
+    console.log(`📊 Scoring check: ${learnedSignals.length} signals, ${signalsWithScores.length} already scored, needsScoring=${needsScoring}`);
+    
     // Apply multi-signal scoring to each signal
+    // SKIP re-scoring for evergreen signals (Reddit/Wikipedia) - they already have DNA-based scores
+    // OPTIMIZATION: Only re-score if needed (signals missing scores)
     const multiSignalScored = await Promise.all(learnedSignals.map(async signal => {
       const normalizedTitle = normalizeText(signal.title || '');
       const similarSignals = signalTitleMap.get(normalizedTitle) || [signal];
       const sourceCount = similarSignals.length;
 
+      // SKIP re-scoring for evergreen signals - preserve their DNA-based scores
+      const isEvergreen = signal.is_evergreen === true || 
+                         signal.source_type === 'reddit' || 
+                         signal.source_type === 'wikipedia' ||
+                         (signal.source && (signal.source.startsWith('r/') || signal.source.includes('Wikipedia')));
+      
+      if (isEvergreen) {
+        // Preserve existing DNA-based score from evergreenScoring
+        // Don't re-score with calculateIdeaScore - it would override the DNA-based score
+        const existingScore = signal.score || 0;
+        const existingRelevanceScore = signal.relevance_score || existingScore;
+        
+        return {
+          ...signal,
+          score: existingScore,
+          relevance_score: existingRelevanceScore,
+          multi_signal_scoring: {
+            score: existingScore,
+            signals: [],
+            signalCount: 0
+          },
+          urgency_tier: {
+            tier: 'backlog', // Evergreen signals go to backlog
+            reason: 'evergreen_content'
+          }
+        };
+      }
+      
+      // OPTIMIZATION: Skip re-scoring if signal already has a score and we're not forcing re-score
+      // This dramatically speeds up page loads by avoiding expensive calculateIdeaScore calls
+      if (!needsScoring && signal.score && signal.score > 0 && signal.relevance_score) {
+        // Signal already scored - return as-is (fast path)
+        // Only skip if score is recent (within last 24 hours) or if explicitly cached
+        const signalAge = signal.updated_at || signal.created_at;
+        const hoursSinceUpdate = signalAge ? (Date.now() - new Date(signalAge).getTime()) / (1000 * 60 * 60) : 999;
+        
+        // Use cached score if it's recent (< 24 hours) or if signal has multi_signal_scoring data
+        if (hoursSinceUpdate < 24 || signal.multi_signal_scoring) {
+          return {
+            ...signal,
+            multi_signal_scoring: signal.multi_signal_scoring || {
+              score: signal.score,
+              signals: [],
+              signalCount: 0
+            },
+            urgency_tier: signal.urgency_tier || {
+              tier: 'backlog',
+              reason: 'cached_score'
+            }
+          };
+        }
+      }
+
       // DEBUG: Log data for specific ideas
       const isDebugIdea = signal.title && (
         (signal.title.includes('ترامب') && signal.title.includes('الصين')) ||
-        signal.title.toLowerCase().includes('venezuela') || 
-        signal.title.toLowerCase().includes('oil') || 
-        signal.title.toLowerCase().includes('tanker')
+        (signal.title || '').toLowerCase().includes('venezuela') || 
+        (signal.title || '').toLowerCase().includes('oil') || 
+        (signal.title || '').toLowerCase().includes('tanker')
       );
       
       if (isDebugIdea) {
@@ -1146,7 +1290,8 @@ export async function GET(request) {
         });
         
         // Log sample user videos for Venezuela/oil ideas
-        if (signal.title.toLowerCase().includes('venezuela') || signal.title.toLowerCase().includes('oil') || signal.title.toLowerCase().includes('tanker')) {
+        const signalTitleLower = (signal.title || '').toLowerCase();
+        if (signalTitleLower.includes('venezuela') || signalTitleLower.includes('oil') || signalTitleLower.includes('tanker')) {
           console.log('📹 Sample user videos (first 5):');
           normalizedUserVideos.slice(0, 5).forEach((v, i) => {
             console.log(`     ${i + 1}. "${v.title?.substring(0, 80)}"`);
@@ -1170,12 +1315,13 @@ export async function GET(request) {
       const sourceTitle = signal.raw_data?.sourceName || signal.source || signal.raw_data?.source_name || null;
       
       // DEBUG: Log source URL for Ukraine/Russia ideas
+      const signalTitleLower = (signal.title || '').toLowerCase();
       const isUkraineIdea = signal.title && (
-        signal.title.toLowerCase().includes('ukraine') ||
-        signal.title.toLowerCase().includes('ukrainian') ||
-        signal.title.toLowerCase().includes('kyiv') ||
-        signal.title.toLowerCase().includes('russia') ||
-        signal.title.toLowerCase().includes('russian')
+        signalTitleLower.includes('ukraine') ||
+        signalTitleLower.includes('ukrainian') ||
+        signalTitleLower.includes('kyiv') ||
+        signalTitleLower.includes('russia') ||
+        signalTitleLower.includes('russian')
       );
       if (isUkraineIdea) {
         console.log(`\n🔍 ===== DEBUG Source URL for Ukraine/Russia idea =====`);
@@ -1185,6 +1331,25 @@ export async function GET(request) {
         console.log(`   signal.raw_data?.link:`, signal.raw_data?.link || 'null');
         console.log(`   Final sourceUrl:`, sourceUrl);
         console.log(`   sourceTitle:`, sourceTitle);
+      }
+      
+      // Generate AI fingerprint for unified topic matching
+      let aiFingerprint = null;
+      try {
+        const { generateTopicFingerprint } = await import('@/lib/topicIntelligence');
+        aiFingerprint = await Promise.race([
+          generateTopicFingerprint({
+            title: signal.title || '',
+            description: signal.description || signal.raw_data?.description || '',
+            id: signal.id,
+            type: 'signal',
+            skipEmbedding: true,
+            skipCache: false
+          }),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2000))
+        ]).catch(() => null); // Timeout after 2 seconds, continue without fingerprint
+      } catch (fpError) {
+        // Non-fatal - continue without fingerprint
       }
       
       const scoring = await calculateIdeaScore(signal, {
@@ -1198,7 +1363,32 @@ export async function GET(request) {
         sourceUrl,
         sourceTitle,
         sourceCount,
+        aiFingerprint: aiFingerprint, // Pass AI fingerprint for DNA matching
       }, excludedNames); // Pass excluded names to filter out channel/source names
+      
+      // ============================================
+      // UNIFIED TOPIC MATCHING & RECORDING
+      // ============================================
+      let matchedTopics = [];
+      let primaryTopicId = null;
+      if (dnaTopics.length > 0) {
+        try {
+          const { matchSignalToTopics, recordTopicMatch } = await import('@/lib/taxonomy/unifiedTaxonomyService');
+          matchedTopics = await matchSignalToTopics(signal, dnaTopics, aiFingerprint);
+          
+          if (matchedTopics.length > 0) {
+            primaryTopicId = matchedTopics[0].topicId;
+            // Record match in database
+            await recordTopicMatch(showId, primaryTopicId, supabaseAdmin);
+            
+            // Store matched topics in signal
+            signal.matchedTopics = matchedTopics;
+            signal.primaryTopic = primaryTopicId;
+          }
+        } catch (matchError) {
+          console.warn('⚠️ Error in unified topic matching (non-fatal):', matchError.message);
+        }
+      }
       
       // ============================================
       // ADD BEHAVIOR PATTERN MATCHING
@@ -1262,6 +1452,67 @@ export async function GET(request) {
         learnedAdjustments
       );
 
+      // ============================================
+      // Extract competitor evidence from scoring signals for UI display
+      // ============================================
+      const competitors = [];
+      
+      // 1. Extract from breakout signals (these have full video details)
+      for (const sig of scoring.signals) {
+        if (sig.type?.includes('competitor_breakout')) {
+          const data = sig.data || {};
+          const evidence = sig.evidence || {};
+          
+          // Merge data and evidence (data takes priority)
+          const comp = {
+            channelName: data.channelName || evidence.channelName || 'Unknown',
+            channelId: data.channelId || evidence.channelId,
+            videoTitle: data.videoTitle || evidence.videoTitle || '',
+            videoUrl: data.videoUrl || evidence.videoUrl || null,
+            videoDescription: (data.videoDescription || evidence.videoDescription || '').substring(0, 200),
+            views: data.views || evidence.views || 0,
+            averageViews: data.averageViews || evidence.averageViews || 0,
+            multiplier: data.multiplier || evidence.multiplier || 0,
+            hoursAgo: data.hoursAgo || evidence.hoursAgo,
+            publishedAt: data.publishedAt || evidence.publishedAt,
+            matchedKeywords: data.matchedKeywords || evidence.matchedKeywords || evidence.topicKeywordMatches || [],
+            type: sig.type?.includes('direct') ? 'direct' : 
+                  sig.type?.includes('trendsetter') ? 'trendsetter' : 'indirect',
+            isBreakout: true,
+          };
+          
+          if (comp.channelName && comp.channelName !== 'Unknown') {
+            competitors.push(comp);
+          }
+        }
+      }
+      
+      // 2. Extract from volume signals (these have competitor lists in evidence)
+      for (const sig of scoring.signals) {
+        if (sig.type?.includes('competitor_volume') || sig.type === 'trendsetter_volume') {
+          const evidenceCompetitors = sig.evidence?.competitors || [];
+          for (const comp of evidenceCompetitors) {
+            // Avoid duplicates
+            const isDuplicate = competitors.some(c => 
+              c.videoUrl === comp.videoUrl || 
+              (c.channelName === comp.name && c.videoTitle === comp.videoTitle)
+            );
+            
+            if (!isDuplicate && (comp.name || comp.channelName)) {
+              competitors.push({
+                channelName: comp.name || comp.channelName || 'Unknown',
+                channelId: comp.channelId,
+                videoTitle: comp.videoTitle || '',
+                videoUrl: comp.videoUrl || null,
+                matchedKeywords: comp.matchedKeywords || [],
+                type: comp.type || 'indirect',
+                isBreakout: false,
+              });
+            }
+          }
+        }
+      }
+
       const result = {
         ...signal,
         // Use learned-adjusted score if different, otherwise use multi-signal score
@@ -1275,6 +1526,36 @@ export async function GET(request) {
           learned_adjusted_score: learnedAdjustedScore,
         },
         urgency_tier: urgency,
+        // ✅ NEW: Competitor evidence for UI display
+        competitors: competitors.length > 0 ? competitors : undefined,
+        competitor_count: scoring.competitorBreakdown?.total || competitors.length || 0,
+        // Map competitors to competitor_evidence format (for backward compatibility with UI)
+        competitor_evidence: competitors.length > 0 ? competitors.map(comp => ({
+          icon: comp.isBreakout ? '🔥' : comp.type === 'direct' ? '🔥' : comp.type === 'trendsetter' ? '⚡' : '🌊',
+          text: comp.isBreakout 
+            ? `${comp.channelName} got ${comp.multiplier?.toFixed(1) || 'N/A'}x their average`
+            : `${comp.channelName} covered this`,
+          competitorType: comp.type,
+          videoTitle: comp.videoTitle,
+          videoUrl: comp.videoUrl,
+          matchReason: comp.matchedKeywords?.length > 0 
+            ? comp.matchedKeywords.slice(0, 3).join(', ')
+            : 'Topic match',
+          views: comp.views,
+          multiplier: comp.multiplier,
+          hoursAgo: comp.hoursAgo,
+        })) : undefined,
+        competitor_boost: (() => {
+          let boost = 0;
+          // Use new weights: direct_breakout = 35, trendsetter_breakout = 20, indirect_breakout = 10
+          if (scoring.competitorBreakdown?.hasDirectBreakout) boost += 35;
+          else if (scoring.competitorBreakdown?.hasTrendsetterSignal) boost += 20;
+          // Volume bonuses: direct_volume = 25, trendsetter_volume = 15, indirect_volume = 8
+          if (scoring.competitorBreakdown?.direct >= 2) boost += 25;
+          else if (scoring.competitorBreakdown?.trendsetter >= 2) boost += 15;
+          else if (scoring.competitorBreakdown?.indirect >= 2) boost += 8;
+          return boost > 0 ? boost : 0;
+        })(),
         // Add behavior pattern matches (for displaying "Matches Money & Wealth Stories pattern")
         behavior_patterns: patternMatches.length > 0 ? patternMatches : undefined,
         // Keep learning adjustments for reference
@@ -1292,6 +1573,10 @@ export async function GET(request) {
 
     const afterScoring = multiSignalScored.length;
     console.log(`📊 STEP 5 - After multi-signal scoring: ${afterScoring} signals scored`);
+    
+    timings.scoring = Date.now() - scoringStart;
+    const filteringStart = Date.now();
+    console.log(`⏱️ Timing: Scoring=${timings.scoring}ms (${learnedSignals.length} signals, needsScoring=${needsScoring})`);
 
     // Filter: Only show signals with valid multi-signal scoring
     // BUT: If no signals pass, show top signals anyway (fallback for new channels)
@@ -1406,48 +1691,128 @@ export async function GET(request) {
       return (b.multi_signal_scoring?.score || b.score || 0) - (a.multi_signal_scoring?.score || a.score || 0);
     });
 
-    // Limit to top signals per tier (time-sensitivity based limits)
-    const TIER_LIMITS = {
-      post_today: 5,    // Max 5 urgent items
-      this_week: 7,     // Max 7 planned items
-      backlog: 15       // Max 15 library items
+    // ===========================================
+    // IDEAS PAGE VISIBILITY - SHOW ALL QUALITY SIGNALS (NO TIER LIMITS)
+    // ===========================================
+    // This is the "inbox" - users should see ALL quality signals to browse, like, reject, save
+    // Studio page will handle tier limits for production planning
+    
+    const IDEAS_PAGE_CONFIG = {
+      MIN_SCORE_TO_SHOW: 40,          // Show all signals with score >= 40
+      HIDE_REJECTED: true,             // Hide user-rejected signals
+      MAX_SIGNALS: 500                 // Safety limit (shouldn't hit this)
     };
     
-    const tieredSignals = {
-      post_today: signalsToShow.filter(s => s.urgency_tier?.tier === 'post_today' || s.urgency_tier?.tier === 'today').slice(0, TIER_LIMITS.post_today),
-      this_week: signalsToShow.filter(s => s.urgency_tier?.tier === 'this_week' || s.urgency_tier?.tier === 'week').slice(0, TIER_LIMITS.this_week),
-      backlog: signalsToShow.filter(s => s.urgency_tier?.tier === 'backlog' || s.urgency_tier?.tier === 'evergreen').slice(0, TIER_LIMITS.backlog),
-    };
-
-    const finalSignalsList = [
-      ...tieredSignals.post_today,
-      ...tieredSignals.this_week,
-      ...tieredSignals.backlog,
-    ].slice(0, limit); // Max limit total
-
-    // PROTECTION: Always include high-score signals (score >= 70) in visible list
-    // This ensures quality signals aren't hidden by tier limits
-    const highScoreSignals = (signals || []).filter(s => {
-      const score = s.multi_signal_scoring?.score || s.score || 0;
-      return score >= 70 && !finalSignalsList.find(fs => fs.id === s.id);
+    console.log(`📊 Ideas Page: Processing ${signalsToShow.length} signals for visibility...`);
+    
+    // Step 1: Set visibility - SIMPLE RULE: score >= 40 AND status !== 'rejected'
+    let visibleCount = 0;
+    let hiddenLowScore = 0;
+    let hiddenRejected = 0;
+    
+    for (const signal of signalsToShow) {
+      const realScore = signal.multi_signal_scoring?.score || signal.final_score || signal.score || 0;
+      
+      // SIMPLE RULE: is_visible = (score >= 40) && (status !== 'rejected')
+      signal.is_visible = (realScore >= 40) && (signal.status !== 'rejected');
+      
+      if (signal.is_visible) {
+        visibleCount++;
+      } else {
+        if (signal.status === 'rejected') {
+          hiddenRejected++;
+        } else {
+          hiddenLowScore++;
+        }
+      }
+    }
+    
+    console.log(`✅ Ideas Page Visibility (SIMPLE RULE: score >= 40 && status !== 'rejected'):`);
+    console.log(`   - Visible: ${visibleCount}`);
+    console.log(`   - Hidden (score < 40): ${hiddenLowScore}`);
+    console.log(`   - Hidden (rejected): ${hiddenRejected}`);
+    
+    // Step 2: Assign tier labels for UI grouping (NO LIMITS - just labels!)
+    function assignTierLabel(signal) {
+      const realScore = signal.multi_signal_scoring?.score || signal.final_score || signal.score || 0;
+      
+      // Check for urgency signals
+      const hasDirectBreakout = signal.signals?.some(s => s.type === 'competitor_breakout_direct');
+      const hasTrendsetter = signal.signals?.some(s => s.type === 'trendsetter_signal');
+      const hasDnaMatch = signal.signals?.some(s => s.type === 'dna_match');
+      const hasIndirectBreakout = signal.signals?.some(s => s.type === 'competitor_breakout_indirect');
+      
+      // Use existing urgency_tier if available, otherwise calculate
+      if (signal.urgency_tier?.tier) {
+        return signal.urgency_tier.tier;
+      }
+      
+      // Post Today: High score + urgency
+      if (realScore >= 80 || (realScore >= 70 && (hasDirectBreakout || hasTrendsetter))) {
+        return 'post_today';
+      }
+      
+      // This Week: Good score + DNA match or indirect breakout
+      if (realScore >= 60 || (realScore >= 50 && (hasDnaMatch || hasIndirectBreakout))) {
+        return 'this_week';
+      }
+      
+      // Backlog: Everything else that's visible
+      return 'backlog';
+    }
+    
+    // Apply tier labels to ALL visible signals (for UI grouping only)
+    const visibleSignalsForTiering = signalsToShow.filter(s => s.is_visible);
+    visibleSignalsForTiering.forEach(signal => {
+      const tier = assignTierLabel(signal);
+      // Update urgency_tier if not already set
+      if (!signal.urgency_tier) {
+        signal.urgency_tier = {
+          tier: tier,
+          label: tier === 'post_today' ? 'Post Today' : tier === 'this_week' ? 'This Week' : 'Backlog',
+          color: tier === 'post_today' ? 'red' : tier === 'this_week' ? 'yellow' : 'green',
+          icon: tier === 'post_today' ? '🔴' : tier === 'this_week' ? '🟡' : '🟢'
+        };
+      } else {
+        // Ensure tier is set correctly
+        signal.urgency_tier.tier = tier;
+      }
     });
     
-    // Add high-score signals to final list (they're already sorted by score)
-    if (highScoreSignals.length > 0) {
-      console.log(`⭐ PROTECTING ${highScoreSignals.length} high-score signals (score >= 70) from being hidden`);
-      highScoreSignals.forEach(s => {
-        const score = s.multi_signal_scoring?.score || s.score || 0;
-        console.log(`   - "${s.title?.substring(0, 50)}" (score: ${score})`);
-      });
-      finalSignalsList.push(...highScoreSignals);
-    }
-
+    // Step 3: Sort visible signals by tier priority, then score
+    const tierOrderForSorting = { post_today: 0, this_week: 1, backlog: 2, today: 0, week: 1, evergreen: 2 };
+    visibleSignalsForTiering.sort((a, b) => {
+      const tierA = a.urgency_tier?.tier || 'backlog';
+      const tierB = b.urgency_tier?.tier || 'backlog';
+      const normalizedTierA = tierA === 'today' ? 'post_today' : tierA === 'week' ? 'this_week' : tierA === 'evergreen' ? 'backlog' : tierA;
+      const normalizedTierB = tierB === 'today' ? 'post_today' : tierB === 'week' ? 'this_week' : tierB === 'evergreen' ? 'backlog' : tierB;
+      
+      if (tierOrder[normalizedTierA] !== tierOrder[normalizedTierB]) {
+        return (tierOrder[normalizedTierA] ?? 2) - (tierOrder[normalizedTierB] ?? 2);
+      }
+      
+      const scoreA = a.multi_signal_scoring?.score || a.final_score || a.score || 0;
+      const scoreB = b.multi_signal_scoring?.score || b.final_score || b.score || 0;
+      return scoreB - scoreA;
+    });
+    
+    // Step 4: Apply safety limit only if explicitly requested (Ideas page should show all)
+    // Only apply limit if it's less than MAX_SIGNALS (to prevent abuse, but allow all quality signals)
+    const finalSignalsList = limit && limit < IDEAS_PAGE_CONFIG.MAX_SIGNALS 
+      ? visibleSignalsForTiering.slice(0, limit)
+      : visibleSignalsForTiering.slice(0, IDEAS_PAGE_CONFIG.MAX_SIGNALS);
     const finalDisplayed = finalSignalsList.length;
-    console.log(`📊 STEP 7 - Final displayed: ${finalDisplayed} signals`);
-    console.log(`   - Post Today: ${tieredSignals.post_today.length}, This Week: ${tieredSignals.this_week.length}, Backlog: ${tieredSignals.backlog.length}`);
-    if (highScoreSignals.length > 0) {
-      console.log(`   - High-Score Protected: ${highScoreSignals.length}`);
-    }
+    
+    // Log tier distribution (informational only, NO LIMITS APPLIED!)
+    const postTodayCount = finalSignalsList.filter(s => s.urgency_tier?.tier === 'post_today' || s.urgency_tier?.tier === 'today').length;
+    const thisWeekCount = finalSignalsList.filter(s => s.urgency_tier?.tier === 'this_week' || s.urgency_tier?.tier === 'week').length;
+    const backlogCount = finalSignalsList.filter(s => s.urgency_tier?.tier === 'backlog' || s.urgency_tier?.tier === 'evergreen').length;
+    
+    console.log(`📊 Tier Distribution (NO LIMITS - ALL QUALITY SIGNALS SHOWN):`);
+    console.log(`   - 🔴 Post Today: ${postTodayCount}`);
+    console.log(`   - 🟡 This Week: ${thisWeekCount}`);
+    console.log(`   - 🟢 Backlog: ${backlogCount}`);
+    console.log(`   - TOTAL VISIBLE: ${finalDisplayed}`);
     
     // Summary log for easy debugging
     console.log(`\n📈 SIGNAL COUNT SUMMARY:`);
@@ -1457,74 +1822,85 @@ export async function GET(request) {
     console.log(`   After learning adjustments: ${learnedSignals.length} (${uniqueStories} unique stories)`);
     console.log(`   After scoring: ${afterScoring}`);
     console.log(`   After validity filter: ${afterFilter}`);
-    console.log(`   Final displayed: ${finalDisplayed} (${highScoreSignals.length} high-score protected)`);
-    console.log(`   Limit applied: ${limit} (per-tier limits: Post Today=${TIER_LIMITS.post_today}, This Week=${TIER_LIMITS.this_week}, Backlog=${TIER_LIMITS.backlog})\n`);
+    console.log(`   Final displayed: ${finalDisplayed} (ALL quality signals, NO tier limits)`);
+    console.log(`   Safety limit: ${IDEAS_PAGE_CONFIG.MAX_SIGNALS} (actual: ${finalDisplayed})\n`);
+    
+    // RSS Quality Check (development only)
+    if (process.env.NODE_ENV === 'development' && signals && signals.length > 0) {
+      try {
+        await checkRssQuality(signals);
+      } catch (qualityError) {
+        console.warn('⚠️ RSS quality check failed (non-fatal):', qualityError.message);
+      }
+    }
 
-    // 8. Update is_visible column in database based on filtering
+    // 8. Update is_visible column in database - SIMPLE RULE: score >= 40 && status !== 'rejected'
     try {
-      const visibleIds = finalSignalsList.map(s => s.id).filter(Boolean);
+      // Get all processed signals with their visibility status
       const allSignalIds = (signals || []).map(s => s.id).filter(Boolean);
+      const visibleSignalIds = [];
+      const hiddenSignalIds = [];
       
-      // PROTECTION: Never hide high-score signals (score >= 70)
-      const highScoreIds = (signals || [])
-        .filter(s => {
-          const score = s.multi_signal_scoring?.score || s.score || 0;
-          return score >= 70;
-        })
-        .map(s => s.id)
-        .filter(Boolean);
-      
-      // Ensure all high-score signals are in visible list
-      const protectedVisibleIds = [...new Set([...visibleIds, ...highScoreIds])];
-      
-      // Only hide signals that are NOT in visible list AND NOT high-score
-      const hiddenIds = allSignalIds.filter(id => 
-        !protectedVisibleIds.includes(id)
-      );
-      
-      // Log which signals are being hidden and why
-      if (hiddenIds.length > 0) {
-        const hiddenSignals = (signals || []).filter(s => hiddenIds.includes(s.id));
-        console.log(`👁️ Hiding ${hiddenIds.length} signals:`);
-        hiddenSignals.forEach(s => {
-          const score = s.multi_signal_scoring?.score || s.score || 0;
-          // Verify no high-score signals are being hidden (should never happen due to protection)
-          if (score >= 70) {
-            console.error(`⚠️ ERROR: Attempted to hide high-score signal (${score})! This should never happen.`);
-            console.error(`   Signal: "${s.title?.substring(0, 50)}"`);
-          } else {
-            console.log(`   - "${s.title?.substring(0, 50)}" | Score: ${score} | Reason: Tier limit or low score`);
-          }
-        });
+      // Apply simple visibility rule to all signals
+      for (const signalId of allSignalIds) {
+        const signal = signalsToShow.find(s => s.id === signalId) || signals.find(s => s.id === signalId);
+        if (!signal) continue;
+        
+        const realScore = signal.multi_signal_scoring?.score || signal.final_score || signal.score || 0;
+        // SIMPLE RULE: is_visible = (score >= 40) && (status !== 'rejected')
+        const isVisible = (realScore >= 40) && (signal.status !== 'rejected');
+        
+        if (isVisible) {
+          visibleSignalIds.push(signalId);
+        } else {
+          hiddenSignalIds.push(signalId);
+        }
       }
       
-      // Mark visible signals as visible (including protected high-score signals)
-      if (protectedVisibleIds.length > 0) {
-        await supabaseAdmin
-          .from('signals')
-          .update({ is_visible: true })
-          .eq('show_id', showId)
-          .in('id', protectedVisibleIds);
+      // Update database in batches to avoid timeout
+      const BATCH_SIZE = 100;
+      
+      // Update visible signals (score >= 40 && status !== 'rejected')
+      if (visibleSignalIds.length > 0) {
+        for (let i = 0; i < visibleSignalIds.length; i += BATCH_SIZE) {
+          const batch = visibleSignalIds.slice(i, i + BATCH_SIZE);
+          await supabaseAdmin
+            .from('signals')
+            .update({ is_visible: true })
+            .eq('show_id', showId)
+            .in('id', batch);
+        }
       }
       
-      // Mark hidden signals as not visible (but never hide high-score signals)
-      if (hiddenIds.length > 0) {
-        await supabaseAdmin
-          .from('signals')
-          .update({ is_visible: false })
-          .eq('show_id', showId)
-          .in('id', hiddenIds);
+      // Update hidden signals (score < 40 OR status === 'rejected')
+      if (hiddenSignalIds.length > 0) {
+        for (let i = 0; i < hiddenSignalIds.length; i += BATCH_SIZE) {
+          const batch = hiddenSignalIds.slice(i, i + BATCH_SIZE);
+          await supabaseAdmin
+            .from('signals')
+            .update({ is_visible: false })
+            .eq('show_id', showId)
+            .in('id', batch);
+        }
       }
       
-      const highScoreHiddenCount = hiddenIds.filter(id => highScoreIds.includes(id)).length;
-      if (highScoreHiddenCount > 0) {
-        console.error(`⚠️ ERROR: ${highScoreHiddenCount} high-score signals were incorrectly marked as hidden!`);
-      }
-      console.log(`✅ Updated is_visible: ${protectedVisibleIds.length} visible (${highScoreIds.length} high-score protected), ${hiddenIds.length} hidden`);
+      console.log(`💾 Updated is_visible in database: ${visibleSignalIds.length} visible, ${hiddenSignalIds.length} hidden (rule: score >= 40 && status !== 'rejected')`);
     } catch (updateError) {
       console.error('⚠️ Error updating is_visible column:', updateError);
       // Don't fail the request if visibility update fails
     }
+    
+    timings.filtering = Date.now() - filteringStart;
+    timings.total = Date.now() - startTime;
+    
+    console.log(`\n⏱️ PERFORMANCE SUMMARY:`);
+    console.log(`   Auth: ${timings.auth}ms`);
+    console.log(`   Fetch: ${timings.fetch}ms`);
+    console.log(`   Processing: ${timings.processing}ms`);
+    console.log(`   Scoring: ${timings.scoring}ms (${needsScoring ? 'RE-SCORED' : 'CACHED'})`);
+    console.log(`   Filtering: ${timings.filtering}ms`);
+    console.log(`   TOTAL: ${timings.total}ms`);
+    console.log(`   Signals returned: ${finalDisplayed}\n`);
 
     return NextResponse.json({
       success: true,
@@ -1536,32 +1912,79 @@ export async function GET(request) {
         after_rejection_filter: afterRejectionFilter,
         after_scoring: afterScoring,
         after_validity_filter: afterFilter,
-        visible: finalSignalsList.length,
-        hidden: (signals?.length || 0) - finalSignalsList.length,
+        visible: finalDisplayed,
+        hidden: (signals?.length || 0) - finalDisplayed,
+        hidden_low_score: hiddenLowScore,
+        hidden_rejected: hiddenRejected,
         rejected_count: rejectedTitles.length,
         by_tier: {
-          post_today: tieredSignals.post_today.length,
-          this_week: tieredSignals.this_week.length,
-          backlog: tieredSignals.backlog.length,
+          post_today: postTodayCount,
+          this_week: thisWeekCount,
+          backlog: backlogCount,
         },
-        limit_applied: limit,
-        per_tier_limit: TIER_LIMITS
+        // NO tier limits applied - all quality signals shown
+        tier_limits_applied: false,
+        min_score_to_show: IDEAS_PAGE_CONFIG.MIN_SCORE_TO_SHOW,
+        safety_limit: IDEAS_PAGE_CONFIG.MAX_SIGNALS
       },
       learning_applied: !!weights,
       multi_signal_scoring: true
     });
 
   } catch (error) {
-    console.error('❌ Signals API error:', error);
-    console.error('   Error type:', error?.constructor?.name || typeof error);
-    console.error('   Error message:', error?.message || String(error));
-    console.error('   Error stack:', error?.stack || 'No stack trace');
+    // ALWAYS log the real error first - don't hide it!
+    console.error('');
+    console.error('❌ ========== SIGNALS ROUTE ERROR ==========');
+    console.error('Message:', error?.message || String(error));
+    console.error('Type:', error?.constructor?.name || typeof error);
+    console.error('');
+    console.error('FULL STACK TRACE:');
+    console.error(error?.stack || 'No stack trace available');
+    console.error('');
+    console.error('Error cause:', error?.cause || 'No cause');
+    console.error('❌ ==========================================');
+    console.error('');
     
-    // Check if it's a fetch/network error
-    if (error?.message?.includes('fetch failed') || error?.name === 'TypeError' || error?.message?.includes('fetch')) {
+    // Log full error object for debugging
+    if (error?.error) {
+      console.error('   Supabase error object:', JSON.stringify(error.error, null, 2));
+    }
+    if (error?.code) {
+      console.error('   Error code:', error.code);
+    }
+    if (error?.details) {
+      console.error('   Error details:', error.details);
+    }
+    if (error?.hint) {
+      console.error('   Error hint:', error.hint);
+    }
+    
+    // Check if it's a fetch/network error (NOT all TypeErrors - only actual fetch errors)
+    const isFetchError = (error?.message?.includes('fetch failed') || 
+                         error?.message?.includes('fetch') ||
+                         error?.message?.includes('network') ||
+                         (error?.cause && (error.cause.message?.includes('fetch') || error.cause.code === 'ECONNREFUSED'))) &&
+                        !error?.message?.includes('toLowerCase'); // Exclude toLowerCase errors
+    
+    // For toLowerCase errors and other runtime errors, return the real error immediately
+    if (error?.message?.includes('toLowerCase') || error?.message?.includes('Cannot read properties')) {
+      return NextResponse.json(
+        { 
+          error: 'Internal server error',
+          message: error?.message || String(error),
+          type: error?.constructor?.name || typeof error,
+          // Include full stack trace in development
+          stack: error?.stack?.split('\n').slice(0, 15) || []
+        }, 
+        { status: 500 }
+      );
+    }
+    
+    if (isFetchError) {
       console.error('   🔍 FETCH FAILED - This is likely a Supabase connection issue:');
       console.error('      - NEXT_PUBLIC_SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? `${process.env.NEXT_PUBLIC_SUPABASE_URL.substring(0, 30)}...` : '❌ MISSING');
       console.error('      - SUPABASE_SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? `${process.env.SUPABASE_SERVICE_ROLE_KEY.substring(0, 10)}...` : '❌ MISSING');
+      console.error('      - Supabase URL being used:', supabaseUrl ? `${supabaseUrl.substring(0, 30)}...` : 'NOT SET');
       console.error('      - Check if .env.local file exists and has correct values');
       console.error('      - Check if Supabase project is active (not paused)');
       console.error('      - Check network connectivity to Supabase');
@@ -1570,26 +1993,45 @@ export async function GET(request) {
       return NextResponse.json(
         { 
           error: 'Database connection failed',
-          type: 'TypeError',
+          type: error?.constructor?.name || 'TypeError',
           message: error?.message || 'fetch failed',
           details: 'This is likely a Supabase configuration issue. Check your .env.local file for NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.',
+          stack: error?.stack?.split('\n').slice(0, 10) || [],
           troubleshooting: {
             checkEnvFile: 'Verify .env.local exists with correct Supabase credentials',
             checkSupabaseProject: 'Verify Supabase project is active and not paused',
             checkNetwork: 'Check network connectivity to Supabase',
             hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-            hasKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY
+            hasKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+            actualError: error?.message || String(error)
           }
         }, 
         { status: 500 }
       );
     }
     
+    // Check if it's a Supabase API error
+    if (error?.code || error?.hint) {
+      return NextResponse.json(
+        { 
+          error: error?.message || 'Database error',
+          type: 'SupabaseError',
+          code: error?.code,
+          details: error?.details || error?.hint,
+          message: error?.message
+        }, 
+        { status: 500 }
+      );
+    }
+    
+    // Generic error handler - return real error with stack trace
     return NextResponse.json(
       { 
-        error: error?.message || 'Internal server error',
+        error: 'Internal server error',
+        message: error?.message || String(error),
         type: error?.constructor?.name || typeof error,
-        details: error?.details || error?.hint || undefined
+        // Include stack in response for debugging (first 15 lines)
+        stack: error?.stack?.split('\n').slice(0, 15) || []
       }, 
       { status: 500 }
     );
@@ -1618,7 +2060,9 @@ function normalizeArabicText(text) {
 
 function normalizeText(text) {
   const normalized = normalizeArabicText(text || '');
-  return normalized
+  // Ensure normalized is always a string before calling string methods
+  const textStr = typeof normalized === 'string' ? normalized : String(normalized || '');
+  return textStr
     .replace(/[-–—]/g, ' ')
     .replace(/[؟?!.,:;'"]/g, '')
     .replace(/\s+/g, ' ')

@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/supabaseServer';
 import { verifyShowAccess } from '@/lib/apiShowAccess';
-import { fetchWikipediaTrends, getArticleSummary, calculateWikipediaScore } from '@/lib/wikipediaFetcher';
+import { fetchWikipediaTrends, getArticleSummary } from '@/lib/wikipediaFetcher';
+import { scoreEvergreenSignals } from '@/lib/scoring/evergreenScoring';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseAdmin = createClient(
@@ -32,17 +33,8 @@ export async function POST(request) {
 
     console.log('📚 Starting Wikipedia trends fetch for show:', showId, 'language:', language);
 
-    // Get DNA keywords for scoring
-    const { data: dnaTopics } = await supabaseAdmin
-      .from('topic_definitions')
-      .select('keywords')
-      .eq('show_id', showId);
-
-    const dnaKeywords = (dnaTopics || [])
-      .flatMap(t => t.keywords || [])
-      .filter(Boolean);
-
-    console.log(`🧬 Loaded ${dnaKeywords.length} DNA keywords`);
+    // DNA topics will be loaded by scoreEvergreenSignals
+    console.log(`🧬 Will load DNA topics for scoring...`);
 
     // Fetch trends
     const trends = await fetchWikipediaTrends(language);
@@ -63,39 +55,32 @@ export async function POST(request) {
 
     const existingTitles = new Set((existing || []).map(s => s.title.toLowerCase()));
 
-    // Filter new trends
-    const newTrends = trends.filter(t => 
-      !existingTitles.has(t.title.toLowerCase())
-    );
+    // Filter new trends and prepare for scoring
+    const newTrends = trends
+      .filter(t => !existingTitles.has(t.title.toLowerCase()))
+      .map(t => ({
+        ...t,
+        source: 'Wikipedia Trends',
+        source_type: 'wikipedia',
+        views: t.views,
+        rank: t.rank
+      }));
 
     console.log(`📊 Found ${newTrends.length} new trends (${trends.length} total, ${existingTitles.size} existing)`);
 
-    // Score and check DNA matches
-    const scored = newTrends.map(t => {
-      const titleLower = t.title.toLowerCase();
-      const descLower = (t.description || '').toLowerCase();
-      
-      // Check DNA matches
-      const dnaMatches = dnaKeywords.filter(k => {
-        const keyword = k.toLowerCase();
-        return titleLower.includes(keyword) || descLower.includes(keyword);
-      });
+    // Score using DNA-based evergreen scoring (same as RSS)
+    const scored = await scoreEvergreenSignals(newTrends, showId);
 
-      return {
-        ...t,
-        calculatedScore: calculateWikipediaScore(t, dnaKeywords),
-        dnaMatches: dnaMatches.length,
-        matchedKeywords: dnaMatches,
-      };
-    });
+    // Filter: Only import trends that match DNA (have matched_topics)
+    const dnaMatchedTrends = scored.filter(t => t.matched_topics && t.matched_topics.length > 0);
+    
+    // Sort by DNA-based score
+    dnaMatchedTrends.sort((a, b) => (b.score || 0) - (a.score || 0));
+    
+    // Take top 20 by DNA score
+    const topTrends = dnaMatchedTrends.slice(0, 20);
 
-    // STRICT: Only import trends that match DNA keywords
-    const topTrends = scored
-      .filter(t => t.dnaMatches > 0)  // Must have at least 1 DNA match
-      .sort((a, b) => b.calculatedScore - a.calculatedScore)
-      .slice(0, 20);
-
-    console.log(`📚 Filtered to ${topTrends.length} DNA-matching trends (from ${scored.length} total)`);
+    console.log(`📚 Filtered to ${topTrends.length} DNA-matching trends (from ${scored.length} total, ${dnaMatchedTrends.length} with DNA matches)`);
 
     // If no DNA matches, return message
     if (topTrends.length === 0) {
@@ -143,13 +128,27 @@ export async function POST(request) {
       url: trend.url,
       source: 'Wikipedia Trends',
       category: 'trends',
-      score: Math.min(trend.calculatedScore, 100),  // Cap at 100
-      relevance_score: Math.min(trend.calculatedScore, 100),  // Cap at 100
+      score: trend.score || 0,  // DNA-based score from evergreenScoring
+      relevance_score: trend.score || 0,  // Same as score
       wikipedia_views: trend.views,
       is_evergreen: true,  // Wikipedia trends are research-based, often evergreen
       is_visible: true,
       status: 'new',
       source_type: 'wikipedia',
+      // Store scoring breakdown in raw_data (metadata column doesn't exist)
+      raw_data: {
+        ...(trend.raw_data || {}),
+        evergreen_scoring: {
+          dna_score: trend.dna_score,
+          quality_score: trend.quality_score,
+          engagement_score: trend.engagement_score,
+          freshness_score: trend.freshness_score,
+          combined_score: trend.combined_score,
+          matched_topics: trend.matched_topics || [],
+          matched_topic_names: trend.matched_topic_names || [],
+          dna_reasons: trend.dna_reasons || []
+        }
+      }
     }));
 
     if (signalsToInsert.length > 0) {

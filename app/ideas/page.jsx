@@ -28,6 +28,15 @@ function IdeasContent() {
   const [enriching, setEnriching] = useState(false);
   const [signalFilter, setSignalFilter] = useState('all'); // 'all', 'new', 'liked', 'saved', 'evergreen'
   const [signalSort, setSignalSort] = useState('date');
+  const [timeFilter, setTimeFilter] = useState('today'); // 'today', 'yesterday', 'week', 'all' - Default to 'today' for RSS, 'week' for evergreen
+  
+  // Auto-set time filter default: 'week' when switching to evergreen tab
+  useEffect(() => {
+    if (signalFilter === 'evergreen' && timeFilter === 'today') {
+      // When switching to evergreen tab, default to 'week' if currently on 'today'
+      setTimeFilter('week');
+    }
+  }, [signalFilter]); // Only run when signalFilter changes
   
   const [data, setData] = useState({
     anniversaries: [],
@@ -273,15 +282,39 @@ function IdeasContent() {
     };
   }, [data.signals]);
 
-  // Filter & sort signals for main feed - only show main angle (rank 1) for stories
-  const visibleSignals = useMemo(() => {
-    const base = (data.signals || []).filter(signal => {
-      // Show non-story signals
-      if (!signal.story_id || !signal.story_size || signal.story_size <= 1) return true;
-      
-      // Only show main angle (rank 1) for stories
-      return signal.story_rank === 1;
+  // Helper function to filter signals by time
+  const filterByTime = (signals, hours) => {
+    if (!hours) return signals; // 'all' - no time filter
+    const cutoff = Date.now() - (hours * 60 * 60 * 1000);
+    return signals.filter(s => {
+      const signalDate = new Date(s.created_at || s.detected_at || s.updated_at || 0);
+      return signalDate.getTime() > cutoff;
     });
+  };
+
+  // TEMPORARILY DISABLED: Show ALL signals individually (no grouping)
+  // Previously: Only showed story_rank === 1 for stories, hiding other angles
+  // Now: Show all signals so user can see all 145 today's signals
+  const visibleSignals = useMemo(() => {
+    // Show ALL signals - no filtering by story_rank
+    let base = (data.signals || []);
+
+    // Apply time filter
+    switch (timeFilter) {
+      case 'today':
+        base = filterByTime(base, 24);
+        break;
+      case 'yesterday':
+        base = filterByTime(base, 48);
+        break;
+      case 'week':
+        base = filterByTime(base, 168);
+        break;
+      case 'all':
+      default:
+        // No time filter
+        break;
+    }
 
     // Apply sort mode
     return base.sort((a, b) => {
@@ -304,36 +337,17 @@ function IdeasContent() {
       const dateB = new Date(b.created_at || b.detected_at || b.updated_at || 0);
       return dateB - dateA;
     });
-  }, [data.signals, signalSort]);
+  }, [data.signals, signalSort, timeFilter]);
 
-  // Group signals by story for visual grouping
+  // TEMPORARILY DISABLED: Signal grouping - show all signals individually
+  // Previously: Grouped signals by story_id, hiding individual signals under anchors
+  // Now: Return all signals as individual items (no grouping)
   const groupedSignals = useMemo(() => {
-    const groups = [];
-    const processed = new Set();
-    
-    for (const signal of visibleSignals) {
-      if (processed.has(signal.id)) continue;
-      
-      if (signal.story_id && signal.story_size > 1) {
-        // Find all visible signals from same story
-        const storySignals = visibleSignals.filter(s => s.story_id === signal.story_id);
-        storySignals.forEach(s => processed.add(s.id));
-        
-        groups.push({
-          type: 'story',
-          storyId: signal.story_id,
-          signals: storySignals.sort((a, b) => (a.story_rank || 0) - (b.story_rank || 0))
-        });
-      } else {
-        processed.add(signal.id);
-        groups.push({
-          type: 'single',
-          signals: [signal]
-        });
-      }
-    }
-    
-    return groups;
+    // Return all signals as individual items (no grouping)
+    return visibleSignals.map(signal => ({
+      type: 'single',
+      signals: [signal]
+    }));
   }, [visibleSignals]);
 
   // Helper to get auth headers for API requests
@@ -363,15 +377,19 @@ function IdeasContent() {
       // Get auth headers once for all requests
       const headers = await getAuthHeaders();
       
-      // Fetch signals
+      // Fetch signals - request all quality signals (no limit)
       console.log('📡 Fetching signals...');
-      const signalsRes = await fetch(`/api/signals?show_id=${showId}`, { headers });
+      const signalsRes = await fetch(`/api/signals?show_id=${showId}&limit=500`, { headers });
       const signalsData = await signalsRes.json();
       
       if (signalsData.error) {
         console.error('❌ Signals API error:', signalsData.error);
       } else {
-        console.log(`✅ Signals received: ${signalsData.signals?.length || 0} signals`);
+        const receivedCount = signalsData.signals?.length || 0;
+        const rssCount = (signalsData.signals || []).filter(s => !s.is_evergreen).length;
+        const evergreenCount = (signalsData.signals || []).filter(s => s.is_evergreen).length;
+        console.log(`✅ Signals received: ${receivedCount} total (${rssCount} RSS, ${evergreenCount} evergreen)`);
+        console.log(`📊 API stats:`, signalsData.stats || 'No stats');
       }
       
       // Fetch clusters
@@ -1235,21 +1253,63 @@ function IdeasContent() {
                     </button>
                   </div>
                   
+                  {/* Time Filter - Dropdown Menu */}
                   <div className="flex items-center gap-2">
-                    {signalFilter !== 'evergreen' && (
-                      <>
-                        <span className="text-sm text-gray-500">Sort:</span>
-                        <select
-                          value={signalSort}
-                          onChange={(e) => setSignalSort(e.target.value)}
-                          className="text-sm border rounded-lg px-2 py-1 dark:bg-gray-800 dark:text-white"
-                        >
-                          <option value="date">Recent</option>
-                          <option value="score">Score</option>
-                          <option value="hook">Hook Potential</option>
-                        </select>
-                      </>
-                    )}
+                    <span className="text-sm text-gray-500">Time:</span>
+                    <select
+                      value={timeFilter}
+                      onChange={(e) => setTimeFilter(e.target.value)}
+                      className="text-sm border rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="today">
+                        Today ({(() => {
+                          const todaySignals = filterByTime(data.signals || [], 24);
+                          if (signalFilter === 'evergreen') {
+                            return todaySignals.filter(s => s.is_evergreen).length;
+                          }
+                          return todaySignals.filter(s => !s.is_evergreen).length;
+                        })()})
+                      </option>
+                      <option value="yesterday">
+                        Yesterday ({(() => {
+                          const yesterdaySignals = filterByTime(data.signals || [], 48);
+                          if (signalFilter === 'evergreen') {
+                            return yesterdaySignals.filter(s => s.is_evergreen).length;
+                          }
+                          return yesterdaySignals.filter(s => !s.is_evergreen).length;
+                        })()})
+                      </option>
+                      <option value="week">
+                        This Week ({(() => {
+                          const weekSignals = filterByTime(data.signals || [], 168);
+                          if (signalFilter === 'evergreen') {
+                            return weekSignals.filter(s => s.is_evergreen).length;
+                          }
+                          return weekSignals.filter(s => !s.is_evergreen).length;
+                        })()})
+                      </option>
+                      <option value="all">
+                        All ({(() => {
+                          if (signalFilter === 'evergreen') {
+                            return (data.signals || []).filter(s => s.is_evergreen).length;
+                          }
+                          return (data.signals || []).filter(s => !s.is_evergreen).length;
+                        })()})
+                      </option>
+                    </select>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-500">Sort:</span>
+                    <select
+                      value={signalSort}
+                      onChange={(e) => setSignalSort(e.target.value)}
+                      className="text-sm border rounded-lg px-2 py-1 dark:bg-gray-800 dark:text-white"
+                    >
+                      <option value="date">Recent</option>
+                      <option value="score">Score</option>
+                      <option value="hook">Hook Potential</option>
+                    </select>
                     
                     {signalFilter !== 'evergreen' ? (
                       <Button 
@@ -1296,14 +1356,33 @@ function IdeasContent() {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                     {signalFilter === 'evergreen' 
                       ? 'Timeless content ideas from Reddit discussions'
-                      : `${filterCounts.all} RSS signals • ${storyStats.uniqueStories || 0} unique stories`
+                      : `${filterCounts.all} RSS signals • Showing all individually (no grouping)`
                     }
                   </p>
                 </div>
 
-                {/* Signals List */}
+                {/* Signals List - Show ALL signals (no limits) */}
                 <div className="space-y-3">
                   {(() => {
+                    // DEBUG: Log signal counts
+                    const filteredSignalsDebug = visibleSignals.filter(s => {
+                      if (s.is_evergreen) return false;
+                      if (signalFilter === 'all') return true;
+                      const signalStatus = (s.status || 'new').toLowerCase().trim();
+                      const filterStatus = signalFilter.toLowerCase().trim();
+                      return signalStatus === filterStatus;
+                    });
+                    
+                    console.log(`📊 Signal display debug:`, {
+                      totalSignals: data.signals?.length || 0,
+                      visibleSignalsCount: visibleSignals.length,
+                      filteredSignalsCount: filteredSignalsDebug.length,
+                      timeFilter,
+                      signalFilter,
+                      todayCount: filterByTime(data.signals || [], 24).length,
+                      visibleSignalsSample: visibleSignals.slice(0, 3).map(s => ({ id: s.id, title: s.title?.substring(0, 30) })),
+                      filteredSignalsSample: filteredSignalsDebug.slice(0, 3).map(s => ({ id: s.id, title: s.title?.substring(0, 30) }))
+                    });
                     // For "saved" filter, use the same mechanism as Saved Signals tab
                     if (signalFilter === 'saved') {
                       // Convert savedIdeas to signal-like objects and find matching signals
@@ -1391,8 +1470,43 @@ function IdeasContent() {
                     
                     // Separate by content type first
                     if (signalFilter === 'evergreen') {
-                      // Evergreen tab: ONLY Reddit signals (no grouping, simple list)
-                      const filteredEvergreen = evergreenSignals.sort((a, b) => {
+                      // Evergreen tab: Apply time filter first, then sorting
+                      let filteredEvergreen = [...evergreenSignals];
+                      
+                      // Apply time filter to evergreen signals
+                      switch (timeFilter) {
+                        case 'today':
+                          filteredEvergreen = filterByTime(filteredEvergreen, 24);
+                          break;
+                        case 'yesterday':
+                          filteredEvergreen = filterByTime(filteredEvergreen, 48);
+                          break;
+                        case 'week':
+                          filteredEvergreen = filterByTime(filteredEvergreen, 168);
+                          break;
+                        case 'all':
+                        default:
+                          // No time filter - show all
+                          break;
+                      }
+                      
+                      // Apply sorting based on signalSort state
+                      filteredEvergreen = filteredEvergreen.sort((a, b) => {
+                        if (signalSort === 'score') {
+                          const scoreA = a.relevance_score || a.score || 0;
+                          const scoreB = b.relevance_score || b.score || 0;
+                          return scoreB - scoreA;
+                        }
+                        if (signalSort === 'hook') {
+                          const hookA = typeof a.hook_potential === 'string' 
+                            ? parseFloat(a.hook_potential) || 0 
+                            : a.hook_potential || 0;
+                          const hookB = typeof b.hook_potential === 'string' 
+                            ? parseFloat(b.hook_potential) || 0 
+                            : b.hook_potential || 0;
+                          return hookB - hookA;
+                        }
+                        // Default: sort by date (most recent first)
                         const dateA = new Date(a.created_at || a.detected_at || a.updated_at || 0);
                         const dateB = new Date(b.created_at || b.detected_at || b.updated_at || 0);
                         return dateB - dateA;
@@ -1448,148 +1562,44 @@ function IdeasContent() {
                       );
                     }
 
-                    // For RSS filters, use grouped signals with visual grouping (exclude evergreen)
-                    const filteredGroups = groupedSignals.map(group => {
-                      if (group.type === 'story') {
-                        return {
-                          ...group,
-                          signals: group.signals.filter(s => {
-                            // Exclude evergreen signals from RSS tabs
-                            if (s.is_evergreen) return false;
-                            
-                            if (signalFilter === 'all') return true;
-                            const signalStatus = (s.status || 'new').toLowerCase().trim();
-                            const filterStatus = signalFilter.toLowerCase().trim();
-                            return signalStatus === filterStatus;
-                          }).sort((a, b) => {
-                            if (signalSort === 'score') {
-                              const scoreA = a.relevance_score || a.score || 0;
-                              const scoreB = b.relevance_score || b.score || 0;
-                              return scoreB - scoreA;
-                            }
-                            if (signalSort === 'hook') {
-                              const hookA = typeof a.hook_potential === 'string' 
-                                ? parseFloat(a.hook_potential) || 0 
-                                : a.hook_potential || 0;
-                              const hookB = typeof b.hook_potential === 'string' 
-                                ? parseFloat(b.hook_potential) || 0 
-                                : b.hook_potential || 0;
-                              return hookB - hookA;
-                            }
-                            const dateA = new Date(a.created_at || a.detected_at || a.updated_at || 0);
-                            const dateB = new Date(b.created_at || b.detected_at || b.updated_at || 0);
-                            return dateB - dateA;
-                          })
-                        };
-                      } else {
-                        return {
-                          ...group,
-                          signals: group.signals.filter(s => {
-                            // Exclude evergreen signals from RSS tabs
-                            if (s.is_evergreen) return false;
-                            
-                            if (signalFilter === 'all') return true;
-                            const signalStatus = (s.status || 'new').toLowerCase().trim();
-                            const filterStatus = signalFilter.toLowerCase().trim();
-                            return signalStatus === filterStatus;
-                          }).sort((a, b) => {
-                            if (signalSort === 'score') {
-                              const scoreA = a.relevance_score || a.score || 0;
-                              const scoreB = b.relevance_score || b.score || 0;
-                              return scoreB - scoreA;
-                            }
-                            if (signalSort === 'hook') {
-                              const hookA = typeof a.hook_potential === 'string' 
-                                ? parseFloat(a.hook_potential) || 0 
-                                : a.hook_potential || 0;
-                              const hookB = typeof b.hook_potential === 'string' 
-                                ? parseFloat(b.hook_potential) || 0 
-                                : b.hook_potential || 0;
-                              return hookB - hookA;
-                            }
-                            const dateA = new Date(a.created_at || a.detected_at || a.updated_at || 0);
-                            const dateB = new Date(b.created_at || b.detected_at || b.updated_at || 0);
-                            return dateB - dateA;
-                          })
-                        };
-                      }
-                    }).filter(group => group.signals.length > 0);
+                    // TEMPORARILY DISABLED: Show all signals individually (no grouping)
+                    // Filter and render all signals as individual cards
+                    const filteredSignals = visibleSignals.filter(s => {
+                      // Exclude evergreen signals from RSS tabs
+                      if (s.is_evergreen) return false;
+                      
+                      if (signalFilter === 'all') return true;
+                      const signalStatus = (s.status || 'new').toLowerCase().trim();
+                      const filterStatus = signalFilter.toLowerCase().trim();
+                      return signalStatus === filterStatus;
+                    });
 
-                    return filteredGroups.map((group, idx) => (
-                      <div key={group.storyId || idx}>
-                        {group.type === 'story' && group.signals.length > 1 ? (
-                          // Story cluster container
-                          <div className="relative">
-                            {/* Connecting line on the left */}
-                            <div className="absolute left-4 top-8 bottom-8 w-0.5 bg-amber-200 dark:bg-amber-800 rounded-full" />
-                            
-                            {/* Story header for big stories */}
-                            {group.signals[0]?.story_size > 3 && (
-                              <div className="flex items-center gap-2 mb-2 ml-8 text-xs text-amber-700 dark:text-amber-400">
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                                </svg>
-                                <span>Trending Story</span>
-                              </div>
-                            )}
-                            
-                            {/* Render each signal in the story */}
-                            <div className="space-y-3">
-                              {group.signals.map(signal => (
-                                <div key={signal.id} className="ml-6">
-                                  <SignalCard 
-                                    signal={signal}
-                                    showId={showId}
-                                    onOpenStoryModal={openStoryModal}
-                                    onGeneratePitch={(format) => {
-                                      if (format === 'both') {
-                                        generatePitch(signal, 'news');
-                                      } else {
-                                        generatePitch({ ...signal, format }, 'news');
-                                      }
-                                    }}
-                                    onStatusUpdate={(signalId, newStatus) => {
-                                      setData(prev => ({
-                                        ...prev,
-                                        signals: prev.signals.map(s => 
-                                          s.id === signalId ? { ...s, status: newStatus } : s
-                                        )
-                                      }));
-                                    }}
-                                    onRefresh={fetchData}
-                            onLearningStatsUpdate={refreshLearningStats}
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          // Single signal (no story)
-                          <SignalCard 
-                            key={group.signals[0]?.id || idx} 
-                            signal={group.signals[0]}
-                            showId={showId}
-                            onOpenStoryModal={openStoryModal}
-                            onGeneratePitch={(format) => {
-                              if (format === 'both') {
-                                generatePitch(group.signals[0], 'news');
-                              } else {
-                                generatePitch({ ...group.signals[0], format }, 'news');
-                              }
-                            }}
-                            onStatusUpdate={(signalId, newStatus) => {
-                              setData(prev => ({
-                                ...prev,
-                                signals: prev.signals.map(s => 
-                                  s.id === signalId ? { ...s, status: newStatus } : s
-                                )
-                              }));
-                            }}
-                            onRefresh={fetchData}
-                            onLearningStatsUpdate={refreshLearningStats}
-                          />
-                        )}
-                      </div>
+                    console.log(`🎯 Rendering ${filteredSignals.length} signals (visibleSignals: ${visibleSignals.length}, total: ${data.signals?.length || 0})`);
+
+                    return filteredSignals.map((signal, idx) => (
+                      <SignalCard 
+                        key={signal.id || idx} 
+                        signal={signal}
+                        showId={showId}
+                        onOpenStoryModal={openStoryModal}
+                        onGeneratePitch={(format) => {
+                          if (format === 'both') {
+                            generatePitch(signal, 'news');
+                          } else {
+                            generatePitch({ ...signal, format }, 'news');
+                          }
+                        }}
+                        onStatusUpdate={(signalId, newStatus) => {
+                          setData(prev => ({
+                            ...prev,
+                            signals: prev.signals.map(s => 
+                              s.id === signalId ? { ...s, status: newStatus } : s
+                            )
+                          }));
+                        }}
+                        onRefresh={fetchData}
+                        onLearningStatsUpdate={refreshLearningStats}
+                      />
                     ));
                   })()}
                 </div>
@@ -2485,7 +2495,18 @@ function SignalCard({ signal, onStatusChange, onGeneratePitch, showId, onStatusU
       const data = await res.json();
       
       if (data.success && data.signal) {
-        setLocalSignal(prev => ({ ...prev, ...data.signal }));
+        // Preserve competitors and other fields that aren't in the database signal
+        setLocalSignal(prev => ({
+          ...prev,
+          ...data.signal,
+          // Preserve fields that come from /api/signals but not from enrich-signal
+          competitors: prev.competitors || data.signal.competitors,
+          competitor_evidence: prev.competitor_evidence || data.signal.competitor_evidence,
+          competitor_count: prev.competitor_count || data.signal.competitor_count,
+          competitor_boost: prev.competitor_boost || data.signal.competitor_boost,
+          multi_signal_scoring: prev.multi_signal_scoring || data.signal.multi_signal_scoring,
+          urgency_tier: prev.urgency_tier || data.signal.urgency_tier,
+        }));
         setExpanded(true); // Auto-expand to show new data
         console.log('✅ Signal enriched successfully');
       } else {
@@ -2566,50 +2587,8 @@ function SignalCard({ signal, onStatusChange, onGeneratePitch, showId, onStatusU
               </div>
             )}
 
-            {/* Story Badge - Only show on main angle (rank 1) */}
-            {localSignal.story_size > 1 && localSignal.story_rank === 1 && (
-              <div className="flex items-center gap-2 mt-2 mb-2">
-                <div 
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
-                >
-                  <svg 
-                    className="w-3.5 h-3.5" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" 
-                    />
-                  </svg>
-                  
-                  <span>
-                    Top Story • {localSignal.story_size} angles
-                    {localSignal.story_original_size && localSignal.story_original_size > localSignal.story_size && (
-                      <span className="ml-1 text-amber-600 dark:text-amber-500">
-                        ({localSignal.story_original_size} detected)
-                      </span>
-                    )}
-                  </span>
-                </div>
-                
-                {/* View all angles button */}
-                {onOpenStoryModal && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenStoryModal(localSignal.story_id);
-                    }}
-                    className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 hover:underline font-medium"
-                  >
-                    View all angles →
-                  </button>
-                )}
-              </div>
-            )}
+            {/* TEMPORARILY DISABLED: Story Badge - No grouping, show all signals individually */}
+            {/* Story grouping is disabled - all signals are shown individually */}
 
             {/* Description */}
             {localSignal.description && (

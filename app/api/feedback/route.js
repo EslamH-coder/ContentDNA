@@ -9,6 +9,8 @@ import { getAuthUser } from '@/lib/supabaseServer';
 import { createClient } from '@supabase/supabase-js';
 import { generateTopicFingerprint } from '@/lib/topicIntelligence.js';
 import { getShowPatterns, scoreSignalByPatterns } from '@/lib/behaviorPatterns.js';
+import { learnFromFeedback as learnFromFeedbackPatterns } from '@/lib/scoring/signalScoringService.js';
+import { learnFromFeedback as learnFromFeedbackUnified, matchSignalToTopics } from '@/lib/taxonomy/unifiedTaxonomyService.js';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -40,6 +42,7 @@ export async function POST(request) {
     const body = await request.json();
     const {
       show_id,
+      showId,  // Support both naming conventions
       signal_id,
       recommendation_id,
       action,
@@ -51,9 +54,12 @@ export async function POST(request) {
       session_id,
     } = body;
 
-    if (!show_id || !action) {
+    // Use showId if provided, otherwise use show_id (support both)
+    const finalShowId = showId || show_id;
+
+    if (!finalShowId || !action) {
       return NextResponse.json(
-        { error: 'show_id and action are required' },
+        { error: 'show_id (or showId) and action are required' },
         { status: 400 }
       );
     }
@@ -92,7 +98,7 @@ export async function POST(request) {
     const { data: feedback, error } = await supabaseAdmin
       .from('recommendation_feedback')
       .insert({
-        show_id,
+        show_id: finalShowId,
         recommendation_id: recommendation_id || signal_id || `signal_${Date.now()}`,
         topic: topic || signal_data?.title || '',
         action,
@@ -136,6 +142,72 @@ export async function POST(request) {
 
     console.log(`✅ Feedback recorded: ${action} for signal ${signal_id || recommendation_id}`);
 
+    // === UNIFIED TOPIC LEARNING ===
+    // Learn from feedback using unified taxonomy service
+    if ((action === 'liked' || action === 'rejected' || action === 'produced') && signal_data) {
+      try {
+        // First, match signal to topics to find which topic this feedback is for
+        const { loadTopics } = await import('@/lib/taxonomy/unifiedTaxonomyService');
+        const topics = await loadTopics(finalShowId, supabaseAdmin);
+        
+        if (topics.length > 0) {
+          // Generate AI fingerprint for matching
+          let aiFingerprint = null;
+          try {
+            aiFingerprint = await generateTopicFingerprint({
+              title: signal_data.title || topic || '',
+              description: signal_data.description || '',
+              id: signal_id,
+              type: 'signal',
+              skipEmbedding: true,
+              skipCache: false
+            });
+          } catch (fpError) {
+            // Non-fatal
+          }
+          
+          // Match signal to topics
+          const matches = await matchSignalToTopics(signal_data, topics, aiFingerprint);
+          
+          // Learn from feedback for each matched topic
+          for (const match of matches.slice(0, 3)) { // Limit to top 3 matches
+            console.log(`📚 Learning from feedback: action=${action}, topicId=${match.topicId}, confidence=${match.confidence}`);
+            const result = await learnFromFeedbackUnified(
+              finalShowId,
+              match.topicId,
+              action,
+              signal_data,
+              supabaseAdmin
+            );
+            if (result && result.success) {
+              console.log(`✅ Learning result for topic "${match.topicId}":`, {
+                action: result.action,
+                learnedKeywords: result.learnedKeywords,
+                keywords: result.keywords
+              });
+            }
+          }
+        }
+      } catch (learnError) {
+        console.warn('⚠️ Error in unified topic learning (non-fatal):', learnError.message);
+      }
+    }
+
+    // === PATTERN-BASED LEARNING (Legacy - still used) ===
+    // Learn from like/reject actions using the unified scoring service
+    if ((action === 'liked' || action === 'rejected') && signal_data) {
+      try {
+        await learnFromFeedbackPatterns(
+          supabaseAdmin,
+          finalShowId,
+          signal_data,
+          action === 'liked' ? 'like' : 'reject'
+        );
+      } catch (learnError) {
+        console.warn('⚠️ Error in pattern-based learning (non-fatal):', learnError.message);
+      }
+    }
+
     // === ENHANCED LEARNING WITH TOPIC INTELLIGENCE ===
     try {
       // Generate fingerprint for the signal (for learning from categories/entities)
@@ -156,7 +228,7 @@ export async function POST(request) {
         const { data: learningData } = await supabaseAdmin
           .from('show_learning_weights')
           .select('topic_weights, source_weights, pattern_weights, category_weights')
-          .eq('show_id', showId)
+          .eq('show_id', finalShowId)
           .maybeSingle();
         
         let topicWeights = learningData?.topic_weights || {};
@@ -233,7 +305,7 @@ export async function POST(request) {
         }
         
         // === LEARN FROM PATTERN MATCHES ===
-        const patterns = await getShowPatterns(showId);
+        const patterns = await getShowPatterns(finalShowId);
         const patternScore = await scoreSignalByPatterns(signal_data || { title: signalTitle, description: signalDescription }, patterns);
         
         for (const match of patternScore.matches || []) {
@@ -256,7 +328,7 @@ export async function POST(request) {
         await supabaseAdmin
           .from('show_learning_weights')
           .upsert({
-            show_id: showId,
+            show_id: finalShowId,
             topic_weights: topicWeights,
             category_weights: categoryWeights,
             pattern_weights: patternWeights,
@@ -346,10 +418,41 @@ export async function GET(request) {
       );
     }
 
+    // Calculate stats from feedbacks (for LearningStats component)
+    const feedbacksList = feedbacks || [];
+    const stats = {
+      liked: feedbacksList.filter(f => f.action === 'liked').length,
+      rejected: feedbacksList.filter(f => f.action === 'rejected').length,
+      saved: feedbacksList.filter(f => f.action === 'saved').length,
+      produced: feedbacksList.filter(f => f.action === 'produced').length,
+      total: feedbacksList.length,
+      acceptance_rate: feedbacksList.length > 0
+        ? Math.round((feedbacksList.filter(f => f.action === 'liked' || f.action === 'saved').length / feedbacksList.length) * 100)
+        : 0,
+      production_rate: feedbacksList.length > 0
+        ? Math.round((feedbacksList.filter(f => f.action === 'produced').length / feedbacksList.length) * 100)
+        : 0,
+    };
+
+    // Get learning weights for display
+    const { data: weightsData } = await supabaseAdmin
+      .from('show_learning_weights')
+      .select('topic_weights, category_weights, pattern_weights')
+      .eq('show_id', showId)
+      .maybeSingle();
+
+    const weights = weightsData || {
+      topic_weights: {},
+      category_weights: {},
+      pattern_weights: {},
+    };
+
     return NextResponse.json({
       success: true,
-      feedbacks: feedbacks || [],
-      count: feedbacks?.length || 0,
+      feedbacks: feedbacksList,
+      count: feedbacksList.length,
+      stats,
+      weights,
     });
 
   } catch (error) {

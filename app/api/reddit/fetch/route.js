@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/supabaseServer';
 import { verifyShowAccess } from '@/lib/apiShowAccess';
 import { checkQuota, incrementUsage } from '@/lib/rateLimiter';
-import { fetchSubreddit, calculateRedditScore, isSimilarTitle } from '@/lib/redditFetcher';
+import { fetchSubreddit, isSimilarTitle } from '@/lib/redditFetcher';
+import { scoreEvergreenSignals } from '@/lib/scoring/evergreenScoring';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseAdmin = createClient(
@@ -61,17 +62,8 @@ export async function POST(request) {
 
     console.log(`🔴 Found ${sources.length} Reddit sources`);
 
-    // Get DNA keywords for scoring
-    const { data: dnaTopics } = await supabaseAdmin
-      .from('topic_definitions')
-      .select('keywords')
-      .eq('show_id', showId);
-
-    const dnaKeywords = (dnaTopics || [])
-      .flatMap(t => t.keywords || [])
-      .filter(Boolean);
-
-    console.log(`🧬 Loaded ${dnaKeywords.length} DNA keywords`);
+    // DNA topics will be loaded by scoreEvergreenSignals
+    console.log(`🧬 Will load DNA topics for scoring...`);
 
     // Get existing signals to check for duplicates
     const { data: existingSignals } = await supabaseAdmin
@@ -130,38 +122,74 @@ export async function POST(request) {
         continue;
       }
 
-      // Calculate score
-      post.calculatedScore = calculateRedditScore(post, dnaKeywords);
-      uniquePosts.push(post);
+      // Prepare post for scoring (ensure all fields are present)
+      // Note: post.score is Reddit upvotes from API, preserve it before scoring overwrites it
+      const postForScoring = {
+        ...post,
+        source: `r/${post.subreddit}`,
+        source_type: 'reddit',
+        upvotes: post.score,  // Reddit API uses 'score' for upvotes - preserve as upvotes
+        redditUpvotes: post.score,  // Also store separately to be safe
+        comments: post.comments,
+        isQuestion: post.isQuestion,
+        createdAt: post.createdAt
+      };
+      
+      uniquePosts.push(postForScoring);
     }
 
     console.log(`✅ Unique new posts: ${uniquePosts.length}`);
 
-    // Sort by score
-    uniquePosts.sort((a, b) => b.calculatedScore - a.calculatedScore);
+    // Score using DNA-based evergreen scoring (same as RSS)
+    // This will set post.score to DNA-based score, but upvotes/redditUpvotes are preserved
+    const scoredPosts = await scoreEvergreenSignals(uniquePosts, showId);
 
-    // Take top 30
-    const topPosts = uniquePosts.slice(0, 30);
+    // Sort by DNA-based score (not old upvote-based score)
+    scoredPosts.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+    // Take top 30 by DNA score
+    const topPosts = scoredPosts.slice(0, 30);
 
     // Insert as signals (with is_evergreen = true, skip AI enrichment)
-    const signalsToInsert = topPosts.map(post => ({
-      show_id: showId,
-      title: post.title,
-      description: post.description || `Top discussion from r/${post.subreddit} • ${post.score.toLocaleString()} upvotes • ${post.comments} comments`,
-      url: post.redditUrl,
-      reddit_url: post.redditUrl,
-      source: `r/${post.subreddit}`,
-      category: post.category,
-      score: Math.min(post.calculatedScore, 100),  // Cap at 100 for database constraint
-      relevance_score: Math.min(post.calculatedScore, 100),  // Cap at 100 for database constraint
-      reddit_score: post.score,  // Keep original Reddit score (upvotes) - no constraint
-      reddit_comments: post.comments,
+    const signalsToInsert = topPosts.map(post => {
+      // After evergreenScoring, post.score is the DNA-based score
+      // post.redditUpvotes or post.upvotes is the original Reddit upvote count (preserved)
+      const redditUpvotes = post.redditUpvotes || post.upvotes || 0;
+      const dnaScore = post.score || 0; // DNA-based score
+      
+      return {
+        show_id: showId,
+        title: post.title,
+        description: post.description || `Top discussion from r/${post.subreddit} • ${redditUpvotes.toLocaleString()} upvotes • ${post.comments || 0} comments`,
+        url: post.redditUrl,
+        reddit_url: post.redditUrl,
+        source: `r/${post.subreddit}`,
+        category: post.category,
+        score: dnaScore,  // DNA-based score from evergreenScoring
+        relevance_score: dnaScore,  // Same as score
+        reddit_score: redditUpvotes,  // Keep original Reddit upvote score
+      reddit_comments: post.comments || 0,
       upvote_ratio: post.upvoteRatio,
       is_evergreen: true,  // Mark as evergreen (skip AI enrichment)
       is_visible: true,
       status: 'new',
       source_type: 'reddit',
-    }));
+      // Store scoring breakdown in raw_data (metadata column doesn't exist)
+      raw_data: {
+        ...(post.raw_data || {}),
+        evergreen_scoring: {
+          dna_score: post.dna_score,
+          quality_score: post.quality_score,
+          engagement_score: post.engagement_score,
+          freshness_score: post.freshness_score,
+          combined_score: post.combined_score,
+          matched_topics: post.matched_topics || [],
+          matched_topic_names: post.matched_topic_names || [],
+          dna_reasons: post.dna_reasons || []
+        }
+      }
+    };
+    });
 
     if (signalsToInsert.length > 0) {
       const { error: insertError } = await supabaseAdmin

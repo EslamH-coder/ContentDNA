@@ -87,9 +87,37 @@ export function UserMenu() {
   }, [router]);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    try {
+      // Step 1: Sign out from Supabase client-side (clears localStorage)
+      const { error: signOutError } = await supabase.auth.signOut();
+      
+      if (signOutError) {
+        console.error('Sign out error:', signOutError);
+      }
+      
+      // Step 2: Call server-side logout API to clear cookies
+      try {
+        await fetch('/api/auth/logout', {
+          method: 'POST',
+          credentials: 'include' // Important: include cookies
+        });
+      } catch (apiError) {
+        console.error('Logout API error:', apiError);
+        // Continue anyway - cookies might still be cleared by redirect
+      }
+      
+      // Step 3: Clear any remaining client-side session data
+      setUser(null);
+      setShowDropdown(false);
+      
+      // Step 4: Force a hard redirect to clear all caches
+      // Using window.location.href ensures full page reload and clears cookies
+      window.location.href = '/login';
+    } catch (error) {
+      console.error('Sign out error:', error);
+      // Still redirect even if sign out fails
+      window.location.href = '/login';
+    }
   };
 
   if (loading) {

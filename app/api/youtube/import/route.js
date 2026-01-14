@@ -167,34 +167,145 @@ export async function POST(request) {
       };
     });
     
-    // Insert to database
-    const { error: insertError } = await supabase
-      .from('channel_videos')
-      .upsert(videosToInsert, { onConflict: 'show_id,video_id' });
+    // FIX: Avoid upsert to prevent "ON CONFLICT DO UPDATE command cannot affect row a second time" error
+    // Use explicit update/insert logic instead
     
-    if (insertError) throw insertError;
+    // First, deduplicate videosToInsert by video_id (keep first occurrence)
+    const uniqueVideosMap = new Map();
+    for (const video of videosToInsert) {
+      if (!uniqueVideosMap.has(video.video_id)) {
+        uniqueVideosMap.set(video.video_id, video);
+      }
+    }
+    const uniqueVideos = Array.from(uniqueVideosMap.values());
+    
+    console.log(`📊 Deduped: ${videosToInsert.length} -> ${uniqueVideos.length} videos`);
+    
+    const uniqueVideoIds = uniqueVideos.map(v => v.video_id);
+    
+    // Step 1: Check for existing videos and handle duplicates in database
+    const { data: existingVideosInDb, error: checkError } = await supabase
+      .from('channel_videos')
+      .select('id, video_id, show_id')
+      .eq('show_id', showId)
+      .in('video_id', uniqueVideoIds);
+    
+    if (checkError) {
+      console.error('❌ Error checking existing videos:', checkError);
+      throw checkError;
+    }
+    
+    // Step 2: Group existing videos by video_id to find duplicates
+    const existingByVideoId = {};
+    for (const existing of existingVideosInDb || []) {
+      if (!existingByVideoId[existing.video_id]) {
+        existingByVideoId[existing.video_id] = [];
+      }
+      existingByVideoId[existing.video_id].push(existing);
+    }
+    
+    // Step 3: Delete duplicate rows (keep only the first one)
+    for (const [videoId, duplicates] of Object.entries(existingByVideoId)) {
+      if (duplicates.length > 1) {
+        console.warn(`⚠️ Found ${duplicates.length} duplicate rows for video_id ${videoId}. Removing duplicates...`);
+        const keepId = duplicates[0].id;
+        const deleteIds = duplicates.slice(1).map(d => d.id);
+        
+        // Delete duplicates one by one
+        for (const deleteId of deleteIds) {
+          const { error: delError } = await supabase
+            .from('channel_videos')
+            .delete()
+            .eq('id', deleteId);
+          
+          if (delError) {
+            console.error(`Error deleting duplicate ${deleteId}:`, delError);
+          }
+        }
+      }
+    }
+    
+    // Step 4: Separate videos into updates and inserts
+    const videosToUpdate = [];
+    const newVideosToInsert = [];
+    
+    for (const video of uniqueVideos) {
+      const existing = existingByVideoId[video.video_id]?.[0];
+      if (existing) {
+        videosToUpdate.push({ ...video, id: existing.id });
+      } else {
+        newVideosToInsert.push(video);
+      }
+    }
+    
+    // Step 5: Update existing videos (one by one to avoid conflicts)
+    for (const video of videosToUpdate) {
+      const { id, ...updateData } = video;
+      const { error: updateError } = await supabase
+        .from('channel_videos')
+        .update(updateData)
+        .eq('id', id);
+      
+      if (updateError) {
+        console.error(`❌ Error updating video ${id}:`, updateError);
+        // Continue with other videos instead of failing completely
+      }
+    }
+    
+    // Step 6: Insert new videos (batch insert is safe for new records)
+    if (newVideosToInsert.length > 0) {
+      const { error: insertError } = await supabase
+        .from('channel_videos')
+        .insert(newVideosToInsert);
+      
+      if (insertError) {
+        console.error('❌ Error inserting videos:', insertError);
+        // If insert fails due to unique constraint, try individual inserts
+        if (insertError.message && (insertError.message.includes('duplicate') || insertError.message.includes('unique'))) {
+          console.log('Insert failed due to constraint, trying individual inserts...');
+          for (const video of newVideosToInsert) {
+            const { error: singleInsertError } = await supabase
+              .from('channel_videos')
+              .insert(video);
+            
+            if (singleInsertError && !singleInsertError.message.includes('duplicate')) {
+              console.error(`❌ Error inserting video ${video.video_id}:`, singleInsertError);
+            }
+          }
+        } else {
+          throw insertError;
+        }
+      }
+    }
+    
+    console.log(`✅ Processed ${videosToUpdate.length} updates and ${newVideosToInsert.length} inserts`);
     
     // Update show
+    const totalProcessed = videosToUpdate.length + newVideosToInsert.length;
     await supabase
       .from('shows')
       .update({
         playlist_id: playlistId,
-        total_videos_imported: videosToInsert.length,
+        total_videos_imported: totalProcessed,
         last_video_sync: new Date().toISOString(),
         onboarding_status: 'analyzing_thumbnails',
         onboarding_progress: 85
       })
       .eq('id', showId);
     
-    await logStep(showId, 'import_complete', 'completed', `Imported ${videosToInsert.length} videos`, {
-      total: videosToInsert.length,
+    await logStep(showId, 'import_complete', 'completed', `Imported ${totalProcessed} videos (${newVideosToInsert.length} new, ${videosToUpdate.length} updated)`, {
+      total: totalProcessed,
+      new: newVideosToInsert.length,
+      updated: videosToUpdate.length,
       withAnalytics: Object.values(analyticsMap).filter(Boolean).length,
       withTranscripts: transcriptsFound
     });
     
     return NextResponse.json({
       success: true,
-      imported: videosToInsert.length,
+      imported: totalProcessed,
+      new: newVideosToInsert.length,
+      updated: videosToUpdate.length,
       withAnalytics: Object.values(analyticsMap).filter(Boolean).length,
       withTranscripts: transcriptsFound
     });

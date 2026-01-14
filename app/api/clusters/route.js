@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/supabaseServer';
 import { clusterSignals } from '@/lib/clustering/clusterEngine';
 import { verifyShowAccess } from '@/lib/apiShowAccess';
+import { loadTopics, getTopicCluster } from '@/lib/taxonomy/unifiedTaxonomyService';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -11,6 +12,15 @@ const supabaseAdmin = createClient(
 
 export async function GET(request) {
   try {
+    // CLUSTERS DISABLED: Temporarily disabled to focus on signal quality improvements
+    // TODO: Re-enable after signals are working properly
+    console.log('⚠️ Clusters API disabled - returning empty array');
+    return NextResponse.json({ 
+      success: true, 
+      clusters: [],
+      message: 'Clusters temporarily disabled - focusing on signal quality'
+    });
+
     // Verify user is authenticated
     const { user, error: authError } = await getAuthUser(request);
     
@@ -241,13 +251,12 @@ function getTopicEmoji(topic) {
 // Enrich clusters with DNA data
 async function enrichClustersWithDNA(clusters, showId, supabase) {
   try {
-    // Use getChannelDNA to get DNA data (it calculates from channel_videos)
-    const { getChannelDNA } = await import('@/lib/contentDNA');
-    const dna = await getChannelDNA(showId);
+    // Use unified taxonomy service to load topics (single source of truth)
+    const { loadTopics } = await import('@/lib/taxonomy/unifiedTaxonomyService');
+    const dnaTopics = await loadTopics(showId, supabase);
     
-    if (!dna || !dna.topTopics || dna.topTopics.length === 0) {
+    if (!dnaTopics || dnaTopics.length === 0) {
       console.log('⚠️ No DNA topics found for show:', showId);
-      console.log('DNA data:', dna);
       // Return clusters with empty DNA data
       return clusters.map(cluster => ({
         ...cluster,
@@ -259,9 +268,8 @@ async function enrichClustersWithDNA(clusters, showId, supabase) {
       }));
     }
 
-    const dnaTopics = dna.topTopics || [];
     console.log(`📊 Found ${dnaTopics.length} DNA topics for enrichment`);
-    console.log('DNA topics:', dnaTopics.map(t => ({ topic_id: t.topic_id, success_rate: t.success_rate, avg_views: t.avg_views_organic })));
+    console.log('DNA topics:', dnaTopics.map(t => ({ topic_id: t.topic_id, topic_name_en: t.topic_name_en })));
     
     // Get cluster keywords for better matching
     const clusterIds = clusters.map(c => c.id).filter(Boolean);
@@ -308,45 +316,44 @@ async function enrichClustersWithDNA(clusters, showId, supabase) {
       
       console.log(`🔍 Matching cluster: "${clusterTopic}" (${cluster.cluster_key}), keywords:`, clusterKeywords);
       
-      // First, try to match by topic_id directly
+      // First, try to match by topic_id directly (cluster_key should match topic_id)
       let matchingDnaTopic = dnaTopics.find(t => {
         const topicId = (t.topic_id || '').toString().toLowerCase().trim();
-        return topicId === clusterTopicLower || 
+        const clusterKey = (cluster.cluster_key || '').toString().toLowerCase().trim();
+        return topicId === clusterKey || 
+               topicId === clusterTopicLower || 
                clusterTopicLower.includes(topicId) ||
                topicId.includes(clusterTopicLower);
       });
       
-      // If no direct match, try keyword-based matching
+      // If no direct match, try keyword-based matching using topic keywords
       if (!matchingDnaTopic) {
-        // Find which topic_id matches based on keywords
-        let matchedTopicId = null;
-        for (const [topicId, keywords] of Object.entries(topicKeywords)) {
-          const hasMatch = keywords.some(kw => {
-            const kwLower = kw.toLowerCase();
-            const found = allClusterText.includes(kwLower) || clusterTopicLower.includes(kwLower);
-            if (found) {
-              console.log(`  ✓ Keyword "${kwLower}" found in cluster text, matching to topic: ${topicId}`);
-            }
-            return found;
+        // Check each DNA topic's keywords against cluster text
+        for (const dnaTopic of dnaTopics) {
+          const topicKeywords = dnaTopic.allKeywords || dnaTopic.keywords || [];
+          const hasMatch = topicKeywords.some(kw => {
+            if (!kw || typeof kw !== 'string') return false;
+            const kwLower = kw.toLowerCase().trim();
+            return allClusterText.includes(kwLower) || clusterTopicLower.includes(kwLower);
           });
+          
           if (hasMatch) {
-            matchedTopicId = topicId;
+            matchingDnaTopic = dnaTopic;
+            console.log(`  ✓ Matched cluster "${clusterTopic}" to DNA topic "${dnaTopic.topic_id}" via keywords`);
             break;
-          }
-        }
-        
-        // Find DNA topic by matched topic_id
-        if (matchedTopicId) {
-          matchingDnaTopic = dnaTopics.find(t => t.topic_id === matchedTopicId);
-          if (!matchingDnaTopic) {
-            console.log(`  ⚠️ Matched topic_id "${matchedTopicId}" but not found in DNA topics`);
           }
         }
       }
 
       if (matchingDnaTopic) {
-        const successRate = matchingDnaTopic.success_rate || 0;
-        const avgViews = matchingDnaTopic.avg_views_organic || matchingDnaTopic.avg_views || 0;
+        // Get performance stats from topic_definitions
+        const matchCount = matchingDnaTopic.match_count || 0;
+        const likedCount = matchingDnaTopic.liked_count || 0;
+        const producedCount = matchingDnaTopic.produced_count || 0;
+        const successRate = matchCount > 0 
+          ? Math.round((likedCount + producedCount) / matchCount * 100)
+          : 0;
+        const avgViews = matchingDnaTopic.performance_stats?.avgViews || 0;
         
         // Determine status based on success rate
         let status = 'new';
@@ -389,6 +396,15 @@ async function enrichClustersWithDNA(clusters, showId, supabase) {
 
 export async function POST(request) {
   try {
+    // CLUSTERS DISABLED: Temporarily disabled to focus on signal quality improvements
+    // TODO: Re-enable after signals are working properly
+    console.log('⚠️ Clusters POST API disabled - returning empty array');
+    return NextResponse.json({ 
+      success: true, 
+      clusters: [],
+      message: 'Clusters temporarily disabled - focusing on signal quality'
+    });
+
     // Verify user is authenticated
     const { user, error: authError } = await getAuthUser(request);
     

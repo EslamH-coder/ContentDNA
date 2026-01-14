@@ -271,6 +271,8 @@ function SettingsContent() {
       
       if (data.success) {
         alert('✅ Learning data has been reset. The system will start learning from your new feedback.');
+        // Refresh the page to update LearningStats immediately
+        window.location.reload();
       } else {
         alert('Error: ' + (data.error || 'Failed to reset learning'));
       }
@@ -634,6 +636,9 @@ function SettingsContent() {
                 </div>
               </div>
             </div>
+
+            {/* YouTube Connection Status */}
+            <YouTubeConnectionCard showId={showId} />
 
             {/* Sync Analytics Card */}
             <SyncAnalyticsCard showId={showId} />
@@ -1070,7 +1075,11 @@ function SyncNewVideosCard({ showId }) {
           videos: data.videos 
         });
       } else {
-        setResult({ type: 'error', message: data.error });
+        setResult({ 
+          type: 'error', 
+          message: data.error,
+          reconnectUrl: data.reconnectUrl 
+        });
       }
     } catch (error) {
       setResult({ type: 'error', message: error.message });
@@ -1328,6 +1337,147 @@ function TopicGapAnalysis({ showId }) {
   );
 }
 
+// YouTube Connection Card Component
+function YouTubeConnectionCard({ showId }) {
+  const [connectionStatus, setConnectionStatus] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkConnection();
+  }, [showId]);
+
+  const checkConnection = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/shows/${showId}`);
+      const data = await res.json();
+      
+      if (data.success && data.show) {
+        const youtubeAccountId = data.show.youtube_account_id;
+        
+        if (youtubeAccountId) {
+          // Check if account exists and has valid tokens
+          const { supabase } = await import('@/lib/supabase');
+          const { data: account, error } = await supabase
+            .from('youtube_accounts')
+            .select('channel_title, channel_id, refresh_token, connected_at')
+            .eq('id', youtubeAccountId)
+            .single();
+          
+          if (account && account.refresh_token) {
+            setConnectionStatus({
+              connected: true,
+              channelTitle: account.channel_title,
+              channelId: account.channel_id,
+              connectedAt: account.connected_at
+            });
+          } else {
+            setConnectionStatus({ connected: false, reason: 'No refresh token' });
+          }
+        } else {
+          setConnectionStatus({ connected: false, reason: 'No YouTube account linked' });
+        }
+      } else {
+        setConnectionStatus({ connected: false, reason: 'Show not found' });
+      }
+    } catch (error) {
+      console.error('Error checking connection:', error);
+      setConnectionStatus({ connected: false, reason: 'Error checking status' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleReconnect = async () => {
+    try {
+      const res = await fetch(`/api/youtube/auth?showId=${showId}`);
+      const data = await res.json();
+      if (data.authUrl) {
+        window.location.href = data.authUrl;
+      }
+    } catch (error) {
+      console.error('Error getting auth URL:', error);
+      alert('Failed to get YouTube auth URL. Please try again.');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl border p-6">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">📺</span>
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">YouTube Connection</h3>
+            <p className="text-sm text-gray-500">Checking connection status...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-xl border p-6">
+      <div className="flex items-center gap-3 mb-4">
+        <span className="text-2xl">📺</span>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900">YouTube Connection</h3>
+          <p className="text-sm text-gray-500">
+            {connectionStatus?.connected 
+              ? 'Connected to your YouTube channel' 
+              : 'Not connected to YouTube'}
+          </p>
+        </div>
+      </div>
+
+      {connectionStatus?.connected ? (
+        <div className="space-y-3">
+          <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-green-600">✅</span>
+              <span className="font-medium text-green-800">Connected</span>
+            </div>
+            <p className="text-sm text-green-700">
+              Channel: <span className="font-medium">{connectionStatus.channelTitle}</span>
+            </p>
+            {connectionStatus.connectedAt && (
+              <p className="text-xs text-green-600 mt-1">
+                Connected: {new Date(connectionStatus.connectedAt).toLocaleDateString()}
+              </p>
+            )}
+          </div>
+          <button
+            onClick={handleReconnect}
+            className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium"
+          >
+            🔄 Reconnect YouTube
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          <div className="p-3 bg-red-50 rounded-lg border border-red-200">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-red-600">❌</span>
+              <span className="font-medium text-red-800">Not Connected</span>
+            </div>
+            <p className="text-sm text-red-700">
+              {connectionStatus?.reason === 'No YouTube account linked' 
+                ? 'No YouTube account is linked to this show. Connect your YouTube channel to sync videos and analytics.'
+                : 'YouTube connection is missing or expired. Reconnect to enable video syncing.'}
+            </p>
+          </div>
+          <button
+            onClick={handleReconnect}
+            className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium flex items-center justify-center gap-2"
+          >
+            <span>🔗</span>
+            Connect YouTube
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Sync Analytics Card Component
 function SyncAnalyticsCard({ showId }) {
   const [syncing, setSyncing] = useState(false);
@@ -1367,7 +1517,11 @@ function SyncAnalyticsCard({ showId }) {
         setResult({ type: 'success', message: data.message });
         fetchSyncStatus();
       } else {
-        setResult({ type: 'error', message: data.error });
+        setResult({ 
+          type: 'error', 
+          message: data.error,
+          reconnectUrl: data.reconnectUrl 
+        });
       }
     } catch (error) {
       setResult({ type: 'error', message: error.message });
@@ -1413,7 +1567,25 @@ function SyncAnalyticsCard({ showId }) {
             ? 'bg-green-50 text-green-700 border border-green-200' 
             : 'bg-red-50 text-red-700 border border-red-200'
         }`}>
-          {result.type === 'success' ? '✅' : '❌'} {result.message}
+          <p>{result.type === 'success' ? '✅' : '❌'} {result.message}</p>
+          {result.type === 'error' && result.reconnectUrl && (
+            <button
+              onClick={() => {
+                // Get auth URL and redirect
+                fetch(`/api/youtube/auth?showId=${showId}`)
+                  .then(res => res.json())
+                  .then(data => {
+                    if (data.authUrl) {
+                      window.location.href = data.authUrl;
+                    }
+                  })
+                  .catch(err => console.error('Error getting auth URL:', err));
+              }}
+              className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium"
+            >
+              🔗 Reconnect YouTube
+            </button>
+          )}
         </div>
       )}
 

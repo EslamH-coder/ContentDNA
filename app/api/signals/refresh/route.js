@@ -224,6 +224,53 @@ export async function POST(request) {
         error: 'No enabled RSS sources found for this show' 
       }, { status: 400 });
     }
+    
+    // ===========================================
+    // RSS FEED CONFIGURATION ANALYSIS
+    // ===========================================
+    console.log(`\n📡 RSS FEED CONFIGURATION:`);
+    console.log(`   Total enabled feeds: ${sources.length}`);
+    
+    // Group by source type
+    const feedByType = {};
+    sources.forEach(s => {
+      const type = s.source_type || 'rss';
+      if (!feedByType[type]) {
+        feedByType[type] = [];
+      }
+      feedByType[type].push(s);
+    });
+    
+    Object.entries(feedByType).forEach(([type, feeds]) => {
+      console.log(`   - ${type}: ${feeds.length} feeds`);
+      feeds.slice(0, 5).forEach(f => {
+        console.log(`     • ${f.name} (limit: ${f.item_limit || 20})`);
+      });
+      if (feeds.length > 5) {
+        console.log(`     ... and ${feeds.length - 5} more ${type} feeds`);
+      }
+    });
+    
+    // Check feed quality
+    const googleNewsFeeds = sources.filter(s => s.url?.includes('news.google.com')).length;
+    const directFeeds = sources.filter(s => 
+      s.url?.includes('bloomberg.com') || 
+      s.url?.includes('reuters.com') || 
+      s.url?.includes('aljazeera.com') || 
+      s.url?.includes('aljazeera.net') ||
+      s.url?.includes('ft.com') ||
+      s.url?.includes('economist.com')
+    ).length;
+    
+    console.log(`\n📊 Feed Quality Breakdown:`);
+    console.log(`   - Google News (aggregator): ${googleNewsFeeds} feeds`);
+    console.log(`   - Direct high-quality feeds: ${directFeeds} feeds`);
+    console.log(`   - Other feeds: ${sources.length - googleNewsFeeds - directFeeds} feeds`);
+    
+    if (googleNewsFeeds > directFeeds * 2) {
+      console.log(`   ⚠️ WARNING: Too many Google News feeds (${googleNewsFeeds}) vs direct feeds (${directFeeds})`);
+      console.log(`   💡 Recommendation: Add more direct RSS feeds (Bloomberg, Reuters, Al Jazeera)`);
+    }
 
     // Get show's DNA configuration for rich filtering rules
     console.log(`\n🧬 Loading show's DNA configuration for filtering...`);
@@ -846,6 +893,8 @@ export async function POST(request) {
     };
 
     // Filter 2: Remove old items (>48 hours) - stricter time window
+    const beforeAgeFilter = filteredSignals.length;
+    const ageRejections = [];
     const now = Date.now();
     filteredSignals = filteredSignals.filter(signal => {
       // Check detected_at first (primary date field), then fallback to raw_data
@@ -854,26 +903,63 @@ export async function POST(request) {
         // If no date, check if it's a very recent creation (within last hour)
         const createdDate = new Date(signal.created_at || signal.detected_at);
         const hoursAgo = (now - createdDate.getTime()) / (1000 * 60 * 60);
-        return hoursAgo <= 1; // Only keep if created very recently
+        if (hoursAgo > 1) {
+          ageRejections.push({ title: signal.title, reason: 'no_date_or_too_old', hoursAgo });
+          return false;
+        }
+        return true;
       }
       try {
         const pubDate = new Date(dateStr);
-        if (isNaN(pubDate.getTime())) return false; // Reject if invalid date
+        if (isNaN(pubDate.getTime())) {
+          ageRejections.push({ title: signal.title, reason: 'invalid_date' });
+          return false;
+        }
         const hoursAgo = (now - pubDate.getTime()) / (1000 * 60 * 60);
-        return hoursAgo <= 48; // Last 2 days only (stricter)
+        if (hoursAgo > 48) {
+          ageRejections.push({ title: signal.title, reason: 'too_old', hoursAgo: Math.round(hoursAgo) });
+          return false;
+        }
+        return true;
       } catch (e) {
-        return false; // Reject if date parsing fails
+        ageRejections.push({ title: signal.title, reason: 'date_parse_error' });
+        return false;
       }
     });
-    console.log(`  ✅ After age filter (≤48h): ${filteredSignals.length} signals`);
+    console.log(`  ✅ After age filter (≤48h): ${filteredSignals.length} signals (removed ${beforeAgeFilter - filteredSignals.length})`);
+    if (ageRejections.length > 0 && ageRejections.length <= 10) {
+      console.log(`   🗑️ Age rejections (sample):`);
+      ageRejections.slice(0, 5).forEach(r => {
+        console.log(`      - "${(r.title || '').substring(0, 50)}..." (${r.reason}${r.hoursAgo ? `, ${r.hoursAgo}h old` : ''})`);
+      });
+    }
 
     // Filter 3: Remove short titles (<40 chars) and very long titles (likely spam)
+    const beforeLengthFilter = filteredSignals.length;
+    const lengthRejections = [];
     filteredSignals = filteredSignals.filter(signal => {
-      if (!signal.title) return false;
+      if (!signal.title) {
+        lengthRejections.push({ title: '(no title)', reason: 'missing_title' });
+        return false;
+      }
       const titleLen = signal.title.trim().length;
-      return titleLen >= 40 && titleLen <= 200; // Reasonable title length
+      if (titleLen < 40) {
+        lengthRejections.push({ title: signal.title, reason: 'too_short', length: titleLen });
+        return false;
+      }
+      if (titleLen > 200) {
+        lengthRejections.push({ title: signal.title, reason: 'too_long', length: titleLen });
+        return false;
+      }
+      return true;
     });
-    console.log(`  ✅ After length filter (40-200 chars): ${filteredSignals.length} signals`);
+    console.log(`  ✅ After length filter (40-200 chars): ${filteredSignals.length} signals (removed ${beforeLengthFilter - filteredSignals.length})`);
+    if (lengthRejections.length > 0 && lengthRejections.length <= 10) {
+      console.log(`   🗑️ Length rejections (sample):`);
+      lengthRejections.slice(0, 5).forEach(r => {
+        console.log(`      - "${(r.title || '').substring(0, 50)}..." (${r.reason}, ${r.length || 0} chars)`);
+      });
+    }
 
     // Filter 4: Deduplicate similar titles (basic)
     const seenTitles = new Set();
@@ -977,6 +1063,7 @@ export async function POST(request) {
 
     // Filter 5: DNA scoring filter (using show_dna rules + learning profile)
     const beforeDnaFilter = filteredSignals.length;
+    const signalsBeforeDna = [...filteredSignals]; // Keep copy for rejection analysis
     
     // Score all signals with DNA + learning profile
     const scoredSignals = filteredSignals.map(signal => {
@@ -992,6 +1079,7 @@ export async function POST(request) {
     
     // Filter out rejected signals
     filteredSignals = scoredSignals.filter(s => !s._reject);
+    const signalsAfterDna = [...filteredSignals]; // Keep copy for rejection analysis
 
     // Ensure matched_topic is always a valid DNA topic or "other_stories"
     const validTopics = new Set((topicDefs || []).map(t => t.topic_id));
@@ -1007,13 +1095,28 @@ export async function POST(request) {
     
     console.log(`  ✅ After DNA scoring filter: ${filteredSignals.length} signals (removed ${beforeDnaFilter - filteredSignals.length})`);
     
-    // Log rejections for debugging
-    const rejected = scoredSignals.filter(s => s._reject);
-    if (rejected.length > 0) {
-      console.log(`  🗑️ Rejected ${rejected.length} signals:`);
-      rejected.slice(0, 5).forEach(s => {
-        console.log(`     - "${(s.title || '').substring(0, 50)}..." (score: ${s.relevance_score}, reasons: ${s.dna_reasons?.join(', ') || 'N/A'})`);
+    // ===========================================
+    // DETAILED REJECTION ANALYSIS
+    // ===========================================
+    console.log(`\n📊 REJECTION ANALYSIS:`);
+    
+    // DNA Filter Rejections
+    const rejectedByDna = scoredSignals.filter(s => s._reject);
+    if (rejectedByDna.length > 0) {
+      console.log(`\n🧬 DNA Filter rejected ${rejectedByDna.length} signals:`);
+      rejectedByDna.slice(0, 15).forEach(s => {
+        const minScore = showDna?.benchmarks?.min_score || 35;
+        console.log(`   ❌ "${(s.title || '').substring(0, 60)}..."`);
+        console.log(`      Score: ${s.relevance_score} (min: ${minScore})`);
+        console.log(`      Reasons: ${(s.dna_reasons || []).join(', ') || 'N/A'}`);
+        console.log(`      Matched Topic: ${s.matched_topic || 'none'}`);
+        console.log(`      Source: ${s.source || 'unknown'}`);
       });
+      if (rejectedByDna.length > 15) {
+        console.log(`   ... and ${rejectedByDna.length - 15} more rejected by DNA filter`);
+      }
+    } else {
+      console.log(`\n🧬 DNA Filter: No signals rejected (all passed)`);
     }
     
     // Log top matches
@@ -1053,7 +1156,13 @@ export async function POST(request) {
 
     // Filter 7: Reject "no story" patterns (Arabic + English)
     const rejectIfContains = [
-      // Arabic patterns
+      // Arabic patterns - Aggregator metadata (MUST REJECT)
+      'تم العثور على',    // "X news found about Y" - aggregator metadata, not real headlines
+      'تم العثور',        // "Found" - aggregator pattern
+      'أخبار \'',         // "news '" - aggregator pattern
+      'على \d+ أخبار',    // "on X news" - aggregator pattern
+      
+      // Arabic patterns - Routine/no story
       'تكريم',           // Award ceremony
       'يواصل النمو',      // Continues to grow (routine)
       'يواصل الارتفاع',   // Continues to rise (routine)
@@ -1069,6 +1178,12 @@ export async function POST(request) {
       'تدشين',           // Inauguration
       'يستقبل',          // Receives (meeting)
       'يلتقي',           // Meets with
+      
+      // Routine diplomatic news
+      'يوقع اتفاقيات',     // "Signs agreements" - routine diplomatic
+      'يوقع اتفاقية',      // "Signs agreement"
+      'اتفاقيات جديدة',    // "New agreements"
+      'يوقع مذكرة',       // "Signs memorandum"
     ];
     
     // English reject patterns (regex) - reject low quality signals
@@ -1089,19 +1204,25 @@ export async function POST(request) {
     ];
 
     const beforeNoStoryFilter = filteredSignals.length;
+    const signalsBeforePattern = [...filteredSignals]; // Keep copy for rejection analysis
+    const patternRejections = []; // Track what was rejected and why
+    
     filteredSignals = filteredSignals.filter(signal => {
       const title = signal.title || '';
+      let rejectionReason = null;
       
       // Reject titles starting with percentage increase/decrease
       if (/^بزيادة \d/.test(title) || /^بانخفاض \d/.test(title) || /^بنسبة \d/.test(title)) {
-        console.log(`🗑️ Rejected (starts with %): "${title.substring(0, 50)}..."`);
+        rejectionReason = 'starts_with_percentage';
+        patternRejections.push({ title, reason: rejectionReason, pattern: 'percentage prefix' });
         return false;
       }
       
       // Check string patterns - actually reject
       for (const pattern of rejectIfContains) {
         if (title.includes(pattern)) {
-          console.log(`🗑️ Rejected (${pattern}): "${title.substring(0, 50)}..."`);
+          rejectionReason = `arabic_pattern:${pattern}`;
+          patternRejections.push({ title, reason: rejectionReason, pattern });
           return false;
         }
       }
@@ -1109,16 +1230,50 @@ export async function POST(request) {
       // Check regex patterns - actually reject
       for (const pattern of rejectPatterns) {
         if (pattern.test(title)) {
-          console.log(`🗑️ Rejected (pattern: ${pattern.source}): "${title.substring(0, 50)}..."`);
+          rejectionReason = `regex_pattern:${pattern.source}`;
+          patternRejections.push({ title, reason: rejectionReason, pattern: pattern.source });
           return false;
         }
       }
       
       return true;
     });
+    const signalsAfterPattern = [...filteredSignals]; // Keep copy for rejection analysis
     
     if (beforeNoStoryFilter > filteredSignals.length) {
       console.log(`  ✅ After "no story" pattern filter: ${filteredSignals.length} signals (removed ${beforeNoStoryFilter - filteredSignals.length})`);
+    }
+    
+    // ===========================================
+    // PATTERN REJECTION ANALYSIS
+    // ===========================================
+    if (patternRejections.length > 0) {
+      console.log(`\n🚫 Pattern Filter rejected ${patternRejections.length} signals:`);
+      patternRejections.slice(0, 15).forEach(r => {
+        console.log(`   ❌ "${(r.title || '').substring(0, 60)}..."`);
+        console.log(`      Pattern: ${r.pattern}`);
+        console.log(`      Reason: ${r.reason}`);
+      });
+      if (patternRejections.length > 15) {
+        console.log(`   ... and ${patternRejections.length - 15} more rejected by pattern filter`);
+      }
+      
+      // Group rejections by pattern type
+      const patternGroups = {};
+      patternRejections.forEach(r => {
+        const patternType = r.reason.split(':')[0] || 'unknown';
+        if (!patternGroups[patternType]) {
+          patternGroups[patternType] = [];
+        }
+        patternGroups[patternType].push(r);
+      });
+      
+      console.log(`\n📊 Pattern rejection breakdown:`);
+      Object.entries(patternGroups).forEach(([type, items]) => {
+        console.log(`   - ${type}: ${items.length} signals`);
+      });
+    } else {
+      console.log(`\n🚫 Pattern Filter: No signals rejected (all passed)`);
     }
     
     // STEP 2 & 3: Log after reject patterns
@@ -1430,6 +1585,28 @@ export async function POST(request) {
       });
     }
 
+    // ===========================================
+    // FINAL REJECTION SUMMARY
+    // ===========================================
+    console.log(`\n📊 FINAL REJECTION SUMMARY:`);
+    console.log(`   Raw fetched: ${newSignals.length} signals`);
+    console.log(`   After all filters: ${filteredSignals.length} signals`);
+    console.log(`   Total rejected: ${newSignals.length - filteredSignals.length} signals`);
+    console.log(`   Rejection rate: ${((newSignals.length - filteredSignals.length) / newSignals.length * 100).toFixed(1)}%`);
+    
+    // Show source breakdown of final signals
+    const finalSourceBreakdown = {};
+    filteredSignals.forEach(s => {
+      const source = s.source || 'Unknown';
+      finalSourceBreakdown[source] = (finalSourceBreakdown[source] || 0) + 1;
+    });
+    console.log(`\n📊 Final signals by source:`);
+    Object.entries(finalSourceBreakdown)
+      .sort(([,a], [,b]) => b - a)
+      .forEach(([source, count]) => {
+        console.log(`   - ${source}: ${count} signals`);
+      });
+    
     console.log(`\n📊 Final result: ${newSignals.length} → ${filteredSignals.length} signals (removed ${newSignals.length - filteredSignals.length})`);
 
     // Insert filtered signals (without AI enrichment - can be enriched later via "Enrich" button)
@@ -1572,6 +1749,8 @@ export async function POST(request) {
           ...(signal.story_original_size ? { story_original_size: signal.story_original_size } : {}),
           status: 'new',
           is_active: true,
+          // SIMPLE RULE: is_visible = (score >= 40) && (status !== 'rejected')
+          is_visible: (Math.round(safeFinal) >= 40) && (signal.status !== 'rejected'),
           detected_at: signal.detected_at || signal.raw_data?.rssItem?.pubDate || new Date().toISOString(),
           created_at: new Date().toISOString(),
           raw_data: {

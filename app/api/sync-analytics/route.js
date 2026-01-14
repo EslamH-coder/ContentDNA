@@ -31,13 +31,28 @@ export async function POST(request) {
     // 2. Get YouTube credentials from youtube_accounts table
     const { data: ytAccount, error: ytError } = await supabase
       .from('youtube_accounts')
-      .select('channel_id, access_token, refresh_token')
+      .select('channel_id, access_token, refresh_token, token_expires_at')
       .eq('id', show.youtube_account_id)
       .single();
 
-    if (ytError || !ytAccount?.access_token) {
+    if (ytError || !ytAccount) {
       return NextResponse.json({ 
-        error: 'YouTube credentials not found. Please reconnect YouTube.' 
+        error: 'YouTube account not found. Please connect YouTube in Settings.',
+        reconnectUrl: `/settings?showId=${showId}&tab=youtube`
+      }, { status: 400 });
+    }
+
+    if (!ytAccount.access_token) {
+      return NextResponse.json({ 
+        error: 'YouTube access token missing. Please reconnect YouTube in Settings.',
+        reconnectUrl: `/settings?showId=${showId}&tab=youtube`
+      }, { status: 400 });
+    }
+
+    if (!ytAccount.refresh_token) {
+      return NextResponse.json({ 
+        error: 'YouTube refresh token missing. Please reconnect YouTube in Settings. The connection may have been revoked.',
+        reconnectUrl: `/settings?showId=${showId}&tab=youtube`
       }, { status: 400 });
     }
 
@@ -64,14 +79,34 @@ export async function POST(request) {
           .from('youtube_accounts')
           .update({ 
             access_token: credentials.access_token,
-            token_expires_at: new Date(credentials.expiry_date).toISOString()
+            token_expires_at: credentials.expiry_date ? new Date(credentials.expiry_date).toISOString() : null
           })
           .eq('id', show.youtube_account_id);
+        console.log('✅ YouTube access token refreshed successfully');
       }
     } catch (refreshError) {
-      console.error('Token refresh failed:', refreshError);
+      console.error('❌ Token refresh failed:', refreshError);
+      console.error('Error details:', {
+        message: refreshError.message,
+        code: refreshError.code,
+        hasRefreshToken: !!ytAccount.refresh_token,
+        tokenExpiresAt: ytAccount.token_expires_at
+      });
+      
+      // Check if it's a specific error type
+      const errorMessage = refreshError.message || 'Unknown error';
+      let userMessage = 'YouTube token expired. Please reconnect YouTube in Settings.';
+      
+      if (errorMessage.includes('invalid_grant') || errorMessage.includes('invalid_request')) {
+        userMessage = 'YouTube connection has been revoked. Please reconnect YouTube in Settings.';
+      } else if (errorMessage.includes('invalid_client')) {
+        userMessage = 'YouTube API credentials are invalid. Please check your Google OAuth configuration.';
+      }
+      
       return NextResponse.json({ 
-        error: 'YouTube token expired. Please reconnect YouTube in Settings.' 
+        error: userMessage,
+        reconnectUrl: `/settings?showId=${showId}&tab=youtube`,
+        technicalError: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       }, { status: 401 });
     }
 

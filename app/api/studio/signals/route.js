@@ -5,13 +5,20 @@ import {
   expandKeywordsWithTranslations,
   normalizeArabicText,
   KEYWORD_TRANSLATIONS,
-  calculateIdeaScore
+  calculateIdeaScore,
+  getUrgencyTier
 } from '@/lib/scoring/multiSignalScoring';
 import {
   calculateMatchScore,
   hasValidKeywordMatch,
-  filterValuableKeywords
+  filterValuableKeywords,
+  getKeywordWeight
 } from '@/lib/scoring/keywordWeights';
+import {
+  COMPETITOR_SCORE_WEIGHTS,
+  BREAKOUT_THRESHOLDS,
+  TIME_DECAY_MULTIPLIERS
+} from '@/lib/scoring/multiSignalScoring';
 import { generateTopicFingerprint } from '@/lib/topicIntelligence';
 import { getShowPatterns, scoreSignalByPatterns } from '@/lib/behaviorPatterns';
 import { getLearnedAdjustments } from '@/lib/learning/signalEffectiveness';
@@ -58,34 +65,28 @@ export async function GET(request) {
   });
   console.log('📰 Sources:', sourceBreakdown);
 
-  // 2. Fetch DNA topics for this show
-  const { data: dnaData } = await supabase
-    .from('show_dna')
-    .select('topics')
-    .eq('show_id', showId)
-    .single();
-
-  let dnaTopics = [];
-  if (dnaData?.topics) {
-    if (Array.isArray(dnaData.topics)) {
-      dnaTopics = dnaData.topics;
-    } else if (typeof dnaData.topics === 'object') {
-      // Convert object to array
-      dnaTopics = Object.keys(dnaData.topics);
-    }
+  // 2. Load DNA topics from unified taxonomy service (single source of truth)
+  const { loadTopics } = await import('@/lib/taxonomy/unifiedTaxonomyService');
+  let dnaTopics = await loadTopics(showId, supabase);
+  
+  if (dnaTopics.length === 0) {
+    console.warn('⚠️ No topics found in topic_definitions. Run migration to migrate from show_dna.topics if needed.');
   }
-  console.log('🧬 DNA Topics:', dnaTopics);
+  
+  console.log(`🧬 DNA Topics: ${dnaTopics.length} topics from topic_definitions`);
 
-  // 3. Fetch recent competitor videos (last 7 days)
-  // Join with competitors table to get name and show_id
-  // NOTE: competitors table uses "name" column, not "channel_name"
+  // 3. Fetch recent competitor videos (last 7 days) with type, description, and performance_ratio
+  // Join with competitors table to get name, type, and show_id
   const { data: competitorVideosRaw, error: compError } = await supabase
     .from('competitor_videos')
     .select(`
       id,
       title,
+      description,
       youtube_video_id,
       views,
+      performance_ratio,
+      is_success,
       published_at,
       competitor_id,
       competitors!competitor_id (
@@ -97,7 +98,7 @@ export async function GET(request) {
     `)
     .gte('published_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
     .order('views', { ascending: false })
-    .limit(100);
+    .limit(200);
 
   if (compError) {
     console.error('⚠️ Competitor videos error:', compError);
@@ -321,6 +322,7 @@ export async function GET(request) {
     let lastCoveredVideo = null;
     let daysSinceLastPost = null;
     let competitorEvidenceFromScoring = []; // Competitor matches from calculateIdeaScore
+    let multiSignalScoring = null; // Full scoring result for response (matching Ideas page format)
     
     try {
       // Use same pattern as /app/api/signals/route.js for proper scoring
@@ -339,12 +341,44 @@ export async function GET(request) {
         sourceUrl: signal.url || signal.source_url || signal.raw_data?.url || signal.raw_data?.link || null,
         sourceTitle: signal.source || signal.source_name || signal.raw_data?.sourceName || null,
         sourceCount: 1,
+        aiFingerprint: aiFingerprint, // Pass AI fingerprint for smarter DNA matching
       }, excludedNames); // Pass excluded names to filter out channel/source names
       
       realScore = scoringResult?.score ?? 0; // Use nullish coalescing to catch 0 scores
       scoringSignals = scoringResult?.signals || [];
       strategicLabel = scoringResult?.strategicLabel || null;
       competitorBreakdown = scoringResult?.competitorBreakdown || {};
+      
+      // Store full scoring result for response (matching Ideas page format)
+      multiSignalScoring = {
+        ...scoringResult,
+        base_score: scoringResult?.score || 0,
+        learned_adjusted_score: realScore,
+      };
+      
+      // ============================================
+      // UNIFIED TOPIC MATCHING & RECORDING
+      // ============================================
+      let matchedTopics = [];
+      let primaryTopicId = null;
+      if (dnaTopics.length > 0) {
+        try {
+          const { matchSignalToTopics, recordTopicMatch } = await import('@/lib/taxonomy/unifiedTaxonomyService');
+          matchedTopics = await matchSignalToTopics(signal, dnaTopics, aiFingerprint);
+          
+          if (matchedTopics.length > 0) {
+            primaryTopicId = matchedTopics[0].topicId;
+            // Record match in database
+            await recordTopicMatch(showId, primaryTopicId, supabase);
+            
+            // Store matched topics in signal
+            signal.matchedTopics = matchedTopics;
+            signal.primaryTopic = primaryTopicId;
+          }
+        } catch (matchError) {
+          console.warn('⚠️ Error in unified topic matching (non-fatal):', matchError.message);
+        }
+      }
       
       // DEBUG: Log score details to help diagnose 57/50 issue
       if (realScore === 57 || realScore === 50) {
@@ -375,6 +409,14 @@ export async function GET(request) {
         s.type === 'competitor_volume_indirect' ||
         s.type === 'trendsetter_volume'
       );
+      
+      // Also check competitor breakout signals (they have data with video info)
+      const competitorBreakoutSignals = scoringSignals.filter(s => 
+        s.type === 'competitor_breakout_direct' || 
+        s.type === 'competitor_breakout_trendsetter' || 
+        s.type === 'competitor_breakout_indirect'
+      );
+      
       // Combine all competitor evidence from different signals
       competitorEvidenceFromScoring = competitorVolumeSignals
         .flatMap(s => s.evidence?.competitors || [])
@@ -382,6 +424,37 @@ export async function GET(request) {
           // Deduplicate by videoUrl
           index === self.findIndex(c => c.videoUrl === comp.videoUrl)
         );
+      
+      // Add breakout competitors if they're not already in the list
+      competitorBreakoutSignals.forEach(signal => {
+        if (signal.data) {
+          const breakoutComp = {
+            name: signal.data.channelName,
+            type: signal.data.type || (signal.type.includes('direct') ? 'direct' : signal.type.includes('trendsetter') ? 'trendsetter' : 'indirect'),
+            videoTitle: signal.data.videoTitle,
+            videoUrl: signal.data.videoUrl,
+            matchedKeywords: signal.evidence?.matchedKeywords || []
+          };
+          // Only add if not already present
+          if (!competitorEvidenceFromScoring.some(c => c.videoUrl === breakoutComp.videoUrl)) {
+            competitorEvidenceFromScoring.push(breakoutComp);
+          }
+        }
+      });
+      
+      console.log(`   📊 Competitor evidence: ${competitorEvidenceFromScoring.length} from volume signals, ${competitorBreakoutSignals.length} breakout signals`);
+      
+      // Debug: Log what signals we found
+      if (competitorVolumeSignals.length > 0) {
+        console.log(`   📊 Volume signals found: ${competitorVolumeSignals.map(s => s.type).join(', ')}`);
+        competitorVolumeSignals.forEach(s => {
+          const comps = s.evidence?.competitors || [];
+          console.log(`      - ${s.type}: ${comps.length} competitors`);
+        });
+      }
+      if (competitorBreakoutSignals.length > 0) {
+        console.log(`   📊 Breakout signals found: ${competitorBreakoutSignals.map(s => s.type).join(', ')}`);
+      }
       
       // Find last covered video from freshness or saturated signal
       // These signals come from findDaysSinceLastPost() which has better matching
@@ -459,13 +532,16 @@ export async function GET(request) {
       console.log(`      ⚠️ Using DB score as fallback: ${realScore}`);
     }
     
-    // Determine tier using REAL score (not fake DB score)
-    let tier = 'evergreen';
-    if (realScore >= 90 && hoursOld < 48) {
-      tier = 'post_today';
-    } else if (realScore >= 70 || hoursOld < 168) {
-      tier = 'this_week';
-    }
+    // Determine tier using time-sensitivity-based getUrgencyTier (considers competitor timing)
+    const tierResult = getUrgencyTier(
+      {
+        score: realScore,
+        signals: scoringSignals,
+        competitorBreakdown: competitorBreakdown
+      },
+      signal
+    );
+    const tier = tierResult.tier;
 
     // Find matching competitor videos using smart bilingual keyword matching
     // ENHANCED: Now uses AI-extracted entities + rule-based keywords
@@ -497,78 +573,73 @@ export async function GET(request) {
       signalKeywords = [];
     }
     
-    // Use competitor evidence from calculateIdeaScore (better matching system)
-    // This comes from countCompetitorMatches() which uses the same smart matching
-    // The evidence structure: { name, type, videoTitle, videoUrl, matchedKeywords }
-    let matchingCompetitors = [];
+    // ============================================
+    // Extract competitor evidence from scoring signals for UI display
+    // MATCHES IDEAS PAGE FORMAT EXACTLY
+    // ============================================
+    const competitors = [];
     
-    if (competitorEvidenceFromScoring && competitorEvidenceFromScoring.length > 0) {
-      // Use the better matching from calculateIdeaScore
-      matchingCompetitors = competitorEvidenceFromScoring.slice(0, 3).map(comp => ({
-        channel: comp.name || 'Competitor',
-        type: comp.type || 'indirect',
-        typeLabel: comp.type === 'direct' ? 'Direct' : 
-                   comp.type === 'trendsetter' ? 'Trendsetter' : 
-                   'Indirect',
-        title: comp.videoTitle || '',
-        videoUrl: comp.videoUrl || null,
-        views: 0, // Not available in evidence
-        matchedKeywords: comp.matchedKeywords || []
-      })).filter(c => c.videoUrl); // Only include if we have a video URL
-      
-      console.log(`   ✅ Using ${matchingCompetitors.length} competitors from scoring evidence for "${signal.title?.substring(0, 40)}..."`);
-    } else {
-      // Fallback to manual matching if scoring didn't provide evidence
-      console.log(`   ⚠️ No competitors from scoring evidence, using fallback matching for "${signal.title?.substring(0, 40)}..."`);
-      const fallbackMatches = (competitorVideos || [])
-        .map(cv => {
-          try {
-            const videoTitle = cv.title || '';
-            const videoDescription = (cv.description || '').substring(0, 200);
-            const titleKeywords = extractKeywords(videoTitle);
-            const descKeywords = extractKeywords(videoDescription);
-            const videoKeywords = [...new Set([...titleKeywords, ...descKeywords])];
-            const matchingKeywords = signalKeywords.filter(sk => {
-              const normalizedSk = normalizeArabicText(sk).toLowerCase();
-              return videoKeywords.some(vk => {
-                const normalizedVk = normalizeArabicText(vk).toLowerCase();
-                return normalizedVk.includes(normalizedSk) || normalizedSk.includes(normalizedVk);
-              });
+    // Use scoring.signals from multiSignalScoring (same as Ideas page)
+    const scoring = multiSignalScoring || { signals: scoringSignals };
+    
+    // 1. Extract from breakout signals (these have full video details)
+    for (const sig of scoring.signals || scoringSignals) {
+      if (sig.type?.includes('competitor_breakout')) {
+        const data = sig.data || {};
+        const evidence = sig.evidence || {};
+        
+        // Merge data and evidence (data takes priority) - MATCH IDEAS PAGE FORMAT
+        const comp = {
+          channelName: data.channelName || evidence.channelName || 'Unknown',
+          channelId: data.channelId || evidence.channelId,
+          videoTitle: data.videoTitle || evidence.videoTitle || '',
+          videoUrl: data.videoUrl || evidence.videoUrl || null,
+          videoDescription: (data.videoDescription || evidence.videoDescription || '').substring(0, 200),
+          views: data.views || evidence.views || 0,
+          averageViews: data.averageViews || evidence.averageViews || 0,
+          multiplier: data.multiplier || evidence.multiplier || 0,
+          hoursAgo: data.hoursAgo || evidence.hoursAgo,
+          publishedAt: data.publishedAt || evidence.publishedAt,
+          matchedKeywords: data.matchedKeywords || evidence.matchedKeywords || evidence.topicKeywordMatches || [],
+          type: sig.type?.includes('direct') ? 'direct' : 
+                sig.type?.includes('trendsetter') ? 'trendsetter' : 'indirect',
+          isBreakout: true,
+        };
+        
+        if (comp.channelName && comp.channelName !== 'Unknown') {
+          competitors.push(comp);
+        }
+      }
+    }
+    
+    // 2. Extract from volume signals (these have competitor lists in evidence)
+    for (const sig of scoring.signals || scoringSignals) {
+      if (sig.type?.includes('competitor_volume') || sig.type === 'trendsetter_volume') {
+        const evidenceCompetitors = sig.evidence?.competitors || [];
+        for (const comp of evidenceCompetitors) {
+          // Avoid duplicates
+          const isDuplicate = competitors.some(c => 
+            c.videoUrl === comp.videoUrl || 
+            (c.channelName === comp.name && c.videoTitle === comp.videoTitle)
+          );
+          
+          if (!isDuplicate && (comp.name || comp.channelName)) {
+            competitors.push({
+              channelName: comp.name || comp.channelName || 'Unknown',
+              channelId: comp.channelId,
+              videoTitle: comp.videoTitle || '',
+              videoUrl: comp.videoUrl || null,
+              matchedKeywords: comp.matchedKeywords || [],
+              type: comp.type || 'indirect',
+              isBreakout: false,
             });
-            const matchResult = calculateMatchScore(matchingKeywords, []);
-            return { video: cv, matchResult, matchingKeywords, isValid: matchResult.isValidMatch };
-          } catch (err) {
-            return { video: cv, matchResult: { isValidMatch: false, score: 0 }, matchingKeywords: [], isValid: false };
           }
-        })
-        .filter(result => result.isValid)
-        .sort((a, b) => (b.matchResult.score || 0) - (a.matchResult.score || 0))
-        .slice(0, 3)
-        .map(result => {
-          const cv = result.video;
-          const competitorType = cv.competitors?.type || 'indirect';
-          return {
-            channel: cv.competitors?.name || 'Competitor',
-            type: competitorType,
-            typeLabel: competitorType === 'direct' ? 'Direct' : competitorType === 'trendsetter' ? 'Trendsetter' : 'Indirect',
-            title: cv.title,
-            videoUrl: cv.youtube_video_id ? `https://youtube.com/watch?v=${cv.youtube_video_id}` : null,
-            views: cv.views || 0,
-            matchedKeywords: result.matchingKeywords.slice(0, 5)
-          };
-        })
-        .filter(c => c.videoUrl);
-      
-      matchingCompetitors = fallbackMatches;
+        }
+      }
     }
     
-    // Log competitor matches
-    if (matchingCompetitors.length > 0) {
-      console.log(`   🔗 Found ${matchingCompetitors.length} competitor matches for "${signal.title?.substring(0, 40)}..."`);
-      matchingCompetitors.forEach((comp, i) => {
-        console.log(`      ${i + 1}. ${comp.typeLabel}: ${comp.channel} - "${comp.title?.substring(0, 40)}..."`);
-      });
-    }
+    // Use competitors array (for backward compatibility with existing code)
+    const matchingCompetitors = competitors;
 
     // ============================================
     // STEP 3: Enhanced DNA Matching with AI
@@ -707,15 +778,47 @@ export async function GET(request) {
       source: signal.source || signal.source_name || signal.raw_data?.sourceName || 'Unknown',
       sourceUrl: signal.url || signal.source_url || signal.raw_data?.url || null,
       score: realScore, // Use REAL score, not fake DB score
+      final_score: realScore, // Alias for consistency with Ideas page
       dbScore: signal.score, // Keep DB score for reference/debugging
       createdAt: signal.created_at,
-      tier,
+      tier: tierResult.tier, // 'post_today', 'this_week', or 'backlog' (from getUrgencyTier)
+      tierInfo: tierResult, // Full tier object with icon, label, color, reason, urgency
+      urgency_tier: tierResult, // Alias for consistency with Ideas page (same as tierInfo)
       hoursOld: Math.round(hoursOld),
-      competitors: matchingCompetitors,
+      // ✅ Competitor evidence for UI display (matching main signals route format)
+      competitors: competitors.length > 0 ? competitors : undefined,
+      competitor_count: competitorBreakdown?.total || competitors.length || 0,
+      competitor_evidence: competitors.length > 0 ? competitors.map(comp => ({
+        icon: comp.isBreakout ? '🔥' : comp.type === 'direct' ? '🔥' : comp.type === 'trendsetter' ? '⚡' : '🌊',
+        text: comp.isBreakout 
+          ? `${comp.channelName} got ${comp.multiplier?.toFixed(1) || 'N/A'}x their average`
+          : `${comp.channelName} covered this`,
+        competitorType: comp.type,
+        videoTitle: comp.videoTitle,
+        videoUrl: comp.videoUrl,
+        matchReason: comp.matchedKeywords?.length > 0 
+          ? comp.matchedKeywords.slice(0, 3).join(', ')
+          : 'Topic match',
+        views: comp.views,
+        multiplier: comp.multiplier,
+        hoursAgo: comp.hoursAgo,
+      })) : undefined,
+      competitor_boost: (() => {
+        let boost = 0;
+        // Use new weights: direct_breakout = 35, trendsetter_breakout = 20, indirect_breakout = 10
+        if (competitorBreakdown?.hasDirectBreakout) boost += 35;
+        else if (competitorBreakdown?.hasTrendsetterSignal) boost += 20;
+        // Volume bonuses: direct_volume = 25, trendsetter_volume = 15, indirect_volume = 8
+        if (competitorBreakdown?.direct >= 2) boost += 25;
+        else if (competitorBreakdown?.trendsetter >= 2) boost += 15;
+        else if (competitorBreakdown?.indirect >= 2) boost += 8;
+        return boost > 0 ? boost : undefined;
+      })(),
       dnaMatch: (typeof dnaMatch === 'object' && dnaMatch !== null) ? dnaMatch.topicName : (dnaMatch || null), // Return English name for display
       dnaMatchId: (typeof dnaMatch === 'object' && dnaMatch !== null) ? dnaMatch.topicId : (dnaMatch || null), // Keep ID for reference
-      hasEvidence: matchingCompetitors.length > 0 || !!dnaMatch,
+      hasEvidence: competitors.length > 0 || !!dnaMatch,
       scoringSignals: scoringSignals, // What contributed to the score
+      multi_signal_scoring: multiSignalScoring, // Full scoring result (matching Ideas page)
       strategicLabel: strategicLabel, // Strategic label (TREND FORMING, etc.)
       competitorBreakout: competitorBreakout, // Breakout video details
       competitorBreakdown: competitorBreakdown, // Counts by type
@@ -744,33 +847,107 @@ export async function GET(request) {
   
   console.log(`📊 Quality filter: ${processedSignals.length} signals → ${qualitySignals.length} with real score >= ${MIN_REAL_SCORE}`);
 
-  // 7. Group by tier with limits (sort by real score within each tier)
-  const postToday = qualitySignals
-    .filter(s => s.tier === 'post_today')
-    .sort((a, b) => (b.score || 0) - (a.score || 0)) // Sort by real score
-    .slice(0, 5);
-  const thisWeek = qualitySignals
-    .filter(s => s.tier === 'this_week')
-    .sort((a, b) => (b.score || 0) - (a.score || 0)) // Sort by real score
-    .slice(0, 7);
-  const evergreen = qualitySignals
-    .filter(s => s.tier === 'evergreen')
-    .sort((a, b) => (b.score || 0) - (a.score || 0)) // Sort by real score
-    .slice(0, 5);
-
-  console.log('📤 Final counts:', {
-    postToday: postToday.length,
-    thisWeek: thisWeek.length,
-    evergreen: evergreen.length
+  // ===========================================
+  // HIGH-SCORE PROTECTION + TIER LIMITING
+  // ===========================================
+  
+  // Step 1: Separate signals by REAL calculated score (not DB score)
+  const protectedSignals = qualitySignals.filter(s => {
+    // Use real calculated score from multi-signal scoring
+    const realScore = s.multi_signal_scoring?.score || s.score || s.final_score || 0;
+    return realScore >= 70;
   });
+  
+  const regularSignals = qualitySignals.filter(s => {
+    const realScore = s.multi_signal_scoring?.score || s.score || s.final_score || 0;
+    return realScore < 70;
+  });
+  
+  console.log(`🛡️ Studio - Protection check (using REAL scores):`);
+  console.log(`   - Protected (real score >= 70): ${protectedSignals.length}`);
+  console.log(`   - Regular (real score < 70): ${regularSignals.length}`);
+  
+  // Log some examples of what's protected vs not
+  protectedSignals.slice(0, 5).forEach(s => {
+    const dbScore = s.dbScore || s.original_learning_score || 0;
+    const realScore = s.multi_signal_scoring?.score || s.score || s.final_score || 0;
+    console.log(`   ✅ Protected: "${s.title?.substring(0, 40)}..." Real: ${realScore} (DB: ${dbScore})`);
+  });
+  
+  regularSignals.filter(s => (s.dbScore || s.original_learning_score || 0) >= 70).slice(0, 5).forEach(s => {
+    const dbScore = s.dbScore || s.original_learning_score || 0;
+    const realScore = s.multi_signal_scoring?.score || s.score || s.final_score || 0;
+    console.log(`   ❌ NOT protected: "${s.title?.substring(0, 40)}..." Real: ${realScore} (DB: ${dbScore})`);
+  });
+  
+  // Step 2: Apply tier limits to REGULAR signals only
+  const TIER_LIMITS = {
+    post_today: 5,    // Max 5 urgent items
+    this_week: 7,     // Max 7 planned items
+    backlog: 15       // Max 15 library items
+  };
+  
+  const postTodayRegular = regularSignals
+    .filter(s => s.tier === 'post_today' || s.tier === 'today')
+    .sort((a, b) => (b.multi_signal_scoring?.score || b.score || 0) - (a.multi_signal_scoring?.score || a.score || 0))
+    .slice(0, TIER_LIMITS.post_today);
+  
+  const thisWeekRegular = regularSignals
+    .filter(s => s.tier === 'this_week' || s.tier === 'week')
+    .sort((a, b) => (b.multi_signal_scoring?.score || b.score || 0) - (a.multi_signal_scoring?.score || a.score || 0))
+    .slice(0, TIER_LIMITS.this_week);
+  
+  const backlogRegular = regularSignals
+    .filter(s => s.tier === 'backlog' || s.tier === 'evergreen')
+    .sort((a, b) => (b.multi_signal_scoring?.score || b.score || 0) - (a.multi_signal_scoring?.score || a.score || 0))
+    .slice(0, TIER_LIMITS.backlog);
+  
+  // Step 3: Combine protected + limited regular (remove duplicates)
+  const seenIds = new Set();
+  const finalSignals = [];
+  
+  // Add all protected signals first
+  for (const signal of protectedSignals) {
+    if (!seenIds.has(signal.id)) {
+      seenIds.add(signal.id);
+      finalSignals.push(signal);
+    }
+  }
+  
+  // Add limited regular signals
+  for (const signal of [...postTodayRegular, ...thisWeekRegular, ...backlogRegular]) {
+    if (!seenIds.has(signal.id)) {
+      seenIds.add(signal.id);
+      finalSignals.push(signal);
+    }
+  }
+  
+  console.log(`📊 Studio - Final signal breakdown:`);
+  console.log(`   - Protected (real score >= 70): ${protectedSignals.length}`);
+  console.log(`   - Post Today (regular, limited): ${postTodayRegular.length}`);
+  console.log(`   - This Week (regular, limited): ${thisWeekRegular.length}`);
+  console.log(`   - Backlog (regular, limited): ${backlogRegular.length}`);
+  console.log(`   - TOTAL displayed: ${finalSignals.length}`);
+  
+  // Group final signals by tier for response (maintain backward compatibility)
+  const postToday = finalSignals.filter(s => s.tier === 'post_today' || s.tier === 'today');
+  const thisWeek = finalSignals.filter(s => s.tier === 'this_week' || s.tier === 'week');
+  const evergreen = finalSignals.filter(s => s.tier === 'backlog' || s.tier === 'evergreen');
 
   // Log final source distribution
   const finalSourceBreakdown = {};
-  [...postToday, ...thisWeek, ...evergreen].forEach(s => {
+  finalSignals.forEach(s => {
     const source = s.source || 'Unknown';
     finalSourceBreakdown[source] = (finalSourceBreakdown[source] || 0) + 1;
   });
   console.log('📤 Final source distribution:', finalSourceBreakdown);
+  
+  // Summary log for easy debugging
+  console.log(`\n📊 STUDIO SIGNAL COUNT SUMMARY:`);
+  console.log(`   Raw signals from DB: ${signals.length}`);
+  console.log(`   After scoring: ${processedSignals.length}`);
+  console.log(`   After quality filter: ${qualitySignals.length}`);
+  console.log(`   Final displayed: ${finalSignals.length} (${protectedSignals.length} protected, ${regularSignals.length - (postTodayRegular.length + thisWeekRegular.length + backlogRegular.length)} filtered)`);
 
     return NextResponse.json({
       success: true,
@@ -801,3 +978,9 @@ export async function GET(request) {
     );
   }
 }
+
+// ============================================================
+// TIER LOGIC REFACTOR
+// Classifies signals into tiers based on score + competitor signals
+// ============================================================
+

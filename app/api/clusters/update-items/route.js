@@ -8,6 +8,12 @@ const supabase = createClient(
 
 export async function POST(request) {
   try {
+    // CLUSTERS DISABLED: Temporarily disabled to focus on signal quality improvements
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Clusters temporarily disabled - focusing on signal quality'
+    }, { status: 503 });
+
     const { clusterId, signalIds, action } = await request.json();
     
     if (!clusterId || !signalIds || !Array.isArray(signalIds) || !action) {

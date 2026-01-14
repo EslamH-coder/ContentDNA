@@ -31,7 +31,7 @@ export async function POST(request) {
 
     console.log('🔄 Resetting learning for show:', showId);
 
-    // Reset learning weights
+    // 1. Reset learning weights
     const { error: weightsError } = await supabaseAdmin
       .from('show_learning_weights')
       .delete()
@@ -42,18 +42,30 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Failed to reset learning weights' }, { status: 500 });
     }
 
-    // Optionally reset feedback history (uncomment if you want to reset feedback too)
-    // const { error: feedbackError } = await supabaseAdmin
-    //   .from('signal_feedback')
-    //   .delete()
-    //   .eq('show_id', showId);
+    // 2. Reset feedback history (this is what shows up in LearningStats)
+    const { error: feedbackError } = await supabaseAdmin
+      .from('recommendation_feedback')
+      .delete()
+      .eq('show_id', showId);
 
-    // if (feedbackError) {
-    //   console.error('❌ Error deleting feedback:', feedbackError);
-    //   return NextResponse.json({ error: 'Failed to reset feedback history' }, { status: 500 });
-    // }
+    if (feedbackError) {
+      console.error('❌ Error deleting feedback history:', feedbackError);
+      return NextResponse.json({ error: 'Failed to reset feedback history' }, { status: 500 });
+    }
 
-    console.log('✅ Learning reset complete');
+    // 3. Reset learned feedback patterns (from signalScoringService)
+    const { error: patternsError } = await supabaseAdmin
+      .from('signal_feedback_patterns')
+      .delete()
+      .eq('show_id', showId);
+
+    if (patternsError) {
+      console.error('❌ Error deleting feedback patterns:', patternsError);
+      // Don't fail - patterns table might not exist yet
+      console.warn('⚠️ signal_feedback_patterns table might not exist, continuing...');
+    }
+
+    console.log('✅ Learning reset complete - weights, feedback history, and patterns cleared');
 
     return NextResponse.json({ 
       success: true,

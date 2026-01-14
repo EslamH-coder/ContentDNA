@@ -45,38 +45,15 @@ export async function POST(request) {
     
     let result = {};
     
-    // Step 1: Analyze Thumbnails
+    // Step 1: Analyze Thumbnails (DISABLED - AI Vision temporarily disabled)
+    // if (step === 'thumbnails' || step === 'all') {
+    //   console.log('=== STARTING THUMBNAILS STEP ===');
+    //   ... (thumbnail analysis code)
+    // }
     if (step === 'thumbnails' || step === 'all') {
-      console.log('=== STARTING THUMBNAILS STEP ===');
-      await updateStatus(showId, 'analyzing_thumbnails', 0);
-      await logStep(showId, 'analyze_thumbnails', 'started', `Analyzing ${videos.length} thumbnails`);
-      
-      const videosToAnalyze = videos.filter(v => !v.thumbnail_analyzed && v.thumbnail_url);
-      
-      const thumbnailResults = await batchAnalyzeThumbnails(videosToAnalyze, async (progress, current, total) => {
-        await updateStatus(showId, 'analyzing_thumbnails', progress);
-      });
-      
-      // Update database
-      for (const result of thumbnailResults) {
-        if (result.success) {
-          await supabase
-            .from('channel_videos')
-            .update({
-              thumbnail_elements: result.elements,
-              thumbnail_title: result.thumbnail_title,
-              thumbnail_colors: result.colors,
-              thumbnail_analyzed: true
-            })
-            .eq('show_id', showId)
-            .eq('video_id', result.video_id);
-        }
-      }
-      
-      await logStep(showId, 'analyze_thumbnails', 'completed', 
-        `Analyzed ${thumbnailResults.filter(r => r.success).length}/${videosToAnalyze.length} thumbnails`);
-      
-      result.thumbnails = { analyzed: thumbnailResults.filter(r => r.success).length };
+      console.log('=== THUMBNAILS STEP SKIPPED (AI Vision disabled) ===');
+      await logStep(showId, 'analyze_thumbnails', 'skipped', 'Thumbnail analysis disabled');
+      result.thumbnails = { analyzed: 0, skipped: true };
     }
     
     // Step 2: Generate & Save Topics
@@ -112,7 +89,8 @@ export async function POST(request) {
             topic_name_en: t.name_en,
             topic_name_ar: t.name_ar,
             keywords: t.keywords,
-            description: t.description
+            description: t.description,
+            is_active: true
           }));
           
           await supabase
@@ -120,6 +98,19 @@ export async function POST(request) {
             .upsert(topicsToInsert, { onConflict: 'show_id,topic_id' });
           
           topics = generatedTopics;
+          
+          // Auto-enrich topics with AI-generated keywords if they have few keywords
+          console.log('🔑 Auto-enriching topic keywords...');
+          try {
+            const { enrichTopicsWithKeywords } = await import('@/lib/taxonomy/keywordGenerator');
+            const enrichmentResults = await enrichTopicsWithKeywords(showId, supabase, 10);
+            const totalAdded = enrichmentResults.reduce((sum, r) => sum + r.added, 0);
+            console.log(`✅ Auto-enriched ${totalAdded} keywords across ${enrichmentResults.length} topics`);
+            await logStep(showId, 'enrich_keywords', 'completed', `Added ${totalAdded} keywords to topics`);
+          } catch (enrichError) {
+            console.warn('⚠️ Keyword enrichment failed (non-fatal):', enrichError.message);
+            // Don't fail onboarding if keyword enrichment fails
+          }
         }
         
         await logStep(showId, 'generate_topics', 'completed', `Generated ${topics.length} topics`);
@@ -136,55 +127,97 @@ export async function POST(request) {
       
       // Get topics for this show
       console.log('Fetching topics for classification...');
-      const { data: topics } = await supabase
+      let { data: topics } = await supabase
         .from('topic_definitions')
         .select('*')
-        .eq('show_id', showId);
+        .eq('show_id', showId)
+        .eq('is_active', true);
       
       console.log('Topics count:', topics?.length);
       
-      if (!topics || topics.length === 0) {
-        console.error('ERROR: No topics found');
-        throw new Error('No topics found. Run topic generation first.');
-      }
-      
-      // Format topics for classifier
-      const topicsForClassifier = topics.map(t => ({
-        topic_id: t.topic_id,
-        name_en: t.topic_name_en,
-        name_ar: t.topic_name_ar
-      }));
-      
-      const videosToClassify = videos.filter(v => !v.ai_analyzed);
-      console.log(`Classifying ${videosToClassify.length} videos (${videos.length - videosToClassify.length} already analyzed)`);
-      
-      const classifications = await batchClassifyVideos(videosToClassify, topicsForClassifier, 
-        async (progress, current, total) => {
-          await updateStatus(showId, 'classifying', 30 + Math.round(progress * 0.5));
+      // If no topics found and we're running 'all', try to generate topics first
+      if ((!topics || topics.length === 0) && step === 'all') {
+        console.log('⚠️ No topics found, attempting to generate topics first...');
+        await logStep(showId, 'generate_topics_retry', 'started', 'Generating topics before classification');
+        
+        const titles = videos.map(v => v.title);
+        console.log(`Generating topics from ${titles.length} video titles...`);
+        const generatedTopics = await generateTopicsFromTitles(showId, titles);
+        console.log(`Generated ${generatedTopics.length} topics`);
+        
+        if (generatedTopics.length > 0) {
+          const topicsToInsert = generatedTopics.map(t => ({
+            show_id: showId,
+            topic_id: t.topic_id,
+            topic_name_en: t.name_en,
+            topic_name_ar: t.name_ar,
+            keywords: t.keywords,
+            description: t.description,
+            is_active: true
+          }));
+          
+          await supabase
+            .from('topic_definitions')
+            .upsert(topicsToInsert, { onConflict: 'show_id,topic_id' });
+          
+          // Re-fetch topics
+          const { data: refreshedTopics } = await supabase
+            .from('topic_definitions')
+            .select('*')
+            .eq('show_id', showId)
+            .eq('is_active', true);
+          
+          topics = refreshedTopics;
+          console.log(`✅ Topics generated and fetched: ${topics?.length || 0} topics`);
+          await logStep(showId, 'generate_topics_retry', 'completed', `Generated ${topics?.length || 0} topics`);
         }
-      );
-      
-      // Update database
-      for (const c of classifications) {
-        await supabase
-          .from('channel_videos')
-          .update({
-            topic_id: c.topic_id,
-            topic_confidence: c.confidence,
-            auto_topic_id: c.topic_id,
-            entities: c.entities,
-            key_numbers: c.key_numbers,
-            content_archetype: c.content_archetype,
-            chapters_beats: c.chapters_beats,
-            ai_analyzed: true
-          })
-          .eq('show_id', showId)
-          .eq('video_id', c.video_id);
       }
       
-      await logStep(showId, 'classify_videos', 'completed', `Classified ${classifications.length} videos`);
-      
-      result.classified = { count: classifications.length };
+      if (!topics || topics.length === 0) {
+        console.error('ERROR: No topics found after generation attempt');
+        await logStep(showId, 'classify_videos', 'failed', 'No topics available for classification');
+        // Don't throw error - just skip classification
+        console.log('⚠️ Skipping classification - no topics available');
+        result.classified = { count: 0, skipped: true, reason: 'No topics found' };
+      } else {
+        // Format topics for classifier
+        const topicsForClassifier = topics.map(t => ({
+          topic_id: t.topic_id,
+          name_en: t.topic_name_en,
+          name_ar: t.topic_name_ar
+        }));
+        
+        const videosToClassify = videos.filter(v => !v.ai_analyzed);
+        console.log(`Classifying ${videosToClassify.length} videos (${videos.length - videosToClassify.length} already analyzed)`);
+        
+        const classifications = await batchClassifyVideos(videosToClassify, topicsForClassifier, 
+          async (progress, current, total) => {
+            await updateStatus(showId, 'classifying', 30 + Math.round(progress * 0.5));
+          }
+        );
+        
+        // Update database
+        for (const c of classifications) {
+          await supabase
+            .from('channel_videos')
+            .update({
+              topic_id: c.topic_id,
+              topic_confidence: c.confidence,
+              auto_topic_id: c.topic_id,
+              entities: c.entities,
+              key_numbers: c.key_numbers,
+              content_archetype: c.content_archetype,
+              chapters_beats: c.chapters_beats,
+              ai_analyzed: true
+            })
+            .eq('show_id', showId)
+            .eq('video_id', c.video_id);
+        }
+        
+        await logStep(showId, 'classify_videos', 'completed', `Classified ${classifications.length} videos`);
+        
+        result.classified = { count: classifications.length };
+      }
     }
     
     // Step 4: Calculate Performance
