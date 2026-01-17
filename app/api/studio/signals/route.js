@@ -39,6 +39,51 @@ export async function GET(request) {
 
     console.log('📊 Fetching signals for show:', showId);
 
+  // STEP 1: Load enabled sources from signal_sources to map source name -> URL
+  let sourceUrlMap = {};
+  try {
+    const { data: signalSources } = await supabase
+      .from('signal_sources')
+      .select('name, url, enabled')
+      .eq('show_id', showId)
+      .eq('enabled', true);
+    
+    if (signalSources && signalSources.length > 0) {
+      signalSources.forEach(source => {
+        sourceUrlMap[source.name] = source.url;
+      });
+      console.log(`[Studio Signals] Loaded ${Object.keys(sourceUrlMap).length} enabled sources from signal_sources`);
+    }
+  } catch (err) {
+    console.warn('[Studio Signals] Error loading signal_sources (non-fatal):', err.message);
+  }
+  
+  // Universal source quality classifier (same as pitches route)
+  function classifySourceQuality(sourceType, sourceUrl) {
+    if (!sourceType || sourceType !== 'rss') {
+      return 'community'; // Non-RSS sources (Reddit, etc.)
+    }
+    
+    if (!sourceUrl) {
+      return 'supported'; // Unknown if no URL
+    }
+    
+    const urlLower = sourceUrl.toLowerCase();
+    
+    // Direct feed (NOT Google News) = premium
+    if (!urlLower.startsWith('https://news.google.com/')) {
+      return 'premium';
+    }
+    
+    // Google News with publisher restriction (site: or site%3A) = premium
+    if (urlLower.includes('q=site:') || urlLower.includes('q=site%3a')) {
+      return 'premium';
+    }
+    
+    // Google News topical feed = supported
+    return 'supported';
+  }
+
   // 1. Fetch signals (last 14 days)
   // NOTE: We don't filter by DB score here because Reddit signals have fake score=100
   // We'll calculate REAL scores and filter by those instead
@@ -74,6 +119,41 @@ export async function GET(request) {
   }
   
   console.log(`🧬 DNA Topics: ${dnaTopics.length} topics from topic_definitions`);
+
+  // 2.5. Fetch DNA summary for demand calculation
+  let dnaSummaryData = null;
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const dnaSummaryResponse = await fetch(
+      `${baseUrl}/api/shows/${showId}/dna-summary?t=${Date.now()}`,
+      { cache: 'no-store' }
+    );
+    if (dnaSummaryResponse.ok) {
+      const dnaSummaryResult = await dnaSummaryResponse.json();
+      if (dnaSummaryResult.success) {
+        dnaSummaryData = dnaSummaryResult.data;
+        console.log('✅ Loaded DNA summary for demand calculation');
+      }
+    }
+  } catch (dnaSummaryError) {
+    console.warn('⚠️ Could not load DNA summary for demand calculation:', dnaSummaryError.message);
+  }
+
+  // Extract data needed for demand calculation
+  const dnaData = dnaSummaryData ? {
+    audienceInterests: dnaSummaryData.audienceInterests || { fromVideos: [], fromComments: [] },
+    topicPerformance: dnaSummaryData.dnaTopics?.reduce((acc, topic) => {
+      acc[topic.id] = {
+        performanceRatio: topic.performanceRatio || 1.0,
+        avgViews: topic.avgViews || 0,
+        videoCount: topic.videoCount || 0,
+        isCore: topic.isCore || false
+      };
+      return acc;
+    }, {}) || {},
+    formatPerformanceByTopic: dnaSummaryData.formatPerformanceByTopic || {},
+    winningPatterns: dnaSummaryData.winningPatterns || []
+  } : null;
 
   // 3. Fetch recent competitor videos (last 7 days) with type, description, and performance_ratio
   // Join with competitors table to get name, type, and show_id
@@ -532,14 +612,26 @@ export async function GET(request) {
       console.log(`      ⚠️ Using DB score as fallback: ${realScore}`);
     }
     
-    // Determine tier using time-sensitivity-based getUrgencyTier (considers competitor timing)
+    // STEP 4: Attach source_quality to signal before calling getUrgencyTier
+    const sourceName = signal.source || signal.source_name || '';
+    const sourceUrl = sourceUrlMap[sourceName] || signal.url || signal.source_url || signal.raw_data?.url || '';
+    const sourceType = signal.raw_data?.sourceType || signal.source_type || 'rss'; // Default to 'rss' if not specified
+    const source_quality = classifySourceQuality(sourceType, sourceUrl);
+    
+    const signalWithQuality = {
+      ...signal,
+      source_quality: source_quality
+    };
+    
+    // Determine tier using time-sensitivity-based getUrgencyTier (considers competitor timing + demand)
     const tierResult = getUrgencyTier(
       {
         score: realScore,
         signals: scoringSignals,
         competitorBreakdown: competitorBreakdown
       },
-      signal
+      signalWithQuality,
+      dnaData
     );
     const tier = tierResult.tier;
 
@@ -785,6 +877,8 @@ export async function GET(request) {
       tierInfo: tierResult, // Full tier object with icon, label, color, reason, urgency
       urgency_tier: tierResult, // Alias for consistency with Ideas page (same as tierInfo)
       hoursOld: Math.round(hoursOld),
+      // ✅ Include raw_data so pitch can be accessed in StudioCard
+      raw_data: signal.raw_data || {}, // Preserve raw_data (includes recommendation.pitch)
       // ✅ Competitor evidence for UI display (matching main signals route format)
       competitors: competitors.length > 0 ? competitors : undefined,
       competitor_count: competitorBreakdown?.total || competitors.length || 0,
@@ -882,15 +976,37 @@ export async function GET(request) {
   
   // Step 2: Apply tier limits to REGULAR signals only
   const TIER_LIMITS = {
-    post_today: 5,    // Max 5 urgent items
+    post_today: 2,    // Changed from 5 to 2 - forces strict prioritization
     this_week: 7,     // Max 7 planned items
     backlog: 15       // Max 15 library items
   };
   
-  const postTodayRegular = regularSignals
-    .filter(s => s.tier === 'post_today' || s.tier === 'today')
-    .sort((a, b) => (b.multi_signal_scoring?.score || b.score || 0) - (a.multi_signal_scoring?.score || a.score || 0))
-    .slice(0, TIER_LIMITS.post_today);
+  // Sort Post Today by priority (highest first), then by score
+  const postTodayCandidates = regularSignals.filter(s => s.tier === 'post_today' || s.tier === 'today');
+  
+  if (postTodayCandidates.length > 0) {
+    postTodayCandidates.sort((a, b) => {
+      // First sort by priority (if available), then by score
+      const priorityA = a.urgency_tier?.priority || a.tierInfo?.priority || (a.multi_signal_scoring?.score || a.score || 0);
+      const priorityB = b.urgency_tier?.priority || b.tierInfo?.priority || (b.multi_signal_scoring?.score || b.score || 0);
+      if (priorityB !== priorityA) return priorityB - priorityA;
+      // If priorities are equal, sort by score
+      return (b.multi_signal_scoring?.score || b.score || 0) - (a.multi_signal_scoring?.score || a.score || 0);
+    });
+    
+    // Log Post Today selection
+    console.log(`📋 Post Today candidates (${postTodayCandidates.length}):`);
+    postTodayCandidates.slice(0, 5).forEach((s, i) => {
+      const priority = s.urgency_tier?.priority || s.tierInfo?.priority || (s.multi_signal_scoring?.score || s.score || 0);
+      const demandType = s.urgency_tier?.demandType || s.tierInfo?.demandType || 'moment';
+      const realScore = s.multi_signal_scoring?.score || s.score || 0;
+      console.log(`  ${i + 1}. [${demandType}] "${s.title?.substring(0, 50)}..." (priority: ${priority}, score: ${realScore})`);
+    });
+  }
+  
+  // Strict max 2 Post Today - no exceptions
+  const effectivePostTodayLimit = TIER_LIMITS.post_today; // Always 2
+  const postTodayRegular = postTodayCandidates.slice(0, effectivePostTodayLimit);
   
   const thisWeekRegular = regularSignals
     .filter(s => s.tier === 'this_week' || s.tier === 'week')
