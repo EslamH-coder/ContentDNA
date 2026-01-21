@@ -11,6 +11,9 @@ export default function StudioPage() {
   const [selectedShow, setSelectedShow] = useState(null);
   const [shows, setShows] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0); // Add refresh counter
+  const [activeTab, setActiveTab] = useState('signals'); // 'signals' or 'pitches'
+  const [pitches, setPitches] = useState([]);
+  const [loadingPitches, setLoadingPitches] = useState(false);
 
   // Fetch user's shows
   useEffect(() => {
@@ -90,6 +93,34 @@ export default function StudioPage() {
     fetchSignals();
   }, [selectedShow, refreshKey]); // Add refreshKey to dependencies
 
+  // Fetch pitches when show changes or when pitches tab is active
+  useEffect(() => {
+    if (!selectedShow || activeTab !== 'pitches') return;
+
+    async function fetchPitches() {
+      setLoadingPitches(true);
+      try {
+        const res = await fetch(`/api/pitches?showId=${selectedShow}`);
+        const result = await res.json();
+        
+        if (result.success) {
+          setPitches(result.pitches || []);
+          console.log('📝 Loaded pitches:', result.pitches?.length || 0);
+        } else {
+          console.error('Failed to fetch pitches:', result.error);
+          setPitches([]);
+        }
+      } catch (err) {
+        console.error('❌ Error fetching pitches:', err);
+        setPitches([]);
+      } finally {
+        setLoadingPitches(false);
+      }
+    }
+    
+    fetchPitches();
+  }, [selectedShow, activeTab]);
+
   const handleRefresh = () => {
     if (selectedShow) {
       console.log('🔄 Refresh button clicked');
@@ -133,52 +164,236 @@ export default function StudioPage() {
             🔄 Refresh
           </button>
         </div>
+
+        {/* Tabs */}
+        <div className="flex gap-2 mt-4 border-b">
+          <button
+            onClick={() => setActiveTab('signals')}
+            className={`px-4 py-2 font-medium transition-colors ${
+              activeTab === 'signals'
+                ? 'text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            📊 Signals
+          </button>
+          <button
+            onClick={() => setActiveTab('pitches')}
+            className={`px-4 py-2 font-medium transition-colors ${
+              activeTab === 'pitches'
+                ? 'text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            📝 Pitches ({pitches.length})
+          </button>
+        </div>
       </div>
 
       {/* Content */}
       <div className="max-w-4xl mx-auto">
-        {loading && (
-          <div className="text-center py-12">
-            <div className="animate-spin text-4xl">⏳</div>
-            <p className="mt-4 text-gray-500">Loading signals...</p>
-          </div>
+        {/* Signals Tab */}
+        {activeTab === 'signals' && (
+          <>
+            {loading && (
+              <div className="text-center py-12">
+                <div className="animate-spin text-4xl">⏳</div>
+                <p className="mt-4 text-gray-500">Loading signals...</p>
+              </div>
+            )}
+
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+                ❌ Error: {error}
+              </div>
+            )}
+
+            {data && !loading && (
+              <div className="space-y-8">
+                {/* Post Today */}
+                <TierSection
+                  title="🔥 Post Today"
+                  subtitle="High momentum - act now!"
+                  signals={data.postToday || data.post_today || []}
+                  tierColor="red"
+                  onAction={handleAction}
+                />
+
+                {/* This Week */}
+                <TierSection
+                  title="📅 This Week"
+                  subtitle="Good opportunities to plan"
+                  signals={data.thisWeek || data.this_week || []}
+                  tierColor="yellow"
+                  onAction={handleAction}
+                />
+
+                {/* Evergreen */}
+                <TierSection
+                  title="🌲 Evergreen"
+                  subtitle="Timeless content ideas"
+                  signals={data.evergreen || []}
+                  tierColor="green"
+                  onAction={handleAction}
+                />
+              </div>
+            )}
+          </>
         )}
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
-            ❌ Error: {error}
+        {/* Pitches Tab */}
+        {activeTab === 'pitches' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-lg font-semibold">Saved Pitches</h3>
+                <p className="text-sm text-gray-500">AI-generated pitches you've saved</p>
+              </div>
+              <span className="text-sm text-gray-500">{pitches.length} saved</span>
+            </div>
+            
+            {loadingPitches ? (
+              <div className="text-center py-12">
+                <div className="animate-spin text-4xl">⏳</div>
+                <p className="mt-4 text-gray-500">Loading pitches...</p>
+              </div>
+            ) : pitches.length === 0 ? (
+              <div className="text-center py-12 text-gray-500">
+                <span className="text-4xl mb-2 block">📝</span>
+                <p>No saved pitches yet</p>
+                <p className="text-sm">Generate and save pitches from signals</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {pitches.map(pitch => (
+                  <SavedPitchCard
+                    key={pitch.id}
+                    pitch={pitch}
+                    showId={selectedShow}
+                    onProduced={async (pitchId, signalId) => {
+                      // Mark pitch as produced and update signal status
+                      if (signalId) {
+                        try {
+                          const res = await fetch('/api/feedback', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                              show_id: selectedShow,
+                              recommendation_id: signalId,
+                              topic: pitch.video_title || pitch.source_title || 'Pitch',
+                              action: 'produced',
+                              original_score: 0,
+                              evidence_summary: {
+                                source: 'pitch',
+                                pitch_id: pitchId
+                              }
+                            })
+                          });
+                          const data = await res.json();
+                          if (data.success) {
+                            // Refresh pitches
+                            const pitchesRes = await fetch(`/api/pitches?showId=${selectedShow}`);
+                            const pitchesData = await pitchesRes.json();
+                            if (pitchesData.success) {
+                              setPitches(pitchesData.pitches || []);
+                            }
+                          }
+                        } catch (error) {
+                          console.error('Error marking as produced:', error);
+                        }
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
 
-        {data && !loading && (
-          <div className="space-y-8">
-            {/* Post Today */}
-            <TierSection
-              title="🔥 Post Today"
-              subtitle="High momentum - act now!"
-              signals={data.postToday || data.post_today || []}
-              tierColor="red"
-              onAction={handleAction}
-            />
+// Saved Pitch Card Component
+function SavedPitchCard({ pitch, showId, onProduced }) {
+  const [expanded, setExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [producing, setProducing] = useState(false);
 
-            {/* This Week */}
-            <TierSection
-              title="📅 This Week"
-              subtitle="Good opportunities to plan"
-              signals={data.thisWeek || data.this_week || []}
-              tierColor="yellow"
-              onAction={handleAction}
-            />
+  const copyPitch = async () => {
+    const pitchText = pitch.content || pitch.pitch_content;
+    if (pitchText) {
+      await navigator.clipboard.writeText(pitchText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
-            {/* Evergreen */}
-            <TierSection
-              title="🌲 Evergreen"
-              subtitle="Timeless content ideas"
-              signals={data.evergreen || []}
-              tierColor="green"
-              onAction={handleAction}
-            />
+  const handleProduced = async () => {
+    if (!onProduced) return;
+    
+    setProducing(true);
+    try {
+      await onProduced(pitch.id, pitch.signal_id);
+    } catch (error) {
+      console.error('Error marking as produced:', error);
+    } finally {
+      setProducing(false);
+    }
+  };
+
+  return (
+    <div className="bg-white border rounded-xl p-4 hover:shadow-md transition-all">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h4 className="font-semibold text-gray-900 mb-2" dir="auto">
+            {pitch.video_title || pitch.source_title || 'Untitled Pitch'}
+          </h4>
+          
+          <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
+            <span>Type: {pitch.pitch_type || 'news'}</span>
+            <span>•</span>
+            <span>{new Date(pitch.created_at || pitch.updated_at).toLocaleDateString()}</span>
           </div>
+
+          {/* Show snippet when collapsed, full content when expanded */}
+          {!expanded ? (
+            <div className="mt-2 p-3 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-700 whitespace-pre-wrap line-clamp-3" dir="auto">
+                {pitch.content || pitch.pitch_content || 'No content'}
+              </p>
+            </div>
+          ) : (
+            <div className="mt-3 p-3 bg-gray-50 rounded-lg max-h-96 overflow-y-auto">
+              <p className="text-sm text-gray-700 whitespace-pre-wrap" dir="auto">
+                {pitch.content || pitch.pitch_content || 'No content'}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 mt-3 pt-3 border-t">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="px-3 py-1.5 text-blue-600 hover:bg-blue-50 rounded-lg text-sm font-medium"
+        >
+          {expanded ? '▲ Hide' : '▼ Show Full Pitch'}
+        </button>
+        <button
+          onClick={copyPitch}
+          className="px-3 py-1.5 text-gray-600 hover:bg-gray-50 rounded-lg text-sm font-medium"
+        >
+          {copied ? '✓ Copied!' : '📋 Copy'}
+        </button>
+        {pitch.signal_id && onProduced && (
+          <button
+            onClick={handleProduced}
+            disabled={producing}
+            className="px-3 py-1.5 text-purple-600 hover:bg-purple-50 rounded-lg text-sm font-medium disabled:opacity-50"
+          >
+            {producing ? '⏳' : '🎬'} {producing ? 'Marking...' : 'Mark as Produced'}
+          </button>
         )}
       </div>
     </div>

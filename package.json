@@ -1,38 +1,30 @@
 {
-  "name": "channelbrain-dashboard",
-  "version": "1.0.0",
-  "description": "Channel Brain Next.js Dashboard",
+  "name": "channelbrain-cursor",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test:config": "python3 scripts/test_config.py",
-    "import-data": "node scripts/importDataToSupabase.js"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.27.3",
-    "@supabase/auth-helpers-nextjs": "^0.15.0",
-    "@supabase/ssr": "^0.1.0",
-    "@supabase/supabase-js": "^2.39.3",
-    "groq-sdk": "^0.37.0",
-    "lucide-react": "^0.562.0",
-    "next": "^14.1.0",
-    "openai": "^6.15.0",
-    "papaparse": "^5.5.3",
+    "next": "14.2.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "recharts": "^2.10.3",
-    "rss-parser": "^3.13.0"
+    "@supabase/supabase-js": "^2.39.0",
+    "@anthropic-ai/sdk": "^0.20.0",
+    "openai": "^4.20.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.3.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5"
+    "tailwindcss": "^3.3.6",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "14.2.35"
   }
 }
