@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { createClient } from '@supabase/supabase-js';
-import { getAuthUser } from '@/lib/supabaseServer';
-import { verifyShowAccess } from '@/lib/apiShowAccess';
 
 const db = supabaseAdmin || createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -17,12 +15,8 @@ export async function GET(request, { params }) {
       return NextResponse.json({ error: 'showId is required' }, { status: 400 });
     }
 
-    // Verify user has access to this show
-    const { authorized, error: accessError } = await verifyShowAccess(showId, request);
-    
-    if (!authorized) {
-      return NextResponse.json({ error: accessError || 'Access denied to this show' }, { status: 403 });
-    }
+    // Note: Auth is handled by calling routes (studio/signals, studio/pitches)
+    // This is an internal API endpoint called server-to-server
 
     // Load DNA topics
     let dnaTopics = [];

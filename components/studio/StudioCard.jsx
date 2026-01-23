@@ -166,7 +166,7 @@ export default function StudioCard({ signal, tierColor, onAction, showGenerateBu
                 )}
                 {signal.competitorBreakout && (
                   <div className="text-gray-500 text-xs mt-1">
-                    {signal.competitorBreakout.multiplier?.toFixed(1)}x average ({formatViews(signal.competitorBreakout.views)} views)
+                    {signal.competitorBreakout.multiplier?.toFixed(1)}x median ({formatViews(signal.competitorBreakout.views)} views)
                   </div>
                 )}
               </div>
@@ -225,7 +225,7 @@ export default function StudioCard({ signal, tierColor, onAction, showGenerateBu
                       </a>
                       {comp.multiplier && comp.multiplier > 1 && (
   <span className="text-green-600 font-medium">
-    ({comp.multiplier.toFixed(1)}x their avg)
+    ({comp.multiplier.toFixed(1)}x their median)
   </span>
 )}
 {comp.matchedKeywords && comp.matchedKeywords.length > 0 && !comp.multiplier && (

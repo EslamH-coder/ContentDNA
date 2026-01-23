@@ -187,13 +187,76 @@ export async function GET(request) {
 
   console.log(`✅ Found ${signals?.length || 0} signals`);
   
-  // Log source breakdown
+  // ============================================
+  // STEP: Source Quality Filter
+  // - Keep: Premium RSS signals only
+  // - Extract: Wikipedia trends for score boosting
+  // - Exclude: Reddit (saved for pitch generation)
+  // ============================================
+  
+  // 1. Extract Wikipedia signals (for score boosting, not display)
+  const wikipediaSignals = (signals || []).filter(s => {
+    const sourceType = s.source_type || s.raw_data?.sourceType || '';
+    const sourceName = (s.source || s.source_name || '').toLowerCase();
+    return sourceType === 'wikipedia' || sourceName.includes('wikipedia');
+  });
+  
+  // Build Wikipedia trend keyword set for matching
+  const wikipediaTrendKeywords = new Set();
+  const stopWords = new Set([
+    'the', 'and', 'for', 'that', 'with', 'from', 'this', 'have', 'are', 'was', 'were', 
+    'been', 'being', 'will', 'would', 'could', 'should', 'about', 'after', 'before',
+    'between', 'into', 'through', 'during', 'under', 'again', 'further', 'then', 'once',
+    'here', 'there', 'when', 'where', 'why', 'how', 'all', 'each', 'few', 'more', 'most',
+    'other', 'some', 'such', 'only', 'own', 'same', 'than', 'too', 'very', 'just', 'also',
+    'now', 'new', 'first', 'last', 'long', 'great', 'little', 'own', 'other', 'old', 'right',
+    'big', 'high', 'different', 'small', 'large', 'next', 'early', 'young', 'important', 'world'
+  ]);
+  
+  wikipediaSignals.forEach(ws => {
+    const title = (ws.title || '').toLowerCase();
+    const words = title.split(/[\s\-_:,.'""]+/).filter(w => {
+      // Must be 3+ characters
+      if (w.length < 3) return false;
+      // Filter out stop words
+      if (stopWords.has(w)) return false;
+      // Filter out pure numbers (years like 2026, 2025, etc.)
+      if (/^\d+$/.test(w)) return false;
+      // Filter out words that are mostly numbers (e.g., "2026s", "100k")
+      if (/^\d+[a-z]{0,2}$/.test(w)) return false;
+      return true;
+    });
+    words.forEach(w => wikipediaTrendKeywords.add(w));
+  });
+  
+  console.log(`📚 Wikipedia trends extracted: ${wikipediaSignals.length} signals → ${wikipediaTrendKeywords.size} keywords`);
+  
+  // 2. Filter to premium RSS only (exclude Reddit, Wikipedia from display)
+  const premiumSignalsOnly = (signals || []).filter(s => {
+    const sourceType = s.source_type || s.raw_data?.sourceType || 'rss';
+    
+    // Only allow RSS sources (premium)
+    if (sourceType !== 'rss') {
+      return false;
+    }
+    return true;
+  });
+  
+  // Log filtering results
+  const redditCount = (signals || []).filter(s => (s.source_type || '') === 'reddit').length;
+  const wikiCount = wikipediaSignals.length;
+  console.log(`🔍 Premium filter: ${signals?.length || 0} → ${premiumSignalsOnly.length} RSS (excluded: ${redditCount} Reddit, ${wikiCount} Wikipedia)`);
+  
+  // Use premium signals for the rest of processing
+  const filteredSignals = premiumSignalsOnly;
+  
+  // Log source breakdown (of premium signals only)
   const sourceBreakdown = {};
-  signals?.forEach(s => {
+  filteredSignals.forEach(s => {
     const source = s.source || s.source_name || s.raw_data?.sourceName || 'Unknown';
     sourceBreakdown[source] = (sourceBreakdown[source] || 0) + 1;
   });
-  console.log('📰 Sources:', sourceBreakdown);
+  console.log('📰 Premium sources:', sourceBreakdown);
 
   // 2. Load DNA topics from unified taxonomy service (single source of truth)
   const { loadTopics } = await import('@/lib/taxonomy/unifiedTaxonomyService');
@@ -258,7 +321,8 @@ export async function GET(request) {
         id,
         name,
         type,
-        show_id
+        show_id,
+        median_views_20
       )
     `)
     .gte('published_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
@@ -373,9 +437,9 @@ export async function GET(request) {
   }
 
   // 4. ENSURE SOURCE DIVERSITY - Round-robin selection
-  // Group by source
+  // Group by source (using filtered premium signals only)
   const bySource = {};
-  signals.forEach(s => {
+  filteredSignals.forEach(s => {
     const source = s.source || s.source_name || s.raw_data?.sourceName || 'Unknown';
     if (!bySource[source]) bySource[source] = [];
     bySource[source].push(s);
@@ -404,7 +468,7 @@ export async function GET(request) {
   // If we still need more signals, fill from remaining (sorted by score)
   if (diverseSignals.length < 20) {
     const usedIds = new Set(diverseSignals.map(s => s.id));
-    const remaining = signals
+    const remaining = filteredSignals
       .filter(s => !usedIds.has(s.id))
       .sort((a, b) => (b.score || 0) - (a.score || 0))
       .slice(0, 20 - diverseSignals.length);
@@ -559,6 +623,7 @@ export async function GET(request) {
         audienceInterests: audienceInterests, // Pass audience interests for demand scoring
         patternMatches: earlyPatternMatches, // Winning patterns from DNA
         isWikipediaTrending: isWikipediaTrending, // Wikipedia trending flag
+        wikipediaTrendKeywords: wikipediaTrendKeywords, // Wikipedia keywords for score boost
       }, excludedNames); // Pass excluded names to filter out channel/source names
       
       realScore = scoringResult?.score ?? 0; // Use nullish coalescing to catch 0 scores
@@ -819,7 +884,7 @@ export async function GET(request) {
           hoursAgo: data.hoursAgo || evidence.hoursAgo,
           publishedAt: data.publishedAt || evidence.publishedAt,
           matchedKeywords: data.matchedKeywords || evidence.matchedKeywords || evidence.topicKeywordMatches || [],
-          type: sig.type?.includes('direct') ? 'direct' : 
+          type: sig.type?.includes('_direct') ? 'direct' : 
                 sig.type?.includes('trendsetter') ? 'trendsetter' : 'indirect',
           isBreakout: true,
         };

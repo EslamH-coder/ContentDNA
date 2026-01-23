@@ -9,6 +9,66 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+/**
+ * Calculate median of an array of numbers
+ */
+function calculateMedian(values) {
+  if (!values || values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+}
+
+/**
+ * Calculate and update median_views_20 for a competitor
+ * Uses last 20 videos by published_at to calculate median views
+ */
+async function updateMedianViews(competitorId) {
+  try {
+    // Fetch last 20 videos ordered by published_at
+    const { data: recentVideos, error: fetchError } = await supabaseAdmin
+      .from('competitor_videos')
+      .select('views')
+      .eq('competitor_id', competitorId)
+      .gt('views', 0)
+      .order('published_at', { ascending: false })
+      .limit(20);
+
+    if (fetchError) {
+      console.error('❌ Error fetching videos for median calculation:', fetchError);
+      return { success: false, error: fetchError.message };
+    }
+
+    if (!recentVideos || recentVideos.length === 0) {
+      console.log('⚠️ No videos with views found for median calculation');
+      return { success: true, medianViews: null };
+    }
+
+    // Calculate median
+    const viewCounts = recentVideos.map(v => v.views);
+    const medianViews = Math.round(calculateMedian(viewCounts));
+
+    console.log(`📊 Median calculation: ${recentVideos.length} videos, median = ${medianViews}`);
+
+    // Update competitor record
+    const { error: updateError } = await supabaseAdmin
+      .from('competitors')
+      .update({ median_views_20: medianViews })
+      .eq('id', competitorId);
+
+    if (updateError) {
+      console.error('❌ Error updating median_views_20:', updateError);
+      return { success: false, error: updateError.message };
+    }
+
+    return { success: true, medianViews };
+
+  } catch (error) {
+    console.error('❌ Error in updateMedianViews:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 
 export async function POST(request) {
@@ -214,6 +274,13 @@ export async function POST(request) {
 
     console.log(`💾 Database results: ${addedCount} added, ${updatedCount} updated, ${skippedCount} skipped, ${errorCount} errors`);
 
+    // Calculate and update median_views_20 for this competitor
+    console.log('📊 Calculating median_views_20...');
+    const medianResult = await updateMedianViews(competitorId);
+    if (medianResult.success && medianResult.medianViews) {
+      console.log(`✅ Updated median_views_20: ${medianResult.medianViews.toLocaleString()} views`);
+    }
+
     // Update last_checked timestamp
     await supabaseAdmin
       .from('competitors')
@@ -233,18 +300,19 @@ export async function POST(request) {
     }
 
     return NextResponse.json({
-      success: true,
-      message: `Synced ${addedCount} new videos`,
-      videosAdded: addedCount,
-      videosUpdated: updatedCount,
-      videosSkipped: skippedCount,
-      videosErrors: errorCount,
-      totalFound: videos.length,
-      quota: {
-        remaining: quota.remaining - 1,
-        limit: quota.limit
-      }
-    });
+        success: true,
+        message: `Synced ${addedCount} new videos`,
+        videosAdded: addedCount,
+        videosUpdated: updatedCount,
+        videosSkipped: skippedCount,
+        videosErrors: errorCount,
+        totalFound: videos.length,
+        medianViews20: medianResult.success ? medianResult.medianViews : null,
+        quota: {
+          remaining: quota.remaining - 1,
+          limit: quota.limit
+        }
+      });
 
   } catch (error) {
     console.error('❌ Error syncing competitor:', error);
