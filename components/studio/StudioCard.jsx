@@ -83,10 +83,29 @@ export default function StudioCard({ signal, tierColor, onAction, showGenerateBu
   
   // Get audience evidence - prefer new structure
   const audienceEvidence = signal.evidence?.audience || null;
+  
+  // Get shadow evaluation (3-axis scoring comparison)
+  const shadowEval = signal.shadowEvaluation || null;
+  const shadowTierChanged = shadowEval && shadowEval.comparison?.tierChanged;
+  const shadowIsPromotion = shadowEval && shadowEval.newTier && 
+    ['post_today'].includes(shadowEval.newTier) && 
+    !['post_today'].includes(signal.tier);
 
-  return (
+  // DEBUG: Check why shadow UI isn't showing
+if (shadowEval) {
+  console.log('🔬 Shadow Debug:', {
+    title: signal.title?.substring(0, 30),
+    tierChanged: shadowTierChanged,
+    isMustKnow: shadowEval.axes?.urgency?.isMustKnow,
+    comparison: shadowEval.comparison,
+    conditionMet: !!(shadowTierChanged || shadowEval.axes?.urgency?.isMustKnow),
+  });
+}
+
+return (
     <div className="bg-white rounded-lg border shadow-sm p-4">
       {/* Strategic Label Banner */}
+      
       {signal.strategicLabel && (
         <div className={`mb-3 p-2 rounded-lg text-sm font-semibold text-center ${
           signal.strategicLabel.color === 'red' ? 'bg-red-50 text-red-700' :
@@ -94,6 +113,66 @@ export default function StudioCard({ signal, tierColor, onAction, showGenerateBu
           'bg-blue-50 text-blue-700'
         }`}>
           {signal.strategicLabel.icon} {signal.strategicLabel.text}
+        </div>
+      )}
+
+{/* Shadow Mode Evaluation (3-Axis Scoring) */}
+{shadowEval && (shadowTierChanged || shadowEval.axes?.urgency?.isMustKnow) && (
+        <div className={`mb-3 p-3 rounded-lg text-sm border-2 ${
+          shadowEval.newTier === 'post_today' 
+            ? 'bg-purple-50 border-purple-300' 
+            : 'bg-gray-50 border-gray-200'
+        }`}>
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-semibold text-purple-700">
+              🔬 Shadow Mode: {shadowEval.newTier?.toUpperCase().replace('_', ' ')}
+              {shadowEval.newLane && ` (${shadowEval.newLane})`}
+            </span>
+            {shadowEval.axes?.urgency?.isMustKnow && (
+              <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-bold">
+                ⚡ MUST-KNOW
+              </span>
+            )}
+          </div>
+          
+          {/* 3-Axis Scores */}
+          <div className="flex gap-4 text-xs text-gray-600 mb-2">
+            <span title="DNA Score (topic relevance)">
+              🧬 DNA: <strong>{shadowEval.axes?.dna?.score ?? '?'}</strong>
+            </span>
+            <span title="Urgency Score (time-sensitive)">
+              ⏰ Urgency: <strong>{shadowEval.axes?.urgency?.score ?? '?'}</strong>
+            </span>
+            <span title="Demand Score (audience interest)">
+              📈 Demand: <strong>{shadowEval.axes?.demand?.score ?? '?'}</strong>
+            </span>
+          </div>
+          
+          {/* Urgency Breakdown */}
+          {shadowEval.axes?.urgency?.triggers && shadowEval.axes.urgency.triggers.length > 0 && (
+            <div className="text-xs text-gray-500">
+              {shadowEval.axes.urgency.triggers.map((t, i) => (
+                <span key={i} className="mr-2">
+                  {t.icon || '•'} {t.text}
+                </span>
+              ))}
+            </div>
+          )}
+          
+          {/* Tier Comparison */}
+          {shadowTierChanged && (
+            <div className="mt-2 pt-2 border-t border-purple-200 text-xs">
+              <span className="text-gray-500">Current: </span>
+              <span className="font-medium">{signal.tier}</span>
+              <span className="mx-2">→</span>
+              <span className={`font-bold ${
+                shadowEval.newTier === 'post_today' ? 'text-purple-700' : 'text-gray-700'
+              }`}>
+                {shadowEval.newTier}
+              </span>
+              {shadowIsPromotion && <span className="ml-1">⬆️</span>}
+            </div>
+          )}
         </div>
       )}
 

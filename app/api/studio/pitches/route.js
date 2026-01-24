@@ -454,7 +454,7 @@ export async function GET(request) {
         .select(`
           id, title, description, youtube_video_id, views, performance_ratio,
           is_success, published_at, competitor_id,
-          competitors!competitor_id (id, name, type, show_id)
+          competitors!competitor_id (id, name, type, show_id, median_views_20)
         `)
         .gte('published_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
         .order('views', { ascending: false })

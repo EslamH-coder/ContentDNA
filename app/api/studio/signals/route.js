@@ -31,6 +31,9 @@ import {
     markSignalsWithClusterInfo 
   } from '@/lib/scoring/signalClustering';
 
+  // Shadow mode: 3-axis evaluation (no production impact)
+import { evaluateSignal } from '@/lib/scoring/signalEvaluator';
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -335,8 +338,11 @@ export async function GET(request) {
   }
 
   // Filter by show_id from the joined competitors table
+  // Exclude indirect competitors - they're for inspiration, not matching
   const competitorVideos = (competitorVideosRaw || []).filter(
-    cv => cv.competitors && cv.competitors.show_id === showId
+    cv => cv.competitors && 
+          cv.competitors.show_id === showId && 
+          cv.competitors.type !== 'indirect'
   );
 
   console.log(`🎬 Found ${competitorVideos.length} competitor videos for show ${showId} (from ${competitorVideosRaw?.length || 0} total)`);
@@ -353,6 +359,13 @@ export async function GET(request) {
     competitor_id: video.competitor_id || video.competitors?.id,
     video_id: video.youtube_video_id || video.video_id || video.id,
     youtube_video_id: video.youtube_video_id || video.video_id || video.id,
+    // FLATTEN competitor data for scoring functions
+    channel_name: video.competitors?.name || null,
+    channelName: video.competitors?.name || null,  // Some functions use camelCase
+    competitor_type: video.competitors?.type || 'indirect',
+    competitorType: video.competitors?.type || 'indirect',  // Some functions use camelCase
+    median_views: video.competitors?.median_views_20 || 0,
+    averageViews: video.competitors?.median_views_20 || 0,
     competitors: video.competitors || {},
   }));
 
@@ -747,9 +760,11 @@ export async function GET(request) {
       );
       
       if (lastPostSignal) {
-        // Extract days from signal data or text
+        // Extract days from signal data or evidence (preferred) or text (fallback)
         if (lastPostSignal.data?.daysSinceLastPost) {
           daysSinceLastPost = lastPostSignal.data.daysSinceLastPost;
+        } else if (lastPostSignal.evidence?.daysAgo) {
+          daysSinceLastPost = lastPostSignal.evidence.daysAgo;
         } else {
           const daysMatch = lastPostSignal.text?.match(/(\d+)\s*days?\s*ago/i);
           if (daysMatch) {
@@ -1217,7 +1232,24 @@ export async function GET(request) {
     } catch (err) {
       console.warn(`   ⚠️ Pattern matching failed for "${signal.title?.substring(0, 40)}...":`, err.message);
     }
-
+// ============================================
+    // SHADOW MODE: 3-Axis Evaluation (for comparison)
+    // ============================================
+    let shadowEvaluation = null;
+    try {
+      shadowEvaluation = await evaluateSignal(signal, {
+        dnaMatch,
+        dnaTopics,
+        demandScore,
+        competitorBreakdown,
+        hoursOld,
+        showId,
+        currentTier: tierResult.tier,
+        currentScore: realScore,
+      });
+    } catch (shadowErr) {
+      console.warn(`   ⚠️ Shadow evaluation failed (non-blocking):`, shadowErr.message);
+    }
     return {
       id: signal.id,
       title: signal.title,
@@ -1297,6 +1329,12 @@ export async function GET(request) {
         audienceRequests: demandScore.audienceRequests || [],
         signals: demandScore.signals || []
       },
+      
+      // Shadow mode evaluation (for comparison/debugging)
+      shadowEvaluation: shadowEvaluation || null,
+
+
+
       // Format recommendation strategy (Long vs Short)
       recommended_strategy: (() => {
         const topicId = dnaMatch?.topicId || signal.dnaMatchId || null;

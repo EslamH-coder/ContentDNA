@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { getAuthUser } from '@/lib/supabaseServer';
 import { checkQuota, incrementUsage } from '@/lib/rateLimiter';
 import { detectTopic } from '@/lib/topicDetector';
+import { getEmbedding } from '@/lib/topicIntelligence.js';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -239,25 +240,34 @@ export async function POST(request) {
             updatedCount++;
           }
         } else {
-          // Insert new video
-          const { error: insertError } = await supabaseAdmin
-            .from('competitor_videos')
-            .insert({
-              competitor_id: competitorId,
-              youtube_video_id: video.id,
-              title: video.title,
-              description: video.description || null,
-              published_at: video.publishedAt,
-              views: video.views || 0,
-              likes: video.likes || 0,
-              comments: video.commentCount || 0,
-              duration_seconds: parseDuration(video.duration),
-              detected_topic: topicId,  // Now assigned!
-              relevance_score: 0,
-              performance_ratio: 0,
-              is_success: false,
-              is_failure: false
-            });
+            // Insert new video
+            // Generate embedding for semantic similarity matching
+            let titleEmbedding = null;
+            try {
+              titleEmbedding = await getEmbedding(video.title);
+            } catch (embErr) {
+              console.warn(`⚠️ Failed to generate embedding for "${video.title?.substring(0, 30)}...":`, embErr.message);
+            }
+  
+            const { error: insertError } = await supabaseAdmin
+              .from('competitor_videos')
+              .insert({
+                competitor_id: competitorId,
+                youtube_video_id: video.id,
+                title: video.title,
+                description: video.description || null,
+                published_at: video.publishedAt,
+                views: video.views || 0,
+                likes: video.likes || 0,
+                comments: video.commentCount || 0,
+                duration_seconds: parseDuration(video.duration),
+                detected_topic: topicId,  // Now assigned!
+                relevance_score: 0,
+                performance_ratio: 0,
+                is_success: false,
+                is_failure: false,
+                title_embedding: titleEmbedding,  // NEW: Save embedding for semantic matching
+              });
 
           if (insertError) {
             console.error('❌ Error inserting video:', video.id, insertError);
