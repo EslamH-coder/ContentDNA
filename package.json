@@ -9,24 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.0",
+    "@supabase/ssr": "^0.5.1",
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.4.5",
+    "groq-sdk": "^0.37.0",
+    "lucide-react": "^0.563.0",
     "next": "14.2.35",
+    "openai": "^4.20.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@supabase/supabase-js": "^2.39.0",
-    "@supabase/ssr": "^0.5.1",
-    "@anthropic-ai/sdk": "^0.20.0",
-    "openai": "^4.20.0",
-    "dotenv": "^16.4.5"
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "typescript": "^5.3.0",
     "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "14.2.35",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
-    "eslint": "^8.55.0",
-    "eslint-config-next": "14.2.35"
+    "typescript": "^5.3.0"
   }
 }
